@@ -1,0 +1,46 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f2f5;
+  gap: 0.5rem;
+
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: white;
+    padding: 2rem;
+    width: 100%;
+    max-width: 20rem;
+    gap: 1rem;
+
+    .form-control {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.75rem 1rem;
+      border: 1px solid black;
+      font-size: inherit;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background-color: seagreen;
+      border: none;
+      color: white;
+      font-size: inherit;
+      transition: background-color 0.3s;
+
+      &:hover:not(:disabled) {
+        background-color: mediumseagreen;
+      }
+
+      &:disabled {
+        background-color: darkseagreen;
+      }
+    }
+  }
+}

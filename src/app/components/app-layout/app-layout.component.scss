@@ -1,0 +1,13 @@
+.toolbar {
+  box-sizing: border-box;
+  position: fixed;
+  height: 3rem;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  background-color: darkslategray;
+  color: white;
+  display: flex;
+  align-items: center;
+}
