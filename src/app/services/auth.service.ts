@@ -15,6 +15,11 @@ export class AuthService {
     return this.http.post<any>('auth/login', payload);
   }
 
+  logout() {
+    localStorage.removeItem('StoneGolemToken');
+    localStorage.removeItem('StoneGolemRefreshToken');
+  }
+
   refresh(): Observable<any> {
     return this.http.post<any>('auth/refresh', {
       token: localStorage.getItem('StoneGolemToken'),
