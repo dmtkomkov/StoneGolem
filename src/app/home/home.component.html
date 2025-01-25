@@ -1,1 +1,5 @@
-<p>home works!</p>
+@for (step of steps; track step.description) {
+  <li>{{ step.description }}</li>
+} @empty {
+  <li>There are no items.</li>
+}

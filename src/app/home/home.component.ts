@@ -1,11 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { StepService } from '../services/step.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'sg-home',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  steps: any[] = [];
 
+  constructor(
+    private ss: StepService,
+  ) { }
+
+  ngOnInit(): void {
+    this.ss.getSteps().subscribe({
+      next: (response) => {
+        this.steps = response;
+      }
+    });
+  }
 }

@@ -1,8 +1,10 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { ApplicationConfig, inject, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, Router } from '@angular/router';
+import { catchError } from 'rxjs';
 
 import { routes } from './app.routes';
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandlerFn,
   HttpHeaders,
@@ -10,11 +12,14 @@ import {
   provideHttpClient,
   withInterceptors
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../environments/environment';
+import { AuthService } from './services/auth.service';
 
 function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-  const token = sessionStorage.getItem('token');
+  const token = localStorage.getItem('StoneGolemToken');
+  const router = inject(Router);
+  const as = inject(AuthService);
 
   const modifiedRequest = req.clone({
     headers: token?
@@ -23,7 +28,41 @@ function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Obs
     url: environment.backend + req.url,
   });
 
-  return next(modifiedRequest);
+  if (req.url.startsWith('auth')) {
+    return next(modifiedRequest);
+  }
+
+  return next(modifiedRequest).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401) {
+
+        return as.refresh().pipe(
+          switchMap((response) => {
+            let newToken = response.token;
+            const newHeaders = new HttpHeaders({
+              Authorization: `Bearer ${newToken}`
+            });
+            const retriedRequest = req.clone({
+              url: environment.backend + req.url,
+              headers: newHeaders
+            });
+
+            localStorage.setItem('StoneGolemToken', response.token);
+            localStorage.setItem('StoneGolemRefreshToken', response.refreshToken);
+
+            return next(retriedRequest);
+          }),
+          catchError(() => {
+            router.navigate(['/login']).then();
+
+            return throwError(() => error);
+          })
+        );
+      }
+
+      return throwError(() => error);
+    })
+  );
 }
 
 export const appConfig: ApplicationConfig = {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -15,6 +16,7 @@ export class UserLoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private as: AuthService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +32,12 @@ export class UserLoginComponent implements OnInit {
     }
 
     const { username, password } = this.loginForm.value;
-    this.as.login(username, password).subscribe();
+    this.as.login(username, password).subscribe({
+      next: (result) => {
+        localStorage.setItem('StoneGolemToken', result.token);
+        localStorage.setItem('StoneGolemRefreshToken', result.refreshToken);
+        this.router.navigate(['/']).then();
+      },
+    });
   }
 }

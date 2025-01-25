@@ -14,4 +14,11 @@ export class AuthService {
     const payload = { username, password };
     return this.http.post<any>('auth/login', payload);
   }
+
+  refresh(): Observable<any> {
+    return this.http.post<any>('auth/refresh', {
+      token: localStorage.getItem('StoneGolemToken'),
+      refreshToken: localStorage.getItem('StoneGolemRefreshToken'),
+    });
+  }
 }
