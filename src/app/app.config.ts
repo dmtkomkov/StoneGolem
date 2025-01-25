@@ -15,11 +15,14 @@ import {
 import { Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../environments/environment';
 import { AuthService } from './services/auth.service';
+import { ITokens, TokenService } from './services/token.service';
 
 function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-  const token = localStorage.getItem('StoneGolemToken');
+  const tokenService = inject(TokenService);
   const router = inject(Router);
-  const as = inject(AuthService);
+  const authService = inject(AuthService);
+
+  const token = tokenService.getToken();
 
   const modifiedRequest = req.clone({
     headers: token?
@@ -36,8 +39,8 @@ function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Obs
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
 
-        return as.refresh().pipe(
-          switchMap((response) => {
+        return authService.refresh().pipe(
+          switchMap((response: ITokens) => {
             let newToken = response.token;
             const newHeaders = new HttpHeaders({
               Authorization: `Bearer ${newToken}`
@@ -47,8 +50,7 @@ function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Obs
               headers: newHeaders
             });
 
-            localStorage.setItem('StoneGolemToken', response.token);
-            localStorage.setItem('StoneGolemRefreshToken', response.refreshToken);
+            tokenService.setTokens(response);
 
             return next(retriedRequest);
           }),

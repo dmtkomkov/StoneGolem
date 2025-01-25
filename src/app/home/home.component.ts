@@ -12,11 +12,11 @@ export class HomeComponent implements OnInit {
   steps: any[] = [];
 
   constructor(
-    private ss: StepService,
+    private stepService: StepService,
   ) { }
 
   ngOnInit(): void {
-    this.ss.getSteps().subscribe({
+    this.stepService.getSteps().subscribe({
       next: (response) => {
         this.steps = response;
       }

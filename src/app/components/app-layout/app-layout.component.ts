@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'sg-app-layout',
@@ -12,12 +12,12 @@ import { AuthService } from '../../services/auth.service';
 export class AppLayoutComponent {
 
   constructor(
-    private authService: AuthService,
     private router: Router,
+    private tokenService: TokenService,
   ) { }
 
   logout() {
-    this.authService.logout();
+    this.tokenService.removeTokens()
     this.router.navigate(['/login']).then();
   }
 }

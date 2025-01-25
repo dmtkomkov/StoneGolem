@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { ITokens, TokenService } from '../services/token.service';
 
 @Component({
   selector: 'app-user-login',
@@ -14,13 +15,14 @@ export class UserLoginComponent implements OnInit {
   loginForm!: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
-    private as: AuthService,
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
     private router: Router,
+    private tokenService: TokenService,
   ) { }
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group({
+    this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
@@ -32,10 +34,9 @@ export class UserLoginComponent implements OnInit {
     }
 
     const { username, password } = this.loginForm.value;
-    this.as.login(username, password).subscribe({
-      next: (result) => {
-        localStorage.setItem('StoneGolemToken', result.token);
-        localStorage.setItem('StoneGolemRefreshToken', result.refreshToken);
+    this.authService.login(username, password).subscribe({
+      next: (result: ITokens) => {
+        this.tokenService.setTokens(result);
         this.router.navigate(['/']).then();
       },
     });
