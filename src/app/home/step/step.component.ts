@@ -1,6 +1,7 @@
 import { Component, Signal } from '@angular/core';
 import { StepService } from '../../services/step.service';
 import { CommonModule } from '@angular/common';
+import { Step } from '../../models/step';
 
 @Component({
   selector: 'sg-step',
@@ -9,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './step.component.scss'
 })
 export class StepComponent {
-  steps: Signal<any>;
+  steps: Signal<Step[]>;
 
   constructor(
     private stepService: StepService,
