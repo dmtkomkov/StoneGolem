@@ -1,1 +1,11 @@
-Category
+@for (category of categories(); track category.id) {
+  <div class="step">
+    <div>{{ category.id }}</div>
+    <div>{{ category.description }}</div>
+    <div>{{ category.name }}</div>
+    <div>{{ category.area.name }}</div>
+    <div>{{ category.color }}</div>
+  </div>
+} @empty {
+  <li>There are no items.</li>
+}

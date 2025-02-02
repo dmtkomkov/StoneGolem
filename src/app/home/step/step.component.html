@@ -2,10 +2,11 @@
   <div class="step">
     <div>{{ step.id }}</div>
     <div>{{ step.description }}</div>
-    <div>{{ step.goal?.name }}</div>
-    <div>{{ step.goal?.project?.name }}</div>
-    <div>{{ step.category.name }}</div>
-    <div>{{ step.category.area.name }}</div>
+    <div>GOAL: {{ step.goal?.name }}</div>
+    <div>PROJECT: {{ step.goal?.project?.name }}</div>
+    <div>CATEGORY: {{ step.category.name }}</div>
+    <div>AREA: {{ step.category.area.name }}</div>
+    <div>completedOn: {{ step.completedOn }}</div>
   </div>
 } @empty {
   <li>There are no items.</li>

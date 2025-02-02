@@ -1,16 +1,14 @@
 import { Component, Signal } from '@angular/core';
 import { StepService } from '../../services/step.service';
-import { CommonModule } from '@angular/common';
-import { Step } from '../../models/step';
+import { IStepDto } from '../../models/Step';
 
 @Component({
   selector: 'sg-step',
-  imports: [CommonModule],
   templateUrl: './step.component.html',
   styleUrl: './step.component.scss'
 })
 export class StepComponent {
-  steps: Signal<Step[]>;
+  steps: Signal<IStepDto[]>;
 
   constructor(
     private stepService: StepService,

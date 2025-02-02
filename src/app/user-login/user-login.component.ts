@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { ITokens, TokenService } from '../services/token.service';
+import { TokenService } from '../services/token.service';
+import { ITokensDto } from '../models/User';
 
 @Component({
   selector: 'app-user-login',
@@ -11,7 +12,7 @@ import { ITokens, TokenService } from '../services/token.service';
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.scss'],
 })
-export class UserLoginComponent implements OnInit {
+export class UserLoginComponent {
   loginForm!: FormGroup;
 
   constructor(
@@ -22,7 +23,7 @@ export class UserLoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
+    this.loginForm = this.formBuilder.nonNullable.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
@@ -35,7 +36,7 @@ export class UserLoginComponent implements OnInit {
 
     const { username, password } = this.loginForm.value;
     this.authService.login(username, password).subscribe({
-      next: (result: ITokens) => {
+      next: (result: ITokensDto) => {
         this.tokenService.setTokens(result);
         this.router.navigate(['/']).then();
       },

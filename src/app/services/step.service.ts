@@ -1,24 +1,24 @@
 import { Injectable, Signal, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Step } from '../models/step';
+import { IStepDto } from '../models/Step';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StepService {
-  private stepsSignal = signal<Step[]>([]);
+  private stepsSignal = signal<IStepDto[]>([]);
 
   constructor(
     private http: HttpClient,
   ) { }
 
   loadSteps(): void {
-    this.http.get<Step[]>('step').subscribe({
-      next: (data: Step[]) => this.stepsSignal.set(data),
+    this.http.get<IStepDto[]>('step').subscribe({
+      next: (data: IStepDto[]) => this.stepsSignal.set(data),
     });
   }
 
-  getSteps(): Signal<Step[]> {
+  getSteps(): Signal<IStepDto[]> {
     return this.stepsSignal.asReadonly();
   }
 }
