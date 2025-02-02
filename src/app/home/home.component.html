@@ -1,5 +1,10 @@
-@for (step of steps; track step.description) {
-  <li>{{ step.description }}</li>
-} @empty {
-  <li>There are no items.</li>
-}
+<div class="container">
+  <div class="control-panel">
+    <div class="tab" routerLink="">Step</div>
+    <div class="tab" routerLink="goal">Goal</div>
+    <div class="tab" routerLink="category">Category</div>
+  </div>
+  <div class="main-content">
+    <router-outlet />
+  </div>
+</div>

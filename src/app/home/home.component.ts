@@ -1,25 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Signal } from '@angular/core';
 import { StepService } from '../services/step.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'sg-home',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterOutlet, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
-  steps: any[] = [];
+export class HomeComponent {
 
-  constructor(
-    private stepService: StepService,
-  ) { }
-
-  ngOnInit(): void {
-    this.stepService.getSteps().subscribe({
-      next: (response) => {
-        this.steps = response;
-      }
-    });
-  }
 }

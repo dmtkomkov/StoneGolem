@@ -1,16 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StepService {
+  private stepsSignal = signal<any[]>([]);
+
   constructor(
     private http: HttpClient,
   ) { }
 
-  getSteps(): Observable<any> {
-    return this.http.get('step');
+  loadSteps(): void {
+    this.http.get<any[]>('step').subscribe({
+      next: (data: any[]) => this.stepsSignal.set(data),
+    });
+  }
+
+  getSteps(): Signal<any[]> {
+    return this.stepsSignal.asReadonly();
   }
 }
