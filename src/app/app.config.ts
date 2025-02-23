@@ -16,7 +16,7 @@ import { Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../environments/environment';
 import { AuthService } from './services/auth.service';
 import { TokenService } from './services/token.service';
-import { ITokensDto } from './models/User';
+import { ITokens } from './models/User';
 
 function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
   const tokenService = inject(TokenService);
@@ -41,7 +41,7 @@ function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Obs
       if (error.status === 401) {
 
         return authService.refresh().pipe(
-          switchMap((response: ITokensDto) => {
+          switchMap((response: ITokens) => {
             let newToken = response.token;
             const newHeaders = new HttpHeaders({
               Authorization: `Bearer ${newToken}`

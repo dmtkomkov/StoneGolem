@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenService } from './token.service';
-import { ICredentialsDto, ITokensDto } from '../models/User';
+import { ICredentials, ITokens } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +13,13 @@ export class AuthService {
     private tokenService: TokenService,
   ) { }
 
-  login(username: string, password: string): Observable<ITokensDto> {
-    const payload: ICredentialsDto = { username, password };
-    return this.http.post<ITokensDto>('auth/login', payload);
+  login(username: string, password: string): Observable<ITokens> {
+    const payload: ICredentials = { username, password };
+    return this.http.post<ITokens>('auth/login', payload);
   }
 
-  refresh(): Observable<ITokensDto> {
-    return this.http.post<ITokensDto>('auth/refresh', {
+  refresh(): Observable<ITokens> {
+    return this.http.post<ITokens>('auth/refresh', {
       token: this.tokenService.getToken(),
       refreshToken: this.tokenService.getRefreshToken(),
     });

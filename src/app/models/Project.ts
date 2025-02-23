@@ -1,8 +1,8 @@
 import { DateOnly } from '../types/DateOnly';
-import { IGoalFlatDto } from './Goal';
+import { IGoalFlat } from './Goal';
 import { ProjectStatus } from '../types/Status';
 
-export interface IProjectFlatDto {
+export interface IProjectFlat {
   id: number,
   name: string,
   color: string,
@@ -12,6 +12,6 @@ export interface IProjectFlatDto {
   closeDate: DateOnly,
 }
 
-export interface IProjectDto extends IProjectFlatDto {
-  goals: IGoalFlatDto[];
+export interface IProject extends IProjectFlat {
+  goals: IGoalFlat[];
 }

@@ -1,15 +1,20 @@
 import { DateOnly } from '../types/DateOnly';
-import { ICategoryDto } from './Category';
-import { IGoalDto } from './Goal';
+import { ICategory } from './Category';
+import { IGoal } from './Goal';
 import { IExportUserFlatDto } from './User';
 
-export interface IStepDto {
+export interface IStep {
   id: number,
   duration: number,
   completedOn: DateOnly,
   description: string,
   userId: string,
   user: IExportUserFlatDto,
-  category: ICategoryDto,
-  goal?: IGoalDto,
+  category: ICategory,
+  goal?: IGoal,
+}
+
+export interface IStepGroup {
+  completedOn: DateOnly,
+  steps: IStep[],
 }

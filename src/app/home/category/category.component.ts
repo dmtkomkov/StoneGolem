@@ -1,6 +1,6 @@
 import { Component, Signal } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
-import { ICategoryDto } from '../../models/Category';
+import { ICategory } from '../../models/Category';
 
 @Component({
   selector: 'sg-category',
@@ -8,7 +8,7 @@ import { ICategoryDto } from '../../models/Category';
   styleUrl: './category.component.scss'
 })
 export class CategoryComponent {
-  categories: Signal<ICategoryDto[]>;
+  categories: Signal<ICategory[]>;
 
   constructor(
     private categoryService: CategoryService,

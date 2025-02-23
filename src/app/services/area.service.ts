@@ -1,24 +1,24 @@
 import { Injectable, Signal, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IAreaDto } from '../models/Area';
+import { IArea } from '../models/Area';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AreaService {
-  private areasSignal = signal<IAreaDto[]>([]);
+  private areasSignal = signal<IArea[]>([]);
 
   constructor(
     private http: HttpClient
   ) {}
 
   loadAreas(): void {
-    this.http.get<IAreaDto[]>('area').subscribe({
-      next: (data: IAreaDto[]) => this.areasSignal.set(data),
+    this.http.get<IArea[]>('area').subscribe({
+      next: (data: IArea[]) => this.areasSignal.set(data),
     });
   }
 
-  getAreas(): Signal<IAreaDto[]> {
+  getAreas(): Signal<IArea[]> {
     return this.areasSignal.asReadonly();
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Signal } from '@angular/core';
-import { IGoalDto } from '../../models/Goal';
+import { IGoal } from '../../models/Goal';
 import { GoalService } from '../../services/goal.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { GoalService } from '../../services/goal.service';
   styleUrl: './goal.component.scss'
 })
 export class GoalComponent {
-  goals: Signal<IGoalDto[]>;
+  goals: Signal<IGoal[]>;
 
   constructor(
     private goalService: GoalService,

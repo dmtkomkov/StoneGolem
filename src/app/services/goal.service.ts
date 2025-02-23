@@ -1,24 +1,24 @@
 import { Injectable, Signal, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IGoalDto } from '../models/Goal';
+import { IGoal } from '../models/Goal';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoalService {
-  private goalsSignal = signal<IGoalDto[]>([]);
+  private goalsSignal = signal<IGoal[]>([]);
 
   constructor(
     private http: HttpClient
   ) {}
 
   loadGoals(): void {
-    this.http.get<IGoalDto[]>('goal').subscribe({
-      next: (data: IGoalDto[]) => this.goalsSignal.set(data),
+    this.http.get<IGoal[]>('goal').subscribe({
+      next: (data: IGoal[]) => this.goalsSignal.set(data),
     });
   }
 
-  getGoals(): Signal<IGoalDto[]> {
+  getGoals(): Signal<IGoal[]> {
     return this.goalsSignal.asReadonly();
   }
 }

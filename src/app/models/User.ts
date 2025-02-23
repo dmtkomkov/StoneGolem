@@ -3,12 +3,12 @@ export interface IExportUserFlatDto {
   userName: string;
 }
 
-export interface ITokensDto {
+export interface ITokens {
   token: string;
   refreshToken: string;
 }
 
-export interface ICredentialsDto {
+export interface ICredentials {
   username: string;
   password: string;
 }

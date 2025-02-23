@@ -9,6 +9,11 @@ export const routes: Routes = [
   { path: '', component: HomeComponent, children: [
       {
         path: '',
+        redirectTo: 'step',
+        pathMatch: 'full',
+      },
+      {
+        path: 'step',
         component: StepComponent,
       },
       {

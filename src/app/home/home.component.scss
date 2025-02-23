@@ -21,7 +21,8 @@
   .main-content {
     border: solid 1px #ccc;
     flex-grow: 1;
-    padding: 1rem;
+    padding: 2rem;
+    overflow-y: auto;
   }
 }
 

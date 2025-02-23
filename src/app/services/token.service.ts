@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ITokensDto } from '../models/User';
+import { ITokens } from '../models/User';
 
 const TOKEN_NAME = 'localStorage.getItem';
 const REFRESH_TOKEN_NAME = 'StoneGolemRefreshToken';
@@ -19,7 +19,7 @@ export class TokenService {
     return localStorage.getItem(REFRESH_TOKEN_NAME);
   }
 
-  setTokens(tokens: ITokensDto) {
+  setTokens(tokens: ITokens) {
     localStorage.setItem(TOKEN_NAME, tokens.token);
     localStorage.setItem(REFRESH_TOKEN_NAME, tokens.refreshToken);
   }

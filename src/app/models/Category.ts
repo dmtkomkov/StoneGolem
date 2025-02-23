@@ -1,4 +1,4 @@
-import { IAreaFlatDto } from './Area';
+import { IAreaFlat } from './Area';
 
 export interface ICategoryFlatDto {
   id: number,
@@ -8,6 +8,6 @@ export interface ICategoryFlatDto {
   areaId: number,
 }
 
-export interface ICategoryDto extends ICategoryFlatDto {
-  area: IAreaFlatDto,
+export interface ICategory extends ICategoryFlatDto {
+  area: IAreaFlat,
 }

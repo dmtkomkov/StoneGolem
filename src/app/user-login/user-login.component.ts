@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service';
-import { ITokensDto } from '../models/User';
+import { ITokens } from '../models/User';
 
 @Component({
   selector: 'app-user-login',
@@ -36,7 +36,7 @@ export class UserLoginComponent {
 
     const { username, password } = this.loginForm.value;
     this.authService.login(username, password).subscribe({
-      next: (result: ITokensDto) => {
+      next: (result: ITokens) => {
         this.tokenService.setTokens(result);
         this.router.navigate(['/']).then();
       },

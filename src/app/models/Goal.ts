@@ -1,7 +1,7 @@
-import { IProjectFlatDto } from './Project';
+import { IProjectFlat } from './Project';
 import { DateOnly } from '../types/DateOnly';
 
-export interface IGoalFlatDto {
+export interface IGoalFlat {
   id: number,
   name: string,
   color: string,
@@ -11,6 +11,6 @@ export interface IGoalFlatDto {
   projectId?: number,
 }
 
-export interface IGoalDto extends IGoalFlatDto {
-  project?: IProjectFlatDto,
+export interface IGoal extends IGoalFlat {
+  project?: IProjectFlat,
 }
