@@ -1,0 +1,23 @@
+<div class="groups">
+  @for (stepGroup of stepGroups(); track stepGroup.completedOn) {
+    <div class="group" [routerLink]="stepGroup.completedOn">
+      <div class="group-title">{{ stepGroup.completedOn }}</div>
+      <div>
+        @for (step of stepGroup.steps; track step.id) {
+          <div class="step">
+            <div>DURATION: {{ step.duration }}</div>
+            <div>GOAL: {{ step.goal?.name }}</div>
+            <div>PROJECT: {{ step.goal?.project?.name }}</div>
+            <div>CATEGORY: {{ step.category.name }}</div>
+            <div>AREA: {{ step.category.area.name }}</div>
+            <div>completedOn: {{ step.completedOn }}</div>
+          </div>
+        } @empty {
+          <li>There are no steps.</li>
+        }
+      </div>
+    </div>
+  } @empty {
+    <li>There are no groups.</li>
+  }
+</div>
