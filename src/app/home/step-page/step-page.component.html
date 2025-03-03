@@ -1,1 +1,34 @@
-<router-outlet></router-outlet>
+<div class="container">
+  <router-outlet></router-outlet>
+  <div class="foot-form">
+    <select>
+      @for (user of users(); track user.userId) {
+        <option>{{ user.userName }}</option>
+      }
+    </select>
+    <input type="date">
+    <select>
+      @for (hour of hourOptions; track hour) {
+        <option>{{ hour }}</option>
+      }
+    </select>
+    <select>
+      @for (minute of minuteOptions; track minute) {
+        <option>{{ minute }}</option>
+      }
+    </select>
+    <select>
+      @for (category of categories(); track category.id) {
+        <option>{{ category.name }}</option>
+      }
+    </select>
+    <select>
+      @for (goal of goals(); track goal.id) {
+        <option>{{ goal.name }}</option>
+      }
+    </select>
+    <textarea></textarea>
+    <button>Submit</button>
+  </div>
+</div>
+

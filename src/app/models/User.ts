@@ -1,4 +1,4 @@
-export interface IExportUserFlatDto {
+export interface IUser {
   userId: string;
   userName: string;
 }

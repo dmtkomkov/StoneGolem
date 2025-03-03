@@ -1,7 +1,7 @@
 import { DateOnly } from '../types/DateOnly';
 import { ICategory } from './Category';
 import { IGoal } from './Goal';
-import { IExportUserFlatDto } from './User';
+import { IUser } from './User';
 
 export interface IStep {
   id: number,
@@ -9,7 +9,7 @@ export interface IStep {
   completedOn: DateOnly,
   description: string,
   userId: string,
-  user: IExportUserFlatDto,
+  user: IUser,
   category: ICategory,
   goal?: IGoal,
 }
