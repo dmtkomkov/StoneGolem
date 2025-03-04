@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
 import { ICategory } from '../../models/Category';
 import { Observable } from 'rxjs';

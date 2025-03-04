@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { IGoal } from '../../models/Goal';
 import { GoalService } from '../../services/goal.service';
 import { Observable } from 'rxjs';
