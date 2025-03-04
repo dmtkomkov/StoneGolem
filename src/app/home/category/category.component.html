@@ -1,4 +1,4 @@
-@for (category of categories(); track category.id) {
+@for (category of categories$ | async; track category.id) {
   <div class="step">
     <div>{{ category.id }}</div>
     <div>{{ category.description }}</div>

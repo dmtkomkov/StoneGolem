@@ -1,22 +1,25 @@
 import { Component, Signal } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
 import { ICategory } from '../../models/Category';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'sg-category',
   templateUrl: './category.component.html',
+  imports: [
+    AsyncPipe
+  ],
   styleUrl: './category.component.scss'
 })
 export class CategoryComponent {
-  categories: Signal<ICategory[]>;
+  categories$!: Observable<ICategory[]>;
 
   constructor(
     private categoryService: CategoryService,
-  ) {
-    this.categories = this.categoryService.getCategories();
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.categoryService.loadCategories();
+    this.categories$ = this.categoryService.getCategoriesAsync();
   }
 }

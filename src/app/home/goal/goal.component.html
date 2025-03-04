@@ -1,4 +1,4 @@
-@for (goal of goals(); track goal.id) {
+@for (goal of goals$ | async; track goal.id) {
   <div class="step">
     <div>{{ goal.id }}</div>
     <div>{{ goal.description }}</div>

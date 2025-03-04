@@ -1,7 +1,8 @@
 import { Injectable, Signal, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IStep, IStepGroup } from '../models/Step';
+import { ICreateStep, IStep, IStepGroup } from '../models/Step';
 import { DateOnly } from '../types/DateOnly';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,9 @@ export class StepService {
 
   getStepGroups(): Signal<IStepGroup[]> {
     return this.stepGroupsSignal.asReadonly();
+  }
+
+  createStep(step: ICreateStep): Observable<IStep> {
+    return this.http.post<IStep>('step', step);
   }
 }

@@ -1,34 +1,36 @@
 <div class="container">
   <router-outlet></router-outlet>
-  <div class="foot-form">
-    <select>
-      @for (user of users(); track user.userId) {
-        <option>{{ user.userName }}</option>
-      }
-    </select>
-    <input type="date">
-    <select>
-      @for (hour of hourOptions; track hour) {
-        <option>{{ hour }}</option>
-      }
-    </select>
-    <select>
-      @for (minute of minuteOptions; track minute) {
-        <option>{{ minute }}</option>
-      }
-    </select>
-    <select>
-      @for (category of categories(); track category.id) {
-        <option>{{ category.name }}</option>
-      }
-    </select>
-    <select>
-      @for (goal of goals(); track goal.id) {
-        <option>{{ goal.name }}</option>
-      }
-    </select>
-    <textarea></textarea>
-    <button>Submit</button>
-  </div>
+  @if (formReady) {
+    <div class="foot-form" [formGroup]="formGroup">
+      <select formControlName="userId">
+        @for (user of users; track user.userId) {
+          <option [value]="user.userId">{{ user.userName }}</option>
+        }
+      </select>
+      <input type="date" formControlName="completeOn">
+      <select formControlName="hours">
+        @for (hour of hourOptions; track hour) {
+          <option [value]="hour">{{ hour }}</option>
+        }
+      </select>
+      <select formControlName="minutes">
+        @for (minute of minuteOptions; track minute) {
+          <option [value]="minute">{{ minute }}</option>
+        }
+      </select>
+      <select formControlName="categoryId">
+        @for (category of categories; track category.id) {
+          <option [value]="category.id">{{ category.name }}</option>
+        }
+      </select>
+      <select formControlName="goalId">
+        @for (goal of goals; track goal.id) {
+          <option [value]="goal.id">{{ goal.name }}</option>
+        }
+      </select>
+      <textarea formControlName="description"></textarea>
+      <button type="button" (click)="createStep()">Submit</button>
+    </div>
+  }
 </div>
 

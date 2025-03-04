@@ -1,23 +1,27 @@
 import { Component, Signal } from '@angular/core';
 import { IGoal } from '../../models/Goal';
 import { GoalService } from '../../services/goal.service';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'sg-goal',
-  imports: [],
+  imports: [
+    AsyncPipe
+  ],
   templateUrl: './goal.component.html',
   styleUrl: './goal.component.scss'
 })
 export class GoalComponent {
-  goals: Signal<IGoal[]>;
+  goals$!: Observable<IGoal[]>;
 
   constructor(
     private goalService: GoalService,
   ) {
-    this.goals = this.goalService.getGoals();
+
   }
 
   ngOnInit(): void {
-    this.goalService.loadGoals();
+    this.goals$ = this.goalService.getGoalsAsync();
   }
 }

@@ -8,10 +8,18 @@ export interface IStep {
   duration: number,
   completedOn: DateOnly,
   description: string,
-  userId: string,
   user: IUser,
   category: ICategory,
   goal?: IGoal,
+}
+
+export interface ICreateStep {
+  duration: number,
+  completedOn: DateOnly,
+  description: string,
+  userId?: string,
+  categoryId: number,
+  goalId?: number,
 }
 
 export interface IStepGroup {
