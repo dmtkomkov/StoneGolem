@@ -24,5 +24,10 @@ export class StepListComponent {
 
   ngOnInit(): void {
     this.stepService.loadSteps(this.date);
+    this.stepService.getUpdates().subscribe({
+      next: () => {
+        this.stepService.loadSteps(this.date);
+      }
+    });
   }
 }

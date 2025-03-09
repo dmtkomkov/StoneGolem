@@ -2,7 +2,7 @@ import { Injectable, Signal, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ICreateStep, IStep, IStepGroup } from '../models/Step';
 import { DateOnly } from '../types/DateOnly';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class StepService {
   private stepsSignal = signal<IStep[]>([]);
   private stepGroupsSignal = signal<IStepGroup[]>([]);
+  private updates$: Subject<void> = new Subject();
 
   constructor(
     private http: HttpClient,
@@ -39,5 +40,13 @@ export class StepService {
 
   createStep(step: ICreateStep): Observable<IStep> {
     return this.http.post<IStep>('step', step);
+  }
+
+  getUpdates(): Subject<void> {
+    return this.updates$;
+  }
+
+  pushUpdates(): void {
+    this.updates$.next();
   }
 }

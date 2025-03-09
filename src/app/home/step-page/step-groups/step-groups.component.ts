@@ -20,5 +20,10 @@ export class StepGroupsComponent {
 
   ngOnInit(): void {
     this.stepService.loadStepGroups();
+    this.stepService.getUpdates().subscribe({
+      next: () => {
+        this.stepService.loadStepGroups();
+      }
+    });
   }
 }

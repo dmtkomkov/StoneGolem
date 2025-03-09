@@ -85,7 +85,7 @@ export class StepPageComponent {
       }
     ).subscribe({
       next: result => {
-        console.log(result);
+        this.stepService.pushUpdates();
       }
     })
   }
