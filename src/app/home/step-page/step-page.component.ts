@@ -63,8 +63,8 @@ export class StepPageComponent {
           completeOn: new Date().toISOString().split('T')[0] as DateOnly,
           hours: 0,
           minutes: 0,
-          categoryId: this.categories[0].id,
-          goalId: this.goals[0].id,
+          categoryId: this.categories[0]?.id || 0,
+          goalId: this.goals[0]?.id || 0,
           description: '',
         });
         this.formReady = true;
@@ -84,7 +84,7 @@ export class StepPageComponent {
         description: formValue.description,
       }
     ).subscribe({
-      next: result => {
+      next: () => {
         this.stepService.pushUpdates();
       }
     })
