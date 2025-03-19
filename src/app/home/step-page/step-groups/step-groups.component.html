@@ -1,5 +1,5 @@
 <div class="groups">
-  @for (stepGroup of stepGroups(); track stepGroup.completedOn) {
+  @for (stepGroup of stepGroups$ | async; track stepGroup.completedOn) {
     <div class="group" [routerLink]="stepGroup.completedOn">
       <div class="group-title">{{ stepGroup.completedOn }}</div>
       <div>

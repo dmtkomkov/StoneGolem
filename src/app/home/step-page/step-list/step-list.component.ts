@@ -1,33 +1,32 @@
-import { Component, Signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { IStep } from '../../../models/Step';
 import { StepService } from '../../../services/step.service';
 import { ActivatedRoute } from '@angular/router';
 import { DateOnly } from '../../../types/DateOnly';
+import { Observable, startWith, switchMap } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'sg-step-list',
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './step-list.component.html',
   styleUrl: './step-list.component.scss',
 })
 export class StepListComponent {
-  steps: Signal<IStep[]>;
   date: DateOnly;
+  steps$!: Observable<IStep[]>;
 
   constructor(
     private route: ActivatedRoute,
     private stepService: StepService,
   ) {
     this.date = this.route.snapshot.paramMap.get('date') as DateOnly;
-    this.steps = this.stepService.getSteps();
   }
 
   ngOnInit(): void {
-    this.stepService.loadSteps(this.date);
-    this.stepService.getUpdates().subscribe({
-      next: () => {
-        this.stepService.loadSteps(this.date);
-      }
-    });
+    this.steps$ = this.stepService.getUpdates().pipe(
+      startWith(undefined),
+      switchMap(() => this.stepService.getStepsAsync(this.date)),
+    );
   }
 }

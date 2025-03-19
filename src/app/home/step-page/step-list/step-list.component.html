@@ -1,7 +1,7 @@
 <div class="group">
   <div class="group-title">{{ date }}</div>
   <div>
-    @for (step of steps(); track step.id) {
+    @for (step of steps$ | async; track step.id) {
       <div class="step">
         <div>{{ step.id }}</div>
         <div>{{ step.description }}</div>

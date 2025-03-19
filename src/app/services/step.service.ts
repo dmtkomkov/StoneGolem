@@ -1,41 +1,28 @@
-import { Injectable, Signal, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ICreateStep, IStep, IStepGroup } from '../models/Step';
 import { DateOnly } from '../types/DateOnly';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StepService {
-  private stepsSignal = signal<IStep[]>([]);
-  private stepGroupsSignal = signal<IStepGroup[]>([]);
   private updates$: Subject<void> = new Subject();
 
   constructor(
     private http: HttpClient,
   ) { }
 
-  loadSteps(date: DateOnly): void {
+  getStepsAsync(date: DateOnly): Observable<IStep[]> {
     const params = new HttpParams().set('date', date as string);
-
-    this.http.get<IStep[]>('step', { params }).subscribe({
-      next: (data: IStep[]) => this.stepsSignal.set(data),
-    });
+    return this.http.get<IStep[]>('step', { params }).pipe(
+      tap(steps => console.log('STEPS' ,steps)),
+    );
   }
 
-  loadStepGroups(): void {
-    this.http.get<IStepGroup[]>('step/group').subscribe({
-      next: (data: IStepGroup[]) => this.stepGroupsSignal.set(data),
-    });
-  }
-
-  getSteps(): Signal<IStep[]> {
-    return this.stepsSignal.asReadonly();
-  }
-
-  getStepGroups(): Signal<IStepGroup[]> {
-    return this.stepGroupsSignal.asReadonly();
+  getStepGroupsAsync(): Observable<IStepGroup[]> {
+    return this.http.get<IStepGroup[]>('step/group');
   }
 
   createStep(step: ICreateStep): Observable<IStep> {
