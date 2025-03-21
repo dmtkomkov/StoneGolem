@@ -16,9 +16,7 @@ export class StepService {
 
   getStepsAsync(date: DateOnly): Observable<IStep[]> {
     const params = new HttpParams().set('date', date as string);
-    return this.http.get<IStep[]>('step', { params }).pipe(
-      tap(steps => console.log('STEPS' ,steps)),
-    );
+    return this.http.get<IStep[]>('step', { params });
   }
 
   getStepGroupsAsync(): Observable<IStepGroup[]> {
