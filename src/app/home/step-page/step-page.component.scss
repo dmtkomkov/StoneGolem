@@ -8,12 +8,13 @@
 }
 
 .foot-form {
+  margin-top: auto;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  position: sticky;
-  bottom: 0;
-  z-index: 1;
+  //position: sticky;
+  //bottom: 0;
+  //z-index: 1;
 }
 
 // Disable router-outlet element for css flex
