@@ -1,0 +1,15 @@
+.category {
+  display: flex;
+  gap: 1rem;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.group-title {
+  font-size: 1.2rem;
+  text-decoration: underline;
+}

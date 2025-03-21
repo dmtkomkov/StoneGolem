@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  overflow-y: auto;
+  height: 100%;
+}
+
+// Disable router-outlet element for css flex
+router-outlet {
+  display: contents;
+}

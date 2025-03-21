@@ -1,0 +1,16 @@
+<div class="group">
+  <div class="group-title">{{ areaName }}</div>
+  <div>
+    @for (category of categories$ | async; track category.id) {
+      <div class="category">
+        <div>{{ category.id }}</div>
+        <div>{{ category.description }}</div>
+        <div>{{ category.name }}</div>
+        <div>{{ category.area.name }}</div>
+        <div>{{ category.color }}</div>
+      </div>
+    } @empty {
+      <li>There are no items.</li>
+    }
+  </div>
+</div>

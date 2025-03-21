@@ -22,7 +22,7 @@ interface StepForm {
 }
 
 @Component({
-  selector: 'sg-step-page-page',
+  selector: 'sg-step-page',
   imports: [RouterOutlet, ReactiveFormsModule],
   templateUrl: './step-page.component.html',
   styleUrl: './step-page.component.scss',
