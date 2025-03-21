@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ICategory } from '../models/Category';
+import {ICategory, ICategoryGroup} from '../models/Category';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,5 +14,9 @@ export class CategoryService {
 
   getCategoriesAsync(): Observable<ICategory[]> {
     return this.http.get<ICategory[]>('category');
+  }
+
+  getCategoryGroupsAsync(): Observable<ICategoryGroup[]> {
+    return this.http.get<ICategoryGroup[]>('category/group');
   }
 }

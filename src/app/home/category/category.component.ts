@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
 import { ICategory } from '../../models/Category';
-import { Observable } from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -21,5 +21,8 @@ export class CategoryComponent {
 
   ngOnInit(): void {
     this.categories$ = this.categoryService.getCategoriesAsync();
+    this.categoryService.getCategoryGroupsAsync().subscribe({
+      next: data => {console.log(data)},
+    })
   }
 }
