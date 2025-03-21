@@ -1,7 +1,7 @@
 import { DateOnly } from '../types/DateOnly';
-import { ICategory } from './Category';
-import { IGoal } from './Goal';
-import { IUser } from './User';
+import { ICategory } from './category';
+import { IGoal } from './goal';
+import { IUser } from './user';
 
 export interface IStep {
   id: number,

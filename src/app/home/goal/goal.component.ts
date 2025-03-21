@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IGoal } from '../../models/Goal';
+import { IGoal } from '../../models/goal';
 import { GoalService } from '../../services/goal.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';

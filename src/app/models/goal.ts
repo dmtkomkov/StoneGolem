@@ -1,4 +1,4 @@
-import { IProjectFlat } from './Project';
+import { IProjectFlat } from './project';
 import { DateOnly } from '../types/DateOnly';
 
 export interface IGoalFlat {

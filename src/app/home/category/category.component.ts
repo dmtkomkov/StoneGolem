@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
-import { ICategory } from '../../models/Category';
+import { ICategory } from '../../models/category';
 import {Observable, tap} from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 

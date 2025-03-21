@@ -1,6 +1,6 @@
 import { Injectable, Signal, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IProject } from '../models/Project';
+import { IProject } from '../models/project';
 
 @Injectable({
   providedIn: 'root'

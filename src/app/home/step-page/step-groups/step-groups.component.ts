@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IStepGroup } from '../../../models/Step';
+import { IStepGroup } from '../../../models/step';
 import { StepService } from '../../../services/step.service';
 import { RouterLink } from '@angular/router';
 import { Observable, startWith, switchMap } from 'rxjs';

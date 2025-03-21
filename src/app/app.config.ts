@@ -16,7 +16,7 @@ import { Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../environments/environment';
 import { AuthService } from './services/auth.service';
 import { TokenService } from './services/token.service';
-import { ITokens } from './models/User';
+import { ITokens } from './models/user';
 
 function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
   const tokenService = inject(TokenService);

@@ -1,4 +1,4 @@
-import { ICategoryFlat } from './Category';
+import { ICategoryFlat } from './category';
 
 export interface IAreaFlat {
   id: number,

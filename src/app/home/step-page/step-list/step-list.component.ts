@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IStep } from '../../../models/Step';
+import { IStep } from '../../../models/step';
 import { StepService } from '../../../services/step.service';
 import { ActivatedRoute } from '@angular/router';
 import { DateOnly } from '../../../types/DateOnly';

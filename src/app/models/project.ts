@@ -1,5 +1,5 @@
 import { DateOnly } from '../types/DateOnly';
-import { IGoalFlat } from './Goal';
+import { IGoalFlat } from './goal';
 import { ProjectStatus } from '../types/Status';
 
 export interface IProjectFlat {

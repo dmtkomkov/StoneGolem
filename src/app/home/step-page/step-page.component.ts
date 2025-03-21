@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ICategory } from '../../models/Category';
+import { ICategory } from '../../models/category';
 import { CategoryService } from '../../services/category.service';
 import { GoalService } from '../../services/goal.service';
-import { IGoal } from '../../models/Goal';
-import { IUser } from '../../models/User';
+import { IGoal } from '../../models/goal';
+import { IUser } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DateOnly } from '../../types/DateOnly';

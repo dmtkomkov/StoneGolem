@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenService } from './token.service';
-import { ICredentials, ITokens } from '../models/User';
+import { ICredentials, ITokens } from '../models/user';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ICreateStep, IStep, IStepGroup } from '../models/Step';
+import { ICreateStep, IStep, IStepGroup } from '../models/step';
 import { DateOnly } from '../types/DateOnly';
 import { Observable, Subject, tap } from 'rxjs';
 

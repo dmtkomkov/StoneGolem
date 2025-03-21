@@ -1,4 +1,4 @@
-import {IArea, IAreaFlat} from './Area';
+import {IArea, IAreaFlat} from './area';
 
 export interface ICategoryFlat {
   id: number,
