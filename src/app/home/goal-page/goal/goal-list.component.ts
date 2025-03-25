@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IGoal } from '../../../models/goal';
 import { GoalService } from '../../../services/goal.service';
-import { Observable } from 'rxjs';
+import { Observable, startWith, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -25,6 +25,9 @@ export class GoalListComponent {
   }
 
   ngOnInit(): void {
-    this.goals$ = this.goalService.getGoalsAsync(this.projectName);
+    this.goals$ = this.goalService.getUpdates().pipe(
+      startWith(undefined),
+      switchMap(() => this.goalService.getGoalsAsync(this.projectName)),
+    );
   }
 }

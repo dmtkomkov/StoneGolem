@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CategoryService } from '../../../services/category.service';
 import { ICategory } from '../../../models/category';
-import { Observable } from 'rxjs';
+import { Observable, startWith, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -23,6 +23,9 @@ export class CategoryListComponent {
   }
 
   ngOnInit(): void {
-    this.categories$ = this.categoryService.getCategoriesAsync(this.areaName);
+    this.categories$ = this.categoryService.getUpdates().pipe(
+      startWith(undefined),
+      switchMap(() => this.categoryService.getCategoriesAsync(this.areaName)),
+    );
   }
 }
