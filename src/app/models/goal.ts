@@ -15,8 +15,6 @@ export interface ICreateGoal {
   name: string,
   color: string,
   description: string,
-  startDate: DateOnly,
-  closeDate: DateOnly,
   projectId?: number,
 }
 
