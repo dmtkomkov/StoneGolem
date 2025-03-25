@@ -11,6 +11,15 @@ export interface IGoalFlat {
   projectId?: number,
 }
 
+export interface ICreateGoal {
+  name: string,
+  color: string,
+  description: string,
+  startDate: DateOnly,
+  closeDate: DateOnly,
+  projectId?: number,
+}
+
 export interface IGoal extends IGoalFlat {
   project?: IProjectFlat,
 }

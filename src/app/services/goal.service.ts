@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IGoal, IGoalGroup } from '../models/goal';
+import { ICreateGoal, IGoal, IGoalFlat, IGoalGroup } from '../models/goal';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -23,6 +23,10 @@ export class GoalService {
 
   getGoalGroupsAsync(): Observable<IGoalGroup[]> {
     return this.http.get<IGoalGroup[]>('goal/group');
+  }
+
+  createGoal(goal: ICreateGoal): Observable<IGoalFlat> {
+    return this.http.post<IGoalFlat>('goal', goal);
   }
 
   getUpdates(): Subject<void> {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {ICategory, ICategoryGroup} from '../models/category';
+import { ICategory, ICategoryFlat, ICategoryGroup, ICreateCategory } from '../models/category';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -23,6 +23,10 @@ export class CategoryService {
 
   getCategoryGroupsAsync(): Observable<ICategoryGroup[]> {
     return this.http.get<ICategoryGroup[]>('category/group');
+  }
+
+  createCategory(category: ICreateCategory): Observable<ICategoryFlat> {
+    return this.http.post<ICategoryFlat>('category', category);
   }
 
   getUpdates(): Subject<void> {

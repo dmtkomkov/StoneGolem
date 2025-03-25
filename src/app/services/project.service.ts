@@ -1,24 +1,17 @@
-import { Injectable, Signal, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IProject } from '../models/project';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
-  private projectsSignal = signal<IProject[]>([]);
-
   constructor(
     private http: HttpClient
   ) {}
 
-  loadProjects(): void {
-    this.http.get<IProject[]>('project').subscribe({
-      next: (data: IProject[]) => this.projectsSignal.set(data),
-    });
-  }
-
-  getProjects(): Signal<IProject[]> {
-    return this.projectsSignal.asReadonly();
+  getProjectsAsync(): Observable<IProject[]> {
+    return this.http.get<IProject[]>('project');
   }
 }
