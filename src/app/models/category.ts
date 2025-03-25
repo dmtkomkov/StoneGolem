@@ -1,4 +1,4 @@
-import {IArea, IAreaFlat} from './area';
+import { IAreaFlat } from './area';
 
 export interface ICategoryFlat {
   id: number,
@@ -13,6 +13,6 @@ export interface ICategory extends ICategoryFlat {
 }
 
 export interface ICategoryGroup {
-  area: IArea;
-  categories: ICategory[];
+  area: IAreaFlat;
+  categories: ICategoryFlat[];
 }

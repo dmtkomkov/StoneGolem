@@ -2,12 +2,14 @@ import { Routes } from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {UserLoginComponent} from './user-login/user-login.component';
 import { StepPageComponent } from './home/step-page/step-page.component';
-import { GoalComponent } from './home/goal/goal.component';
+import { GoalListComponent } from './home/goal-page/goal/goal-list.component';
 import { CategoryListComponent } from './home/category-page/category-list/category-list.component';
 import { StepListComponent } from './home/step-page/step-list/step-list.component';
 import { StepGroupsComponent } from './home/step-page/step-groups/step-groups.component';
 import { CategoryGroupsComponent } from './home/category-page/catgory-groups/category-groups.component';
 import { CategoryPageComponent } from './home/category-page/category-page.component';
+import { GoalPageComponent } from './home/goal-page/goal-page.component';
+import { GoalGroupsComponent } from './home/goal-page/goal-groups/goal-groups.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, children: [
@@ -26,7 +28,11 @@ export const routes: Routes = [
       },
       {
         path: 'goal',
-        component: GoalComponent,
+        component: GoalPageComponent,
+        children: [
+          { path: '', component: GoalGroupsComponent },
+          { path: ':project', component: GoalListComponent },
+        ],
       },
       {
         path: 'category',

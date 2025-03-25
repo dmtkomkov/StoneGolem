@@ -1,0 +1,17 @@
+<div class="group">
+  <div class="group-title">{{ projectName === 'null'? 'No project': projectName }}</div>
+  <div>
+    @for (goal of goals$ | async; track goal.id) {
+      <div class="goal">
+        <div>{{ goal.id }}</div>
+        <div>{{ goal.description }}</div>
+        <div>{{ goal.name }}</div>
+        <div>{{ goal.project?.name }}</div>
+        <div>{{ goal.color }}</div>
+      </div>
+    } @empty {
+      <li>There are no items.</li>
+    }
+  </div>
+</div>
+

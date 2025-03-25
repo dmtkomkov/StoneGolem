@@ -14,3 +14,8 @@ export interface IGoalFlat {
 export interface IGoal extends IGoalFlat {
   project?: IProjectFlat,
 }
+
+export interface IGoalGroup {
+  project: IProjectFlat | null,
+  goals: IGoalFlat[],
+}

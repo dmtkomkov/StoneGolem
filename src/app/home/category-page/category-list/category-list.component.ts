@@ -23,6 +23,6 @@ export class CategoryListComponent {
   }
 
   ngOnInit(): void {
-    this.categories$ = this.categoryService.getCategoriesAsync();
+    this.categories$ = this.categoryService.getCategoriesAsync(this.areaName);
   }
 }

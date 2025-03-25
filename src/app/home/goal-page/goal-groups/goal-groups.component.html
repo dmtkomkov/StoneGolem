@@ -1,0 +1,19 @@
+<div class="groups">
+  @for (goalGroup of goalGroups$ | async; track goalGroup.project?.id) {
+    <div class="group" [routerLink]="goalGroup.project?.name ?? 'null'">
+      <div class="group-title">{{ goalGroup.project?.name ?? 'No project' }}</div>
+      <div>
+        @for (goal of goalGroup.goals; track goal.id) {
+          <div class="goal">
+            <div>NAME: {{ goal.name }}</div>
+            <div>DESCRIPTION: {{ goal.description }}</div>
+          </div>
+        } @empty {
+          <li>There are no goals.</li>
+        }
+      </div>
+    </div>
+  } @empty {
+    <li>There are no goals groups.</li>
+  }
+</div>

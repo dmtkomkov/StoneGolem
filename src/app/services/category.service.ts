@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {ICategory, ICategoryGroup} from '../models/category';
 import { Observable, Subject } from 'rxjs';
 
@@ -13,8 +13,12 @@ export class CategoryService {
     private http: HttpClient,
   ) {}
 
-  getCategoriesAsync(): Observable<ICategory[]> {
-    return this.http.get<ICategory[]>('category');
+  getCategoriesAsync(area?: string): Observable<ICategory[]> {
+    let params = new HttpParams();
+    if (area) {
+      params = params.set('area', area);
+    }
+    return this.http.get<ICategory[]>('category', { params });
   }
 
   getCategoryGroupsAsync(): Observable<ICategoryGroup[]> {
