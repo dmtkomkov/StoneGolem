@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {UserLoginComponent} from './user-login/user-login.component';
 import { StepPageComponent } from './home/step-page/step-page.component';
-import { GoalListComponent } from './home/goal-page/goal/goal-list.component';
+import { GoalListComponent } from './home/goal-page/goal-list/goal-list.component';
 import { CategoryListComponent } from './home/category-page/category-list/category-list.component';
 import { StepListComponent } from './home/step-page/step-list/step-list.component';
 import { StepGroupsComponent } from './home/step-page/step-groups/step-groups.component';
