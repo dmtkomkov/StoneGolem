@@ -29,4 +29,12 @@ export class StepListComponent {
       switchMap(() => this.stepService.getStepsAsync(this.date)),
     );
   }
+
+  toggle(id: number) {
+    this.stepService.toggleStep(id).subscribe({
+      next: () => {
+        this.stepService.pushUpdates();
+      }
+    });
+  }
 }

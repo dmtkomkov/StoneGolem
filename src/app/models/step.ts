@@ -7,6 +7,8 @@ export interface IStep {
   id: number,
   duration: number,
   completedOn: DateOnly,
+  updatedOn: DateOnly,
+  isDeleted: boolean,
   description: string,
   user: IUser,
   category: ICategory,

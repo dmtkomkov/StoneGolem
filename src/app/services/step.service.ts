@@ -27,6 +27,10 @@ export class StepService {
     return this.http.post<IStep>('step', step);
   }
 
+  toggleStep(id: number): Observable<IStep> {
+    return this.http.put<IStep>('step/toggle/' + id, null);
+  }
+
   getUpdates(): Subject<void> {
     return this.updates$;
   }

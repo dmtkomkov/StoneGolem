@@ -10,6 +10,9 @@
         <div>CATEGORY: {{ step.category.name }}</div>
         <div>AREA: {{ step.category.area.name }}</div>
         <div>completedOn: {{ step.completedOn }}</div>
+        <div>updatedOn: {{ step.updatedOn }}</div>
+        <div>DEL: {{ step.isDeleted }}</div>
+        <button (click)="toggle(step.id)">delete</button>
       </div>
     } @empty {
       <li>There are no steps.</li>
