@@ -1,18 +1,26 @@
 <div class="group">
   <div class="group-title">{{ date }}</div>
-  <div>
+  <div class="steps-grid">
+
+    <div class="steps-header">
+      <div>User</div>
+      <div>Duration</div>
+      <div>Category</div>
+      <div>Goal</div>
+      <div>Description</div>
+      <div>Updated On</div>
+      <div></div>
+    </div>
+
     @for (step of steps$ | async; track step.id) {
-      <div class="step">
-        <div>{{ step.id }}</div>
+      <div class="steps-row" [class.deleted]="step.isDeleted">
+        <div>{{ step.user.userName }}</div>
+        <div>{{ step.duration }}</div>
+        <div>{{ step.category.name }}</div>
+        <div>{{ step.goal?.name || '-' }}</div>
         <div>{{ step.description }}</div>
-        <div>GOAL: {{ step.goal?.name }}</div>
-        <div>PROJECT: {{ step.goal?.project?.name }}</div>
-        <div>CATEGORY: {{ step.category.name }}</div>
-        <div>AREA: {{ step.category.area.name }}</div>
-        <div>completedOn: {{ step.completedOn }}</div>
-        <div>updatedOn: {{ step.updatedOn }}</div>
-        <div>DEL: {{ step.isDeleted }}</div>
-        <button (click)="toggle(step.id)">delete</button>
+        <div>{{ step.updatedOn }}</div>
+        <button (click)="toggle(step.id)">{{ step.isDeleted? 'R': 'D'}}</button>
       </div>
     } @empty {
       <li>There are no steps.</li>

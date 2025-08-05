@@ -1,15 +1,46 @@
-.step {
-  display: flex;
-  gap: 1rem;
-}
-
-.group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .group-title {
   font-size: 1.2rem;
   text-decoration: underline;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: 5rem 5rem 10rem 10rem 1fr 10rem 2rem;
+  border: 0.1rem solid #ccc;
+  min-width: 80rem;
+}
+
+.steps-header, .steps-row {
+  display: contents;
+}
+
+.steps-header > div {
+  background: #444;
+  color: #eee;
+  font-weight: bold;
+  padding: 0.6rem 0.8rem;
+}
+
+.steps-row > div {
+  padding: 0.4rem 0.8rem;
+}
+
+.steps-row {
+  &:nth-child(even) > div {
+    background-color: #eee;
+  }
+
+  &:nth-child(odd) > div {
+    background-color: #fff;
+  }
+
+  &.deleted {
+    &:nth-child(even) > div {
+      background-color: #fdd;
+    }
+
+    &:nth-child(odd) > div {
+      background-color: #fcc;
+    }
+  }
 }
