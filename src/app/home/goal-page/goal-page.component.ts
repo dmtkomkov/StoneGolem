@@ -7,7 +7,7 @@ import { GoalService } from '../../services/goal.service';
 
 interface GoalForm {
   name: FormControl<string>;
-  projectId: FormControl<number | undefined>;
+  projectId: FormControl<number>;
   description: FormControl<string>;
 }
 
@@ -38,7 +38,7 @@ export class GoalPageComponent {
         this.projects = result;
         this.formGroup = this.fromBuilder.nonNullable.group({
           name: '',
-          projectId: this.projects[0]?.id || undefined,
+          projectId: 0,
           description: '',
         });
         this.formReady = true;
@@ -51,7 +51,7 @@ export class GoalPageComponent {
     this.goalService.createGoal(
       {
         name: formValue.name,
-        projectId: formValue.projectId,
+        projectId: formValue.projectId !== 0? formValue.projectId : undefined,
         color: '#eee',
         description: formValue.description,
       }

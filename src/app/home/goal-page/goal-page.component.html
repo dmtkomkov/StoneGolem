@@ -4,9 +4,11 @@
     <div class="foot-form" [formGroup]="formGroup">
       <input formControlName="name" />
       <select formControlName="projectId">
+        <option [value]="0">-- None --</option>
         @for (project of projects; track project?.id) {
           <option [value]="project.id">{{ project.name }}</option>
         }
+        <option [value]="null">-- New --</option>
       </select>
       <textarea formControlName="description"></textarea>
       <button type="button" (click)="createGoal()">Submit</button>
