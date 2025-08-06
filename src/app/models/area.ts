@@ -7,6 +7,12 @@ export interface IAreaFlat {
   description: string,
 }
 
+export interface ICreateArea {
+  name: string,
+  color: string,
+  description: string,
+}
+
 export interface IArea extends IAreaFlat {
   categories: ICategoryFlat[],
 }

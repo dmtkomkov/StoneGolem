@@ -9,7 +9,7 @@
         @for (project of projects; track project?.id) {
           <option [ngValue]="project.id">{{ project.name }}</option>
         }
-        <option [ngValue]="NaN">-- New --</option>
+        <option [ngValue]="null">-- New --</option>
       </select>
       @if (isProjectForm) {
         <ng-container formGroupName="project">

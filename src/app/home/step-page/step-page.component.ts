@@ -30,7 +30,7 @@ interface StepForm {
 export class StepPageComponent {
   hourOptions: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   minuteOptions: number[] = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
-  formGroup!: FormGroup<StepForm>;
+  stepForm!: FormGroup<StepForm>;
   users!: IUser[];
   currentUser!: IUser;
   categories!: ICategory[];
@@ -42,7 +42,7 @@ export class StepPageComponent {
     private goalService: GoalService,
     private userService: UserService,
     private stepService: StepService,
-    private fromBuilder: FormBuilder,
+    private formBuilder: FormBuilder,
   ) {
   }
 
@@ -59,7 +59,7 @@ export class StepPageComponent {
     ]).subscribe({
       next: result => {
         [this.users, this.currentUser, this.categories, this.goals] = result;
-        this.formGroup = this.fromBuilder.nonNullable.group({
+        this.stepForm = this.formBuilder.nonNullable.group({
           userId: this.currentUser.userId,
           completeOn: new Date().toISOString().split('T')[0] as DateOnly,
           hours: 0,
@@ -74,7 +74,7 @@ export class StepPageComponent {
   }
 
   createStep() {
-    const formValue = this.formGroup.getRawValue();
+    const formValue = this.stepForm.getRawValue();
     this.stepService.createStep(
       {
         userId: formValue.userId,

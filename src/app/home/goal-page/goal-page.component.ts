@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angul
 import { IProject, IProjectFlat } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
 import { GoalService } from '../../services/goal.service';
+import { Subscription } from 'rxjs';
 
 interface GoalForm {
   name: FormControl<string>;
@@ -28,6 +29,7 @@ export class GoalPageComponent {
   projects!: IProjectFlat[];
   formReady: boolean = false;
   isProjectForm: boolean = false;
+  private formSubscription!: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,7 +52,7 @@ export class GoalPageComponent {
 
     this.goalForm.controls.projectId.valueChanges.subscribe({
       next: (value) => {
-        if (Number.isNaN(value)) {
+        if (value === null) {
           this.addProjectForm();
           this.isProjectForm = true;
         } else if (this.isProjectForm) {
@@ -75,7 +77,7 @@ export class GoalPageComponent {
   }
 
   private initProjects(): void {
-    this.projectService.getProjectsAsync().subscribe({
+    this.formSubscription = this.projectService.getProjectsAsync().subscribe({
       next: (result: IProject[]) => {
         this.projects = result;
         this.formReady = true;
@@ -104,5 +106,7 @@ export class GoalPageComponent {
     })
   }
 
-  protected readonly NaN = NaN;
+  ngOnDestroy(): void {
+    this.formSubscription?.unsubscribe();
+  }
 }

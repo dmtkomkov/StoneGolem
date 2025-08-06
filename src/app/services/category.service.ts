@@ -30,6 +30,10 @@ export class CategoryService {
     return this.http.post<ICategoryFlat>('category', category);
   }
 
+  deleteCategory(id: number): Observable<void> {
+    return this.http.delete<void>('category/' + id);
+  }
+
   getUpdates(): Subject<void> {
     return this.updates$;
   }

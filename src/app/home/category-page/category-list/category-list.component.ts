@@ -28,4 +28,12 @@ export class CategoryListComponent {
       switchMap(() => this.categoryService.getCategoriesAsync(this.areaName)),
     );
   }
+
+  delete(id: number): void {
+    this.categoryService.deleteCategory(id).subscribe({
+      next: () => {
+        this.categoryService.pushUpdates();
+      }
+    })
+  }
 }

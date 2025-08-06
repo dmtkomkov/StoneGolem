@@ -1,13 +1,24 @@
 <div class="group">
   <div class="group-title">{{ areaName }}</div>
-  <div>
+  <div class="grid">
+
+    <div class="grid-header">
+      <div>Name</div>
+      <div>Description</div>
+      <div>Steps</div>
+      <div></div>
+    </div>
+
     @for (category of categories$ | async; track category.id) {
-      <div class="category">
-        <div>{{ category.id }}</div>
-        <div>{{ category.description }}</div>
+      <div class="grid-row">
         <div>{{ category.name }}</div>
-        <div>{{ category.area.name }}</div>
-        <div>{{ category.color }}</div>
+        <div>{{ category.description }}</div>
+        <div>{{ category.stepCount }}</div>
+        @if (category.stepCount === 0) {
+          <button (click)="delete(category.id)">R</button>
+        } @else {
+          <div></div>
+        }
       </div>
     } @empty {
       <li>There are no items.</li>

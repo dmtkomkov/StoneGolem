@@ -4,10 +4,17 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angul
 import { AreaService } from '../../services/area.service';
 import { IArea } from '../../models/area';
 import { CategoryService } from '../../services/category.service';
+import { Subscription } from 'rxjs';
 
 interface CategoryForm {
   name: FormControl<string>;
   areaId: FormControl<number>;
+  description: FormControl<string>;
+  area?: FormGroup<AreaForm>;
+}
+
+interface AreaForm {
+  name: FormControl<string>;
   description: FormControl<string>;
 }
 
@@ -18,12 +25,14 @@ interface CategoryForm {
   styleUrl: './category-page.component.scss'
 })
 export class CategoryPageComponent {
-  formGroup!: FormGroup<CategoryForm>;
+  categoryForm!: FormGroup<CategoryForm>;
   areas!: IArea[];
   formReady: boolean = false;
+  isAreaForm: boolean = false;
+  private formSubscription!: Subscription;
 
   constructor(
-    private fromBuilder: FormBuilder,
+    private formBuilder: FormBuilder,
     private areaService: AreaService,
     private categoryService: CategoryService,
   ) {
@@ -31,35 +40,74 @@ export class CategoryPageComponent {
 
   ngOnInit(): void {
     this.loadForm();
+    this.initAreas();
   }
 
   private loadForm(): void {
+    this.categoryForm = this.formBuilder.nonNullable.group({
+      name: '',
+      areaId: 0,
+      description: '',
+    });
+
+    this.formSubscription = this.categoryForm.controls.areaId.valueChanges.subscribe({
+      next: (value) => {
+        if (value === null) {
+          this.addAreaForm();
+          this.isAreaForm = true;
+        } else if (this.isAreaForm) {
+          this.removeAreaForm();
+          this.isAreaForm = false;
+        }
+      }
+    });
+  }
+
+  initAreas(): void {
     this.areaService.getAreasAsync().subscribe({
       next: (result: IArea[]) => {
         this.areas = result;
-        this.formGroup = this.fromBuilder.nonNullable.group({
-          name: '',
-          areaId: this.areas[0]?.id || 0,
-          description: '',
-        });
         this.formReady = true;
+        this.categoryForm.controls.areaId.setValue(this.areas[0]?.id || 0);
       }
     })
   }
 
   createCategory() {
-    const formValue = this.formGroup.getRawValue();
+    const formValue = this.categoryForm.getRawValue();
     this.categoryService.createCategory(
       {
         name: formValue.name,
-        areaId: formValue.areaId,
+        areaId: formValue.areaId || undefined,
         color: '#eee',
         description: formValue.description,
+        area: formValue.area? {
+          name: formValue.area.name,
+          description: formValue.area.description,
+          color: '#eee'
+        }: undefined
       }
     ).subscribe({
       next: () => {
         this.categoryService.pushUpdates();
       }
     })
+  }
+
+  private addAreaForm(): void {
+    this.categoryForm.addControl('area',
+      this.formBuilder.nonNullable.group({
+        name: '',
+        description: '',
+      })
+    );
+  }
+
+  private removeAreaForm(): void {
+    this.categoryForm.removeControl('area');
+  }
+
+  ngOnDestroy(): void {
+    this.formSubscription?.unsubscribe();
   }
 }
