@@ -9,29 +9,29 @@
   text-decoration: underline;
 }
 
-.steps-grid {
+.grid {
   display: grid;
   grid-template-columns: 5rem 5rem 10rem 1fr 2fr 10rem 2rem;
   border: 0.1rem solid #ccc;
   min-width: 50rem;
 }
 
-.steps-header, .steps-row {
+.grid-header, .grid-row {
   display: contents;
 }
 
-.steps-header > div {
+.grid-header > div {
   background: #444;
   color: #eee;
   font-weight: bold;
   padding: 0.6rem 0.8rem;
 }
 
-.steps-row > div {
+.grid-row > div {
   padding: 0.4rem 0.8rem;
 }
 
-.steps-row {
+.grid-row {
   &:nth-child(even) > div {
     background-color: #eee;
   }

@@ -1,8 +1,8 @@
 <div class="group">
   <div class="group-title">{{ date }}</div>
-  <div class="steps-grid">
+  <div class="grid">
 
-    <div class="steps-header">
+    <div class="grid-header">
       <div>User</div>
       <div>Duration</div>
       <div>Category</div>
@@ -13,7 +13,7 @@
     </div>
 
     @for (step of steps$ | async; track step.id) {
-      <div class="steps-row" [class.deleted]="step.isDeleted">
+      <div class="grid-row" [class.deleted]="step.isDeleted">
         <div>{{ step.user.userName }}</div>
         <div>{{ step.duration }}</div>
         <div>{{ step.category.name }}</div>
