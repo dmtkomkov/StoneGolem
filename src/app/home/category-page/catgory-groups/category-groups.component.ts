@@ -16,7 +16,8 @@ export class CategoryGroupsComponent {
 
   constructor(
     private categoryService: CategoryService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.categoryGroups$ = this.categoryService.getUpdates().pipe(

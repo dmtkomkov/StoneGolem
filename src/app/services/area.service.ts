@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 export class AreaService {
   constructor(
     private http: HttpClient,
-  ) {}
+  ) {
+  }
 
   getAreasAsync(): Observable<IArea[]> {
     return this.http.get<IArea[]>('area')

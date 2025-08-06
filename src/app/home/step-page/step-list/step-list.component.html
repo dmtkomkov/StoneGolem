@@ -20,7 +20,7 @@
         <div>{{ step.goal?.name || '-' }}</div>
         <div>{{ step.description || '-' }}</div>
         <div>{{ step.updatedOn }}</div>
-        <button (click)="toggle(step.id)">{{ step.isDeleted? 'R': 'D'}}</button>
+        <button (click)="toggle(step.id)">{{ step.isDeleted ? 'R' : 'D' }}</button>
       </div>
     } @empty {
       <li>There are no steps.</li>

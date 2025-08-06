@@ -33,7 +33,8 @@ export class GoalPageComponent {
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
     private goalService: GoalService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadForm();
@@ -61,7 +62,7 @@ export class GoalPageComponent {
   }
 
   private addProjectForm(): void {
-    this.goalForm.addControl(  'project',
+    this.goalForm.addControl('project',
       this.formBuilder.nonNullable.group({
         name: '',
         description: '',
@@ -87,10 +88,10 @@ export class GoalPageComponent {
     this.goalService.createGoal(
       {
         name: formValue.name,
-        projectId: formValue.projectId? formValue.projectId: undefined,
+        projectId: formValue.projectId ? formValue.projectId : undefined,
         color: '#eee',
         description: formValue.description,
-        project: formValue.project? {
+        project: formValue.project ? {
           name: formValue.project?.name,
           description: formValue.project?.description,
           color: '#eee'

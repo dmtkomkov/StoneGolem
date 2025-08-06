@@ -26,8 +26,8 @@ function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Obs
   const token = tokenService.getToken();
 
   const modifiedRequest = req.clone({
-    headers: token?
-      new HttpHeaders({ Authorization: `Bearer ${token}`}):
+    headers: token ?
+      new HttpHeaders({Authorization: `Bearer ${token}`}) :
       new HttpHeaders({}),
     url: environment.backend + req.url,
   });
@@ -75,6 +75,6 @@ export const appConfig: ApplicationConfig = {
         loggingInterceptor,
       ])
     ),
-    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
+    provideZoneChangeDetection({eventCoalescing: true}), provideRouter(routes),
   ]
 };

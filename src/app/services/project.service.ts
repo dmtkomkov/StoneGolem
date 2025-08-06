@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 export class ProjectService {
   constructor(
     private http: HttpClient
-  ) {}
+  ) {
+  }
 
   getProjectsAsync(): Observable<IProject[]> {
     return this.http.get<IProject[]>('project');

@@ -11,14 +11,15 @@ export class GoalService {
 
   constructor(
     private http: HttpClient
-  ) {}
+  ) {
+  }
 
   getGoalsAsync(project?: string): Observable<IGoal[]> {
     let params = new HttpParams();
     if (project) {
       params = params.set('project', project);
     }
-    return this.http.get<IGoal[]>('goal', { params });
+    return this.http.get<IGoal[]>('goal', {params});
   }
 
   getGoalGroupsAsync(): Observable<IGoalGroup[]> {

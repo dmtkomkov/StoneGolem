@@ -11,10 +11,11 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
-  ) { }
+  ) {
+  }
 
   login(username: string, password: string): Observable<ITokens> {
-    const payload: ICredentials = { username, password };
+    const payload: ICredentials = {username, password};
     return this.http.post<ITokens>('auth/login', payload);
   }
 

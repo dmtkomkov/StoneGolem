@@ -12,11 +12,12 @@ export class StepService {
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) {
+  }
 
   getStepsAsync(date: DateOnly): Observable<IStep[]> {
     const params = new HttpParams().set('date', date as string);
-    return this.http.get<IStep[]>('step', { params });
+    return this.http.get<IStep[]>('step', {params});
   }
 
   getStepGroupsAsync(): Observable<IStepGroup[]> {

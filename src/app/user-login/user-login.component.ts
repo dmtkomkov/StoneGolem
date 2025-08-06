@@ -20,7 +20,8 @@ export class UserLoginComponent {
     private authService: AuthService,
     private router: Router,
     private tokenService: TokenService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.nonNullable.group({
@@ -34,7 +35,7 @@ export class UserLoginComponent {
       return;
     }
 
-    const { username, password } = this.loginForm.value;
+    const {username, password} = this.loginForm.value;
     this.authService.login(username, password).subscribe({
       next: (result: ITokens) => {
         this.tokenService.setTokens(result);

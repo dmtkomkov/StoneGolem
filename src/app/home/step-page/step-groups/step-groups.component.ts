@@ -16,7 +16,8 @@ export class StepGroupsComponent {
 
   constructor(
     private stepService: StepService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.stepGroups$ = this.stepService.getUpdates().pipe(

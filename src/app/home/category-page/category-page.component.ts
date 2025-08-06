@@ -26,7 +26,8 @@ export class CategoryPageComponent {
     private fromBuilder: FormBuilder,
     private areaService: AreaService,
     private categoryService: CategoryService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadForm();

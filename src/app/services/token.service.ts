@@ -9,8 +9,6 @@ const REFRESH_TOKEN_NAME = 'StoneGolemRefreshToken';
 })
 export class TokenService {
 
-  constructor() { }
-
   getToken() {
     return localStorage.getItem(TOKEN_NAME);
   }

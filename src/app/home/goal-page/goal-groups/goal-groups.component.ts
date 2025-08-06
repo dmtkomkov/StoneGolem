@@ -16,7 +16,8 @@ export class GoalGroupsComponent {
 
   constructor(
     private goalService: GoalService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.goalGroups$ = this.goalService.getUpdates().pipe(

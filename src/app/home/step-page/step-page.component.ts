@@ -43,7 +43,8 @@ export class StepPageComponent {
     private userService: UserService,
     private stepService: StepService,
     private fromBuilder: FormBuilder,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadForm();

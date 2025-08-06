@@ -2,7 +2,7 @@
   <router-outlet></router-outlet>
   @if (formReady) {
     <div class="foot-form" [formGroup]="formGroup">
-      <input formControlName="name" />
+      <input formControlName="name"/>
       <select formControlName="areaId">
         @for (area of areas; track area.id) {
           <option [value]="area.id">{{ area.name }}</option>

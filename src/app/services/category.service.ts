@@ -11,14 +11,15 @@ export class CategoryService {
 
   constructor(
     private http: HttpClient,
-  ) {}
+  ) {
+  }
 
   getCategoriesAsync(area?: string): Observable<ICategory[]> {
     let params = new HttpParams();
     if (area) {
       params = params.set('area', area);
     }
-    return this.http.get<ICategory[]>('category', { params });
+    return this.http.get<ICategory[]>('category', {params});
   }
 
   getCategoryGroupsAsync(): Observable<ICategoryGroup[]> {

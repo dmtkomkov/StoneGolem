@@ -14,7 +14,8 @@ export class AppLayoutComponent {
   constructor(
     private router: Router,
     private tokenService: TokenService,
-  ) { }
+  ) {
+  }
 
   logout() {
     this.tokenService.removeTokens()

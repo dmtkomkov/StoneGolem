@@ -10,7 +10,8 @@ export class UserService {
 
   constructor(
     private http: HttpClient
-  ) {}
+  ) {
+  }
 
   getUsersAsync(): Observable<IUser[]> {
     return this.http.get<IUser[]>('user');
