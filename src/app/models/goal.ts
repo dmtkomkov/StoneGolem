@@ -21,6 +21,7 @@ export interface ICreateGoal {
 
 export interface IGoal extends IGoalFlat {
   project?: IProjectFlat,
+  stepCount: number,
 }
 
 export interface IGoalGroup {

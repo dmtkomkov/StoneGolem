@@ -30,4 +30,12 @@ export class GoalListComponent {
       switchMap(() => this.goalService.getGoalsAsync(this.projectName)),
     );
   }
+
+  delete(id: number): void {
+    this.goalService.deleteGoal(id).subscribe({
+      next: () => {
+        this.goalService.pushUpdates();
+      }
+    })
+  }
 }

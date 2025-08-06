@@ -29,6 +29,10 @@ export class GoalService {
     return this.http.post<IGoalFlat>('goal', goal);
   }
 
+  deleteGoal(id: number): Observable<void> {
+    return this.http.delete<void>('goal/' + id);
+  }
+
   getUpdates(): Subject<void> {
     return this.updates$;
   }
