@@ -18,7 +18,7 @@
         <div>{{ step.duration }}</div>
         <div>{{ step.category.name }}</div>
         <div>{{ step.goal?.name || '-' }}</div>
-        <div>{{ step.description }}</div>
+        <div>{{ step.description || '-' }}</div>
         <div>{{ step.updatedOn }}</div>
         <button (click)="toggle(step.id)">{{ step.isDeleted? 'R': 'D'}}</button>
       </div>

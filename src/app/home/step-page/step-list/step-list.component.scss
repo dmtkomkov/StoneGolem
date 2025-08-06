@@ -1,3 +1,9 @@
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .group-title {
   font-size: 1.2rem;
   text-decoration: underline;
@@ -5,9 +11,9 @@
 
 .steps-grid {
   display: grid;
-  grid-template-columns: 5rem 5rem 10rem 10rem 1fr 10rem 2rem;
+  grid-template-columns: 5rem 5rem 10rem 1fr 2fr 10rem 2rem;
   border: 0.1rem solid #ccc;
-  min-width: 80rem;
+  min-width: 50rem;
 }
 
 .steps-header, .steps-row {
