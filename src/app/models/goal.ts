@@ -1,4 +1,4 @@
-import { IProjectFlat } from './project';
+import { ICreateProject, IProjectFlat } from './project';
 import { DateOnly } from '../types/DateOnly';
 
 export interface IGoalFlat {
@@ -16,6 +16,7 @@ export interface ICreateGoal {
   color: string,
   description: string,
   projectId?: number,
+  project?: ICreateProject,
 }
 
 export interface IGoal extends IGoalFlat {

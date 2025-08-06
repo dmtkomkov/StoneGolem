@@ -1,16 +1,22 @@
 <div class="container">
   <router-outlet></router-outlet>
   @if (formReady) {
-    <div class="foot-form" [formGroup]="formGroup">
+    <div class="foot-form" [formGroup]="goalForm">
       <input formControlName="name" />
-      <select formControlName="projectId">
-        <option [value]="0">-- None --</option>
-        @for (project of projects; track project?.id) {
-          <option [value]="project.id">{{ project.name }}</option>
-        }
-        <option [value]="null">-- New --</option>
-      </select>
       <textarea formControlName="description"></textarea>
+      <select formControlName="projectId">
+        <option [ngValue]="0">-- None --</option>
+        @for (project of projects; track project?.id) {
+          <option [ngValue]="project.id">{{ project.name }}</option>
+        }
+        <option [ngValue]="NaN">-- New --</option>
+      </select>
+      @if (isProjectForm) {
+        <ng-container formGroupName="project">
+          <input formControlName="name" />
+          <textarea formControlName="description"></textarea>
+        </ng-container>
+      }
       <button type="button" (click)="createGoal()">Submit</button>
     </div>
   }

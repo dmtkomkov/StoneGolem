@@ -12,6 +12,12 @@ export interface IProjectFlat {
   closeDate: DateOnly,
 }
 
+export interface ICreateProject {
+  name: string,
+  color: string,
+  description: string,
+}
+
 export interface IProject extends IProjectFlat {
   goals: IGoalFlat[];
 }
