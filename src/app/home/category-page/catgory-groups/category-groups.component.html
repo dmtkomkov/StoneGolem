@@ -2,12 +2,9 @@
   @for (categoryGroup of categoryGroups$ | async; track categoryGroup.area.id) {
     <div class="group" [style.background]="getTransparentColor(categoryGroup)" [style.border-color]="getColor(categoryGroup)" [routerLink]="categoryGroup.area.name">
       <div class="group-title">{{ categoryGroup.area.name }}</div>
-      <div>
+      <div class="category-list">
         @for (category of categoryGroup.categories; track category.id) {
-          <div class="category">
-            <div>NAME: {{ category.name }}</div>
-            <div>DESCRIPTION: {{ category.description }}</div>
-          </div>
+          <sg-label [labelData]="getLabelData(category)"></sg-label>
         } @empty {
           <li>There are no categories.</li>
         }

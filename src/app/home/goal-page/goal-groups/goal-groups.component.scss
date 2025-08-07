@@ -1,3 +1,10 @@
+.goal-list {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 .goal {
   display: flex;
   gap: 1rem;

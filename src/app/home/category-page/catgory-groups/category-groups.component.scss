@@ -1,3 +1,10 @@
+.category-list {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 .category {
   display: flex;
   gap: 1rem;
