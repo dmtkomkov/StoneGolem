@@ -4,6 +4,7 @@ import { CategoryService } from '../../../services/category.service';
 import { ICategoryGroup } from '../../../models/category';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
+import { ColorUtils } from '../../../utils/color-utils';
 
 @Component({
   selector: 'sg-category-groups',
@@ -24,5 +25,13 @@ export class CategoryGroupsComponent {
       startWith(undefined),
       switchMap(() => this.categoryService.getCategoryGroupsAsync()),
     );
+  }
+
+  getColor(group: ICategoryGroup): string {
+    return group.area.color;
+  }
+
+  getTransparentColor(group: ICategoryGroup): string {
+    return ColorUtils.hexToRgba(group.area.color, ColorUtils.defaultOpacity);
   }
 }

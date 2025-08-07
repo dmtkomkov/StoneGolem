@@ -13,6 +13,7 @@
       </select>
       @if (isProjectForm) {
         <ng-container formGroupName="project">
+          <input type="color" formControlName="color" />
           <input formControlName="name"/>
           <textarea formControlName="description"></textarea>
         </ng-container>

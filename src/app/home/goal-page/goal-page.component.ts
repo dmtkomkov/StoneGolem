@@ -16,6 +16,7 @@ interface GoalForm {
 interface ProjectForm {
   name: FormControl<string>;
   description: FormControl<string>;
+  color: FormControl<string>;
 }
 
 @Component({
@@ -68,6 +69,7 @@ export class GoalPageComponent {
       this.formBuilder.nonNullable.group({
         name: '',
         description: '',
+        color: '#ffffff'
       })
     );
   }
@@ -96,7 +98,7 @@ export class GoalPageComponent {
         project: formValue.project ? {
           name: formValue.project?.name,
           description: formValue.project?.description,
-          color: '#eee'
+          color: formValue.project?.color
         } : undefined,
       }
     ).subscribe({

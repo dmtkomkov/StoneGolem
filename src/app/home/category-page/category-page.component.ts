@@ -16,6 +16,7 @@ interface CategoryForm {
 interface AreaForm {
   name: FormControl<string>;
   description: FormControl<string>;
+  color: FormControl<string>;
 }
 
 @Component({
@@ -84,7 +85,7 @@ export class CategoryPageComponent {
         area: formValue.area? {
           name: formValue.area.name,
           description: formValue.area.description,
-          color: '#eee'
+          color: formValue.area.color
         }: undefined
       }
     ).subscribe({
@@ -99,6 +100,7 @@ export class CategoryPageComponent {
       this.formBuilder.nonNullable.group({
         name: '',
         description: '',
+        color: '#ffffff'
       })
     );
   }

@@ -4,6 +4,7 @@ import { AsyncPipe } from '@angular/common';
 import { Observable, startWith, switchMap } from 'rxjs';
 import { IGoalGroup } from '../../../models/goal';
 import { GoalService } from '../../../services/goal.service';
+import { ColorUtils } from '../../../utils/color-utils';
 
 @Component({
   selector: 'sg-goal-groups',
@@ -24,5 +25,13 @@ export class GoalGroupsComponent {
       startWith(undefined),
       switchMap(() => this.goalService.getGoalGroupsAsync()),
     );
+  }
+
+  getColor(group: IGoalGroup): string {
+    return group.project?.color || ColorUtils.defaultColor;
+  }
+
+  getTransparentColor(group: IGoalGroup): string {
+    return ColorUtils.hexToRgba(group.project?.color || ColorUtils.defaultColor, ColorUtils.defaultOpacity);
   }
 }
