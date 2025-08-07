@@ -2,16 +2,9 @@
   @for (stepGroup of stepGroups$ | async; track stepGroup.completedOn) {
     <div class="group" [routerLink]="stepGroup.completedOn">
       <div class="group-title">{{ stepGroup.completedOn }}</div>
-      <div>
+      <div class="step-list">
         @for (step of stepGroup.steps; track step.id) {
-          <div class="step">
-            <div>DURATION: {{ step.duration }}</div>
-            <div>GOAL: {{ step.goal?.name }}</div>
-            <div>PROJECT: {{ step.goal?.project?.name }}</div>
-            <div>CATEGORY: {{ step.category.name }}</div>
-            <div>AREA: {{ step.category.area.name }}</div>
-            <div>completedOn: {{ step.completedOn }}</div>
-          </div>
+          <sg-label [labelData]="getLabelData(step)"></sg-label>
         } @empty {
           <li>There are no steps.</li>
         }

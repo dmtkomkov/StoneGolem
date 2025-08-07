@@ -1,0 +1,12 @@
+.label-data {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.label-item {
+  white-space: nowrap;
+  padding: 0.2rem;
+}

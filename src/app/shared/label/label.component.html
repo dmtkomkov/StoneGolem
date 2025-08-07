@@ -1,0 +1,5 @@
+<div class="label-data">
+  @for (item of labelData.data; track item.text) {
+    <div [style.color]="item.color" [style.background]="item.background" class="label-item">{{ item.text }}</div>
+  }
+</div>
