@@ -4,7 +4,6 @@ import { DateOnly } from '../types/DateOnly';
 export interface IGoalFlat {
   id: number,
   name: string,
-  color: string,
   description: string,
   startDate: DateOnly,
   closeDate: DateOnly,
@@ -13,7 +12,6 @@ export interface IGoalFlat {
 
 export interface ICreateGoal {
   name: string,
-  color: string,
   description: string,
   projectId?: number,
   project?: ICreateProject,

@@ -80,7 +80,6 @@ export class CategoryPageComponent {
       {
         name: formValue.name,
         areaId: formValue.areaId || undefined,
-        color: '#eee',
         description: formValue.description,
         area: formValue.area? {
           name: formValue.area.name,

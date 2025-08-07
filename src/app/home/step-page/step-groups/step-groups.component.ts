@@ -57,6 +57,6 @@ export class StepGroupsComponent {
   }
 
   getTransparentColor(color: string | undefined): string {
-    return ColorUtils.hexToRgba(color || ColorUtils.defaultColor, 0.5);
+    return ColorUtils.hexToRgba(color || ColorUtils.defaultColor, 0.4);
   }
 }

@@ -1,5 +1,4 @@
 .label-data {
-  border: 1px solid black;
   display: flex;
   flex-direction: row;
   border-radius: 0.5rem;
@@ -9,4 +8,8 @@
 .label-item {
   white-space: nowrap;
   padding: 0.2rem;
+
+  &:not(:first-child):not(:last-child){
+    border-block: 1px solid #777888;
+  }
 }

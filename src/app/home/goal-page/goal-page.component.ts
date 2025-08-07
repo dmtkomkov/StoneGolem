@@ -93,7 +93,6 @@ export class GoalPageComponent {
       {
         name: formValue.name,
         projectId: formValue.projectId ? formValue.projectId : undefined,
-        color: '#eee',
         description: formValue.description,
         project: formValue.project ? {
           name: formValue.project?.name,
