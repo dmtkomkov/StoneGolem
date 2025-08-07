@@ -4,28 +4,29 @@
     <div class="foot-form" [formGroup]="stepForm">
       <select formControlName="userId">
         @for (user of users; track user.userId) {
-          <option [value]="user.userId">{{ user.userName }}</option>
+          <option [ngValue]="user.userId">{{ user.userName }}</option>
         }
       </select>
       <input type="date" formControlName="completeOn">
       <select formControlName="hours">
         @for (hour of hourOptions; track hour) {
-          <option [value]="hour">{{ hour }}</option>
+          <option [ngValue]="hour">{{ hour }}</option>
         }
       </select>
       <select formControlName="minutes">
         @for (minute of minuteOptions; track minute) {
-          <option [value]="minute">{{ minute }}</option>
+          <option [ngValue]="minute">{{ minute }}</option>
         }
       </select>
       <select formControlName="categoryId">
         @for (category of categories; track category.id) {
-          <option [value]="category.id">{{ category.name }}</option>
+          <option [ngValue]="category.id">{{ category.name }}</option>
         }
       </select>
       <select formControlName="goalId">
+        <option [ngValue]="0">-- None --</option>
         @for (goal of goals; track goal.id) {
-          <option [value]="goal.id">{{ goal.name }}</option>
+          <option [ngValue]="goal.id">{{ goal.name }}</option>
         }
       </select>
       <textarea formControlName="description"></textarea>
