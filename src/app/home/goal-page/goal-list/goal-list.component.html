@@ -5,7 +5,10 @@
     <div class="grid-header">
       <div>Name</div>
       <div>Description</div>
+      <div>Start</div>
+      <div>End</div>
       <div>Steps</div>
+      <div>Status</div>
       <div></div>
     </div>
 
@@ -13,7 +16,10 @@
       <div class="grid-row">
         <div>{{ goal.name }}</div>
         <div>{{ goal.description }}</div>
+        <div>{{ goal.startDate || '-' }}</div>
+        <div>{{ goal.endDate || '-' }}</div>
         <div>{{ goal.stepCount }}</div>
+        <div>{{ goal.status }}</div>
         @if (goal.stepCount === 0) {
           <button (click)="delete(goal.id)">R</button>
         } @else {

@@ -1,12 +1,14 @@
 import { ICreateProject, IProjectFlat } from './project';
 import { DateOnly } from '../types/DateOnly';
+import { GoalStatus } from '../types/Status';
 
 export interface IGoalFlat {
   id: number,
   name: string,
   description: string,
+  status: GoalStatus,
   startDate: DateOnly,
-  closeDate: DateOnly,
+  endDate: DateOnly,
   projectId?: number,
 }
 

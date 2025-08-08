@@ -9,7 +9,7 @@ export interface IProjectFlat {
   description: string,
   status: ProjectStatus,
   startDate: DateOnly,
-  closeDate: DateOnly,
+  endDate: DateOnly,
 }
 
 export interface ICreateProject {

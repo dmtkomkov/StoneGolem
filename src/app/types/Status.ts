@@ -1,5 +1,9 @@
 export enum ProjectStatus {
   Active,
-  Inactive,
+  Closed,
+}
+
+export enum GoalStatus {
+  Active,
   Closed,
 }
