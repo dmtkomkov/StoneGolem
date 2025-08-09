@@ -39,4 +39,14 @@
   &:nth-child(odd) > div {
     background-color: #fff;
   }
+
+  &.closed {
+    &:nth-child(even) > div {
+      background-color: #fdd;
+    }
+
+    &:nth-child(odd) > div {
+      background-color: #fcc;
+    }
+  }
 }

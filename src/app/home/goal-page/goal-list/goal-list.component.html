@@ -13,7 +13,8 @@
     </div>
 
     @for (goal of goals$ | async; track goal.id) {
-      <div class="grid-row">
+      @let closed = isClosed(goal);
+      <div class="grid-row" [class.closed]="closed">
         <div>{{ goal.name }}</div>
         <div>{{ goal.description }}</div>
         <div>{{ goal.startDate || '-' }}</div>
@@ -21,9 +22,9 @@
         <div>{{ goal.stepCount }}</div>
         <div>{{ goal.status }}</div>
         @if (goal.stepCount === 0) {
-          <button (click)="delete(goal.id)">R</button>
+          <button (click)="delete(goal.id)">D</button>
         } @else {
-          <div></div>
+          <button (click)="toggle(goal.id)">{{ closed ? 'O' : 'C' }}</button>
         }
       </div>
     } @empty {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IGoal } from '../../../models/goal';
 import { GoalService } from '../../../services/goal.service';
-import { Observable, startWith, switchMap } from 'rxjs';
+import { map, Observable, startWith, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -28,6 +28,9 @@ export class GoalListComponent {
     this.goals$ = this.goalService.getUpdates().pipe(
       startWith(undefined),
       switchMap(() => this.goalService.getGoalsAsync(this.projectName)),
+      map(goals =>
+        goals.sort((a, b) => Number(a.status) - Number(b.status))
+      )
     );
   }
 
@@ -37,5 +40,17 @@ export class GoalListComponent {
         this.goalService.pushUpdates();
       }
     })
+  }
+
+  toggle(id: number) {
+    this.goalService.toggleGoal(id).subscribe({
+      next: () => {
+        this.goalService.pushUpdates();
+      }
+    });
+  }
+
+  isClosed(goal: IGoal) {
+    return goal.status === 1;
   }
 }
