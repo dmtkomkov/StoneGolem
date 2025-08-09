@@ -1,7 +1,8 @@
 <div class="groups">
   @for (goalGroup of goalGroups$ | async; track goalGroup.project?.id) {
-    <div class="group" [style.background]="getTransparentColor(goalGroup)" [style.border-color]="getColor(goalGroup)"
-         [routerLink]="goalGroup.project?.name ?? 'null'">
+    <div class="group" [style.background]="getTransparentColor(goalGroup)"
+         [style.border-color]="getColor(goalGroup)"
+         [routerLink]="goalGroup.project?.name ?? 'null'" [queryParamsHandling]="'preserve'">
       <div class="group-title">{{ goalGroup.project?.name ?? 'No project' }}</div>
       <div class="goal-list">
         @for (goal of goalGroup.goals; track goal.id) {

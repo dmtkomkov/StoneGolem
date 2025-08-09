@@ -10,6 +10,7 @@ import { CategoryGroupsComponent } from './home/category-page/catgory-groups/cat
 import { CategoryPageComponent } from './home/category-page/category-page.component';
 import { GoalPageComponent } from './home/goal-page/goal-page.component';
 import { GoalGroupsComponent } from './home/goal-page/goal-groups/goal-groups.component';
+import { AddDefaultParams } from './services/route-activate.service';
 
 export const routes: Routes = [
   {
@@ -43,7 +44,8 @@ export const routes: Routes = [
           {path: ':area', component: CategoryListComponent},
         ],
       },
-    ]
+    ],
+    canActivateChild: [AddDefaultParams],
   },
   {path: 'login', component: UserLoginComponent},
   {path: '**', redirectTo: ''}
