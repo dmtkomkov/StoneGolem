@@ -44,6 +44,6 @@ export class CategoryGroupsComponent {
       background: '#eeeeee',
     });
 
-    return { data: labelItems };
+    return {data: labelItems};
   }
 }

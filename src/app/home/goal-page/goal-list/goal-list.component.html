@@ -1,5 +1,13 @@
 <div class="group">
-  <div class="group-title">{{ projectName === 'null' ? 'No project' : projectName }}</div>
+  @let project = project$ | async;
+  <div class="group-title">
+    @let closed = isClosed(project);
+    {{ projectName === 'null' ? 'No project' : projectName }} | start: {{ project?.startDate }} |
+    end: {{ project?.endDate }} | status: {{ project?.status }}
+    @if (project !== null) {
+      <button (click)="toggleProject(project.id)">{{ closed ? 'O' : 'C' }}</button>
+    }
+  </div>
   <div class="grid">
 
     <div class="grid-header">

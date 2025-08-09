@@ -79,7 +79,7 @@ export class GoalPageComponent {
   }
 
   private initProjects(): void {
-    this.formSubscription = this.projectService.getProjectsAsync().subscribe({
+    this.formSubscription = this.projectService.getProjects().subscribe({
       next: (result: IProject[]) => {
         this.projects = result;
         this.formReady = true;

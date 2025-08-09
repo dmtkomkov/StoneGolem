@@ -1,5 +1,5 @@
 import { ApplicationConfig, inject, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter, Router, withComponentInputBinding } from '@angular/router';
 import { catchError } from 'rxjs';
 
 import { routes } from './app.routes';
@@ -75,6 +75,7 @@ export const appConfig: ApplicationConfig = {
         loggingInterceptor,
       ])
     ),
-    provideZoneChangeDetection({eventCoalescing: true}), provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
+    provideZoneChangeDetection({eventCoalescing: true}),
   ]
 };

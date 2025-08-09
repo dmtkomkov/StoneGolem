@@ -17,5 +17,5 @@ export interface ILabelData {
   styleUrl: './label.component.scss'
 })
 export class LabelComponent {
-  @Input() labelData: ILabelData = { data: [] };
+  @Input() labelData: ILabelData = {data: []};
 }

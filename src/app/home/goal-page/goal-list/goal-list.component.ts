@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IGoal } from '../../../models/goal';
 import { GoalService } from '../../../services/goal.service';
-import { map, Observable, startWith, switchMap } from 'rxjs';
+import { map, Observable, startWith, Subject, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { IProject } from '../../../models/project';
+import { ProjectService } from '../../../services/project.service';
 
 @Component({
   selector: 'sg-goal',
@@ -14,14 +15,20 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './goal-list.component.scss'
 })
 export class GoalListComponent {
+  private _projectName!: string;
+
+  @Input() set project(value: string) {
+    this._projectName = value;
+  }
+
   goals$!: Observable<IGoal[]>;
-  projectName: string;
+  project$!: Observable<IProject>;
+  private projectUpdates$: Subject<void> = new Subject();
 
   constructor(
     private goalService: GoalService,
-    private route: ActivatedRoute,
+    private projectService: ProjectService,
   ) {
-    this.projectName = this.route.snapshot.paramMap.get('project') as string;
   }
 
   ngOnInit(): void {
@@ -32,6 +39,14 @@ export class GoalListComponent {
         goals.sort((a, b) => Number(a.status) - Number(b.status))
       )
     );
+    this.project$ = this.projectUpdates$.pipe(
+      startWith(undefined),
+      switchMap(() => this.projectService.getProjectByName(this.projectName)),
+    );
+  }
+
+  get projectName(): string {
+    return this._projectName;
   }
 
   delete(id: number): void {
@@ -50,7 +65,15 @@ export class GoalListComponent {
     });
   }
 
-  isClosed(goal: IGoal) {
-    return goal.status === 1;
+  toggleProject(id: number) {
+    this.projectService.toggleProject(id).subscribe({
+      next: () => {
+        this.projectUpdates$.next();
+      }
+    });
+  }
+
+  isClosed(goalOrProject: IGoal | IProject | null) {
+    return goalOrProject ? goalOrProject.status === 1 : true;
   }
 }

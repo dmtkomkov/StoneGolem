@@ -44,6 +44,6 @@ export class GoalGroupsComponent {
       background: '#eeeeee',
     });
 
-    return { data: labelItems };
+    return {data: labelItems};
   }
 }

@@ -81,7 +81,7 @@ export class StepPageComponent {
         completedOn: formValue.completeOn as DateOnly,
         duration: formValue.hours * 60 + formValue.minutes,
         categoryId: formValue.categoryId,
-        goalId: formValue.goalId !== 0? formValue.goalId: undefined,
+        goalId: formValue.goalId !== 0 ? formValue.goalId : undefined,
         description: formValue.description,
       }
     ).subscribe({

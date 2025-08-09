@@ -53,7 +53,7 @@ export class StepGroupsComponent {
       background: '#777888'
     });
 
-    return { data: labelItems };
+    return {data: labelItems};
   }
 
   getTransparentColor(color: string | undefined): string {

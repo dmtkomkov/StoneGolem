@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IStep } from '../../../models/step';
 import { StepService } from '../../../services/step.service';
-import { ActivatedRoute } from '@angular/router';
 import { DateOnly } from '../../../types/DateOnly';
 import { map, Observable, startWith, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
@@ -13,14 +12,12 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './step-list.component.scss',
 })
 export class StepListComponent {
-  date: DateOnly;
+  @Input() date!: DateOnly;
   steps$!: Observable<IStep[]>;
 
   constructor(
-    private route: ActivatedRoute,
     private stepService: StepService,
   ) {
-    this.date = this.route.snapshot.paramMap.get('date') as DateOnly;
   }
 
   ngOnInit(): void {

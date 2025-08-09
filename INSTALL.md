@@ -105,6 +105,7 @@ _certbot --apache -d stonegolem.perforator.xyz_
 ### Automate renew certificate
 
 _crontab -e_
+
 ```
 31 1 * * * /usr/bin/certbot renew
 ```

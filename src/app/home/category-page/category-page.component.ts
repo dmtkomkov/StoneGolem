@@ -81,11 +81,11 @@ export class CategoryPageComponent {
         name: formValue.name,
         areaId: formValue.areaId || undefined,
         description: formValue.description,
-        area: formValue.area? {
+        area: formValue.area ? {
           name: formValue.area.name,
           description: formValue.area.description,
           color: formValue.area.color
-        }: undefined
+        } : undefined
       }
     ).subscribe({
       next: () => {
