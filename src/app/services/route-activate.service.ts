@@ -9,7 +9,7 @@ import {
 } from '@angular/router';
 import { EParamName, EStepParam } from '../home/home.component';
 
-const DEFAULT_STEP_PARAM = EStepParam.all;
+const DEFAULT_STEP_PARAM = EStepParam.active;
 
 @Injectable({
   providedIn: 'root'
