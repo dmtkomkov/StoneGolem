@@ -1,9 +1,18 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { IStep } from '../../../models/step';
 import { StepService } from '../../../services/step.service';
 import { DateOnly } from '../../../types/DateOnly';
-import { map, Observable, startWith, switchMap } from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  mergeWith,
+  Observable,
+  switchMap,
+  withLatestFrom
+} from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { EParamName, EStepParam } from '../../home.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'sg-step-list',
@@ -14,16 +23,22 @@ import { AsyncPipe } from '@angular/common';
 export class StepListComponent {
   @Input() date!: DateOnly;
   steps$!: Observable<IStep[]>;
-
-  constructor(
-    private stepService: StepService,
-  ) {
-  }
+  stepService = inject(StepService);
+  route = inject(ActivatedRoute);
 
   ngOnInit(): void {
+    const routeUpdate$ = this.route.queryParams.pipe(
+      map(params => params[EParamName.showSteps] as EStepParam),
+      distinctUntilChanged(),
+    )
+
     this.steps$ = this.stepService.getUpdates().pipe(
-      startWith(undefined),
-      switchMap(() => this.stepService.getStepsAsync(this.date)),
+      mergeWith(routeUpdate$),
+      withLatestFrom(routeUpdate$),
+      map(params => params[1]),
+      switchMap((stepParam) => {
+        return this.stepService.getStepsAsync(this.date, stepParam)
+      }),
       map(steps =>
         steps.sort((a, b) => Number(a.isDeleted) - Number(b.isDeleted))
       )

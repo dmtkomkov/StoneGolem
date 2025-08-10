@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { ICreateStep, IStep, IStepGroup } from '../models/step';
 import { DateOnly } from '../types/DateOnly';
 import { Observable, Subject } from 'rxjs';
+import { EStepParam } from '../home/home.component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class StepService {
   ) {
   }
 
-  getStepsAsync(date: DateOnly): Observable<IStep[]> {
-    const params = new HttpParams().set('date', date as string);
+  getStepsAsync(date: DateOnly, showSteps: EStepParam): Observable<IStep[]> {
+    const params = new HttpParams({fromObject: {date: date as string, showSteps}});
     return this.http.get<IStep[]>('step', {params});
   }
 
