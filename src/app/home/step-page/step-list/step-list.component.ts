@@ -36,9 +36,7 @@ export class StepListComponent {
       mergeWith(routeUpdate$),
       withLatestFrom(routeUpdate$),
       map(params => params[1]),
-      switchMap((stepParam) => {
-        return this.stepService.getStepsAsync(this.date, stepParam)
-      }),
+      switchMap(stepParam => this.stepService.getStepsAsync(this.date, stepParam)),
       map(steps =>
         steps.sort((a, b) => Number(a.isDeleted) - Number(b.isDeleted))
       )

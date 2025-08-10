@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IStep, IStepGroup } from '../../../models/step';
 import { StepService } from '../../../services/step.service';
-import { RouterLink } from '@angular/router';
-import { Observable, startWith, switchMap } from 'rxjs';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { distinctUntilChanged, map, mergeWith, Observable, switchMap, withLatestFrom } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { ILabelData, LabelComponent } from '../../../shared/label/label.component';
 import { ColorUtils } from '../../../utils/color-utils';
+import { EParamName, EStepParam } from '../../home.component';
 
 @Component({
   selector: 'sg-step-groups',
@@ -15,16 +16,20 @@ import { ColorUtils } from '../../../utils/color-utils';
 })
 export class StepGroupsComponent {
   stepGroups$!: Observable<IStepGroup[]>;
-
-  constructor(
-    private stepService: StepService,
-  ) {
-  }
+  stepService = inject(StepService);
+  route = inject(ActivatedRoute);
 
   ngOnInit(): void {
+    const routeUpdate$ = this.route.queryParams.pipe(
+      map(params => params[EParamName.showSteps] as EStepParam),
+      distinctUntilChanged(),
+    )
+
     this.stepGroups$ = this.stepService.getUpdates().pipe(
-      startWith(undefined),
-      switchMap(() => this.stepService.getStepGroupsAsync()),
+      mergeWith(routeUpdate$),
+      withLatestFrom(routeUpdate$),
+      map(params => params[1]),
+      switchMap((stepParam) => this.stepService.getStepGroupsAsync(stepParam)),
     );
   }
 

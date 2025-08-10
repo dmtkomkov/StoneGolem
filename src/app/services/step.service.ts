@@ -21,8 +21,9 @@ export class StepService {
     return this.http.get<IStep[]>('step', {params});
   }
 
-  getStepGroupsAsync(): Observable<IStepGroup[]> {
-    return this.http.get<IStepGroup[]>('step/group');
+  getStepGroupsAsync(showSteps: EStepParam): Observable<IStepGroup[]> {
+    const params = new HttpParams({fromObject: {showSteps}});
+    return this.http.get<IStepGroup[]>('step/group', {params});
   }
 
   createStep(step: ICreateStep): Observable<IStep> {
