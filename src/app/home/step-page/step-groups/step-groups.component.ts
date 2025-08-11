@@ -9,10 +9,11 @@ import { ColorUtils } from '../../../utils/color-utils';
 import { EParamName, EStepParam } from '../../home.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { DurationFormatPipe } from '../../../pipes/duration-format.pipe';
+import { DateOnlyFormatPipe } from '../../../pipes/dateonly-format.pipe';
 
 @Component({
   selector: 'sg-step-groups',
-  imports: [RouterLink, AsyncPipe, LabelComponent, PaginationComponent],
+  imports: [RouterLink, AsyncPipe, LabelComponent, PaginationComponent, DateOnlyFormatPipe],
   templateUrl: './step-groups.component.html',
   styleUrl: './step-groups.component.scss',
 })
@@ -22,7 +23,7 @@ export class StepGroupsComponent {
   route = inject(ActivatedRoute);
   durationPipe = new DurationFormatPipe();
   pageNumber: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 7;
 
   ngOnInit(): void {
     const routeUpdate$ = this.route.queryParams.pipe(

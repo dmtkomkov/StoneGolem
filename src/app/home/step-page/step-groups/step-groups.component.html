@@ -8,7 +8,7 @@
   @if (stepGroups) {
     @for (stepGroup of stepGroups.items; track stepGroup.completedOn) {
       <div class="group" [routerLink]="stepGroup.completedOn" [queryParamsHandling]="'preserve'">
-        <div class="group-title">{{ stepGroup.completedOn }}</div>
+        <div class="group-title">{{ stepGroup.completedOn | dateOnly }}</div>
         <div class="step-list">
           @for (step of stepGroup.steps; track step.id) {
             <sg-label [labelData]="getLabelData(step)"></sg-label>

@@ -14,10 +14,11 @@ import { AsyncPipe } from '@angular/common';
 import { EParamName, EStepParam } from '../../home.component';
 import { ActivatedRoute } from '@angular/router';
 import { DurationFormatPipe } from '../../../pipes/duration-format.pipe';
+import { DateOnlyFormatPipe } from '../../../pipes/dateonly-format.pipe';
 
 @Component({
   selector: 'sg-step-list',
-  imports: [AsyncPipe, DurationFormatPipe],
+  imports: [AsyncPipe, DurationFormatPipe, DateOnlyFormatPipe],
   templateUrl: './step-list.component.html',
   styleUrl: './step-list.component.scss',
 })
