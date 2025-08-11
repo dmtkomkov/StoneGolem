@@ -28,3 +28,16 @@ export interface IStepGroup {
   completedOn: DateOnly,
   steps: IStep[],
 }
+
+export interface IPagination {
+  pageNumber: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+export interface IPagedStepGroup extends IPagination {
+  items: IStepGroup[];
+}

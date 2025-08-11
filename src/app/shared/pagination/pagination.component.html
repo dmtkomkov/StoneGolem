@@ -1,0 +1,5 @@
+<div class="container">
+  <button (click)="setPageNumber(pg.pageNumber - 1)" [disabled]="pg.pageNumber === 1"><</button>
+  Page: {{ pg.pageNumber }}/{{ pg.totalPages }}
+  <button (click)="setPageNumber(pg.pageNumber + 1)" [disabled]="pg.pageNumber === pg.totalPages">></button>
+</div>

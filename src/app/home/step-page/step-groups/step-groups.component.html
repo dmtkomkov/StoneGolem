@@ -1,16 +1,24 @@
 <div class="groups">
-  @for (stepGroup of stepGroups$ | async; track stepGroup.completedOn) {
-    <div class="group" [routerLink]="stepGroup.completedOn" [queryParamsHandling]="'preserve'">
-      <div class="group-title">{{ stepGroup.completedOn }}</div>
-      <div class="step-list">
-        @for (step of stepGroup.steps; track step.id) {
-          <sg-label [labelData]="getLabelData(step)"></sg-label>
-        } @empty {
-          <li>There are no steps.</li>
-        }
-      </div>
+  @let stepGroups = stepGroups$ | async;
+  @if (stepGroups && stepGroups.items.length > 0) {
+    <div class="header-form">
+      <sg-pagination [pg]="stepGroups" (onPageNumberChange)="changePage($event)"></sg-pagination>
     </div>
-  } @empty {
-    <li>There are no groups.</li>
+  }
+  @if (stepGroups) {
+    @for (stepGroup of stepGroups.items; track stepGroup.completedOn) {
+      <div class="group" [routerLink]="stepGroup.completedOn" [queryParamsHandling]="'preserve'">
+        <div class="group-title">{{ stepGroup.completedOn }}</div>
+        <div class="step-list">
+          @for (step of stepGroup.steps; track step.id) {
+            <sg-label [labelData]="getLabelData(step)"></sg-label>
+          } @empty {
+            <li>There are no steps.</li>
+          }
+        </div>
+      </div>
+    } @empty {
+      <li>There are no groups.</li>
+    }
   }
 </div>
