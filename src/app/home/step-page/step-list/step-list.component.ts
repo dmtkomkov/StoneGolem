@@ -13,10 +13,11 @@ import {
 import { AsyncPipe } from '@angular/common';
 import { EParamName, EStepParam } from '../../home.component';
 import { ActivatedRoute } from '@angular/router';
+import { DurationFormatPipe } from '../../../pipes/duration-format.pipe';
 
 @Component({
   selector: 'sg-step-list',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, DurationFormatPipe],
   templateUrl: './step-list.component.html',
   styleUrl: './step-list.component.scss',
 })

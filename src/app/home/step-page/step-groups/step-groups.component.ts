@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { IPagedStepGroup, IStep, IStepGroup } from '../../../models/step';
+import { IPagedStepGroup, IStep } from '../../../models/step';
 import { StepService } from '../../../services/step.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { distinctUntilChanged, map, mergeWith, Observable, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
+import { distinctUntilChanged, map, mergeWith, Observable, switchMap, tap, withLatestFrom } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { ILabelData, LabelComponent } from '../../../shared/label/label.component';
 import { ColorUtils } from '../../../utils/color-utils';
 import { EParamName, EStepParam } from '../../home.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { DurationFormatPipe } from '../../../pipes/duration-format.pipe';
 
 @Component({
   selector: 'sg-step-groups',
@@ -19,6 +20,7 @@ export class StepGroupsComponent {
   stepGroups$!: Observable<IPagedStepGroup>;
   stepService = inject(StepService);
   route = inject(ActivatedRoute);
+  durationPipe = new DurationFormatPipe();
   pageNumber: number = 1;
   pageSize: number = 5;
 
@@ -62,7 +64,7 @@ export class StepGroupsComponent {
       });
     }
     labelItems.push({
-      text: step.duration.toString(),
+      text: this.durationPipe.transform(step.duration),
       color: '#eeeeee',
       background: '#777888'
     });

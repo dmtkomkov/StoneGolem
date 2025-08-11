@@ -29,7 +29,7 @@ interface StepForm {
 })
 export class StepPageComponent {
   hourOptions: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-  minuteOptions: number[] = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+  minuteOptions: number[] = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
   stepForm!: FormGroup<StepForm>;
   users!: IUser[];
   currentUser!: IUser;
@@ -63,7 +63,7 @@ export class StepPageComponent {
           userId: this.currentUser.userId,
           completeOn: new Date().toISOString().split('T')[0] as DateOnly,
           hours: 0,
-          minutes: 0,
+          minutes: 5,
           categoryId: this.categories[0]?.id || 0,
           goalId: this.goals[0]?.id || undefined,
           description: '',
