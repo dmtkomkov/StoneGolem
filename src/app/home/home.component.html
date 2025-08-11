@@ -1,8 +1,8 @@
 <div class="container">
   <div class="control-panel">
-    <div class="tab" routerLink="step" queryParamsHandling="preserve">Step</div>
-    <div class="tab" routerLink="goal" queryParamsHandling="preserve">Goal</div>
-    <div class="tab" routerLink="category" queryParamsHandling="preserve">Category</div>
+    <div class="tab" routerLink="step" routerLinkActive="active" queryParamsHandling="preserve">Step</div>
+    <div class="tab" routerLink="goal" routerLinkActive="active" queryParamsHandling="preserve">Goal</div>
+    <div class="tab" routerLink="category" routerLinkActive="active" queryParamsHandling="preserve">Category</div>
     <select [formControl]="stepParamControl">
       <option [ngValue]="stepParam.all">All</option>
       <option [ngValue]="stepParam.active">Active</option>
