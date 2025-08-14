@@ -17,7 +17,7 @@ interface StepForm {
   hours: FormControl<number>;
   minutes: FormControl<number>;
   categoryId: FormControl<number>;
-  goalId: FormControl<number | undefined>;
+  goalId: FormControl<number>;
   description: FormControl<string>;
 }
 
@@ -65,7 +65,7 @@ export class StepPageComponent {
           hours: 0,
           minutes: 5,
           categoryId: this.categories[0]?.id || 0,
-          goalId: this.goals[0]?.id || undefined,
+          goalId: 0,
           description: '',
         });
         this.formReady = true;
