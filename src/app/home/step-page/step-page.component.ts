@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ICategory } from '../../models/category';
 import { CategoryService } from '../../services/category.service';
@@ -6,24 +6,16 @@ import { GoalService } from '../../services/goal.service';
 import { IGoal } from '../../models/goal';
 import { IUser } from '../../models/user';
 import { UserService } from '../../services/user.service';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DateOnly } from '../../types/DateOnly';
 import { forkJoin } from 'rxjs';
 import { StepService } from '../../services/step.service';
-
-interface StepForm {
-  userId: FormControl<string>;
-  completeOn: FormControl<DateOnly>;
-  hours: FormControl<number>;
-  minutes: FormControl<number>;
-  categoryId: FormControl<number>;
-  goalId: FormControl<number>;
-  description: FormControl<string>;
-}
+import { StepForm, StepFormService } from '../../services/step-form.service';
 
 @Component({
   selector: 'sg-step-page',
   imports: [RouterOutlet, ReactiveFormsModule],
+  providers: [StepFormService],
   templateUrl: './step-page.component.html',
   styleUrl: './step-page.component.scss',
 })
@@ -35,14 +27,13 @@ export class StepPageComponent {
   currentUser!: IUser;
   categories!: ICategory[];
   goals!: IGoal[];
-  formReady: boolean = false;
+  stepFormService = inject(StepFormService);
 
   constructor(
     private categoryService: CategoryService,
     private goalService: GoalService,
     private userService: UserService,
     private stepService: StepService,
-    private formBuilder: FormBuilder,
   ) {
   }
 
@@ -59,16 +50,11 @@ export class StepPageComponent {
     ]).subscribe({
       next: result => {
         [this.users, this.currentUser, this.categories, this.goals] = result;
-        this.stepForm = this.formBuilder.nonNullable.group({
-          userId: this.currentUser.userId,
-          completeOn: new Date().toISOString().split('T')[0] as DateOnly,
-          hours: 0,
-          minutes: 5,
-          categoryId: this.categories[0]?.id || 0,
-          goalId: 0,
-          description: '',
-        });
-        this.formReady = true;
+        this.stepFormService.initForm(
+          this.currentUser.userId,
+          this.categories[0]?.id || 0,
+        );
+        this.stepForm = this.stepFormService.getForm();
       }
     })
   }

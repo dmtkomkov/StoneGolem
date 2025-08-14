@@ -1,6 +1,6 @@
 <div class="container">
   <router-outlet></router-outlet>
-  @if (formReady) {
+  @if (stepForm) {
     <div class="foot-form" [formGroup]="stepForm">
       <select formControlName="userId">
         @for (user of users; track user.userId) {

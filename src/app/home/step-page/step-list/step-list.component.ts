@@ -15,6 +15,7 @@ import { EParamName, EStepParam } from '../../home.component';
 import { ActivatedRoute } from '@angular/router';
 import { DurationFormatPipe } from '../../../pipes/duration-format.pipe';
 import { DateOnlyFormatPipe } from '../../../pipes/dateonly-format.pipe';
+import { StepFormService } from '../../../services/step-form.service';
 
 @Component({
   selector: 'sg-step-list',
@@ -27,8 +28,11 @@ export class StepListComponent {
   steps$!: Observable<IStep[]>;
   stepService = inject(StepService);
   route = inject(ActivatedRoute);
+  stepFormService = inject(StepFormService);
 
   ngOnInit(): void {
+    this.stepFormService.setDate(this.date, true);
+
     const routeUpdate$ = this.route.queryParams.pipe(
       map(params => params[EParamName.showSteps] as EStepParam),
       distinctUntilChanged(),

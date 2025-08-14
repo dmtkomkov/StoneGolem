@@ -10,6 +10,8 @@ import { EParamName, EStepParam } from '../../home.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { DurationFormatPipe } from '../../../pipes/duration-format.pipe';
 import { DateOnlyFormatPipe } from '../../../pipes/dateonly-format.pipe';
+import { StepFormService } from '../../../services/step-form.service';
+import { DateOnly } from '../../../types/DateOnly';
 
 @Component({
   selector: 'sg-step-groups',
@@ -21,11 +23,14 @@ export class StepGroupsComponent {
   stepGroups$!: Observable<IPagedStepGroup>;
   stepService = inject(StepService);
   route = inject(ActivatedRoute);
+  stepFormService = inject(StepFormService);
   durationPipe = new DurationFormatPipe();
   pageNumber: number = 1;
   pageSize: number = 7;
 
   ngOnInit(): void {
+    this.stepFormService.setDate(new Date().toISOString().split('T')[0] as DateOnly, false);
+
     const routeUpdate$ = this.route.queryParams.pipe(
       map(params => params[EParamName.showSteps] as EStepParam),
       distinctUntilChanged(),
