@@ -9,4 +9,26 @@ body {
   margin: 3rem 0 0;
   height: calc(100vh - 3rem);
   overflow: auto;
+  font-size: 1rem;
+  font-family: 'Inter', 'Roboto', 'Work Sans', system-ui, sans-serif;
 }
+
+input, textarea, select {
+  padding: 0.2rem 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background-color: #fff;
+  box-sizing: border-box;
+  font-family: 'Inter', 'Roboto', 'Work Sans', system-ui, sans-serif;
+
+  &:disabled {
+    background-color: #eee;
+    color: #000;
+  }
+}
+
+textarea {
+  resize: vertical;
+}
+
