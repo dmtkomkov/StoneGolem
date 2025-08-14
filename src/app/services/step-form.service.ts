@@ -30,14 +30,9 @@ export class StepFormService {
     });
   }
 
-  initForm(userId: string, categoryId: number) {
+  initForm(userId: string) {
     this.stepForm.patchValue({
       userId: userId,
-      hours: 0,
-      minutes: 5,
-      categoryId: categoryId,
-      goalId: 0,
-      description: '',
     });
   }
 
@@ -53,5 +48,15 @@ export class StepFormService {
     } else {
       dateControl.enable();
     }
+  }
+
+  resetForm() {
+    this.stepForm.patchValue({
+      hours: 0,
+      minutes: 0,
+      categoryId: 0,
+      goalId: 0,
+      description: '',
+    });
   }
 }

@@ -50,10 +50,7 @@ export class StepPageComponent {
     ]).subscribe({
       next: result => {
         [this.users, this.currentUser, this.categories, this.goals] = result;
-        this.stepFormService.initForm(
-          this.currentUser.userId,
-          this.categories[0]?.id || 0,
-        );
+        this.stepFormService.initForm(this.currentUser.userId);
         this.stepForm = this.stepFormService.getForm();
       }
     })
@@ -73,6 +70,7 @@ export class StepPageComponent {
     ).subscribe({
       next: () => {
         this.stepService.pushUpdates();
+        this.stepFormService.resetForm();
       }
     })
   }

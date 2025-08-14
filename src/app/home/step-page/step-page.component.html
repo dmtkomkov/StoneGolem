@@ -19,6 +19,7 @@
         }
       </select>
       <select formControlName="categoryId">
+        <option [ngValue]="0">-- None --</option>
         @for (category of categories; track category.id) {
           <option [ngValue]="category.id">{{ category.name }}</option>
         }
