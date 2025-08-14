@@ -31,7 +31,7 @@
         }
       </select>
       <textarea formControlName="description"></textarea>
-      <button type="button" (click)="createStep()">Submit</button>
+      <button type="button" (click)="createStep()" [disabled]="stepForm.invalid">Submit</button>
     </div>
   }
 </div>

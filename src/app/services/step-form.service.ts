@@ -1,6 +1,21 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DateOnly } from '../types/DateOnly';
+
+export function stepFormValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const group = control as FormGroup<StepForm>;
+
+    const hours = group.controls.hours.value;
+    const minutes = group.controls.minutes.value;
+    const categoryId = group.controls.categoryId.value;
+
+    const isTimeZero = hours === 0 && minutes === 0;
+    const isCategoryInvalid = categoryId === 0;
+
+    return (isTimeZero || isCategoryInvalid) ? { stepFormInvalid: true } : null;
+  };
+}
 
 export interface StepForm {
   userId: FormControl<string>;
@@ -27,6 +42,8 @@ export class StepFormService {
       categoryId: 0,
       goalId: 0,
       description: '',
+    }, {
+      validators: stepFormValidator()
     });
   }
 
