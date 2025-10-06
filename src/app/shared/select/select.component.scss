@@ -1,0 +1,44 @@
+.menu {
+  overflow: hidden;
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 5rem;
+  max-width: 10rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: inherit;
+  background-color: #fff;
+  font-family: inherit;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.menu .menu-item {
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0.2rem 0.8rem;
+
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+
+  &[aria-expanded='true'] {
+    background-color: #ddd;
+  }
+}
+
+.menu-item > span {
+  font-size: 0.8rem;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.menu .menu-item:hover {
+  background-color: #ddd;
+}
+

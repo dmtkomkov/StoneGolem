@@ -97,7 +97,12 @@
   }
 }
 
-// Disable router-outlet element for css flex
+// Disable router-outlet element for css
 router-outlet {
+  display: contents;
+}
+
+// Disable sg-select for css
+sg-select {
   display: contents;
 }

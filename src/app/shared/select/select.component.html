@@ -1,0 +1,25 @@
+<button class="select" [cdkMenuTriggerFor]="menu">
+  {{ selectedLabel }}
+</button>
+
+<ng-template #menu>
+  <div class="menu" cdkMenu>
+    <button class="menu-item" cdkMenuItem (click)="selectOption(defaultOption)">
+      -- None --
+    </button>
+    @for (optionGroup of optionGroups; track optionGroup.name) {
+      <button class="menu-item" cdkMenuItem [cdkMenuTriggerFor]="group" [style.background]="getTransparentColor(optionGroup.color)">
+        {{ optionGroup.name }} <span>&#10148;</span>
+      </button>
+      <ng-template #group>
+        <div class="menu" cdkMenu>
+          @for (option of optionGroup.options; track option.name) {
+            <button class="menu-item" cdkMenuItem (click)="selectOption(option)">
+              {{ option.name }}
+            </button>
+          }
+        </div>
+      </ng-template>
+    }
+  </div>
+</ng-template>

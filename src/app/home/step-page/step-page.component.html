@@ -31,12 +31,7 @@
           </div>
           <div class="field">
             <div class="icon">📂</div>
-            <select formControlName="categoryId">
-              <option [ngValue]="0">-- None --</option>
-              @for (category of categories; track category.id) {
-                <option [ngValue]="category.id">{{ category.name }}</option>
-              }
-            </select>
+            <sg-select formControlName="categoryId" [optionGroups]="categoryOptions"></sg-select>
           </div>
           <div class="field">
             <div class="icon">🎯</div>

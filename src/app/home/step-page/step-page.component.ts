@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ICategory } from '../../models/category';
+import { ICategoryGroup } from '../../models/category';
 import { CategoryService } from '../../services/category.service';
 import { GoalService } from '../../services/goal.service';
 import { IGoal } from '../../models/goal';
@@ -11,10 +11,11 @@ import { DateOnly } from '../../types/DateOnly';
 import { forkJoin } from 'rxjs';
 import { StepService } from '../../services/step.service';
 import { StepForm, StepFormService } from '../../services/step-form.service';
+import { SelectComponent, IOptionGroup } from '../../shared/select/select.component';
 
 @Component({
   selector: 'sg-step-page',
-  imports: [RouterOutlet, ReactiveFormsModule],
+  imports: [RouterOutlet, ReactiveFormsModule, SelectComponent],
   providers: [StepFormService],
   templateUrl: './step-page.component.html',
   styleUrl: './step-page.component.scss',
@@ -25,9 +26,10 @@ export class StepPageComponent {
   stepForm!: FormGroup<StepForm>;
   users!: IUser[];
   currentUser!: IUser;
-  categories!: ICategory[];
+  categoryGroups!: ICategoryGroup[];
   goals!: IGoal[];
   stepFormService = inject(StepFormService);
+  categoryOptions: IOptionGroup[] = [];
 
   constructor(
     private categoryService: CategoryService,
@@ -45,13 +47,21 @@ export class StepPageComponent {
     forkJoin([
       this.userService.getUsersAsync(),
       this.userService.getCurrentUserAsync(),
-      this.categoryService.getCategoriesAsync(),
+      this.categoryService.getCategoryGroupsAsync(),
       this.goalService.getGoalsAsync(),
     ]).subscribe({
       next: result => {
-        [this.users, this.currentUser, this.categories, this.goals] = result;
+        [this.users, this.currentUser, this.categoryGroups, this.goals] = result;
         this.stepFormService.initForm(this.currentUser.userId);
         this.stepForm = this.stepFormService.getForm();
+        this.categoryOptions = this.categoryGroups.map(group => ({
+          name: group.area.name,
+          color: group.area.color,
+          options: group.categories.map(category => ({
+            id: category.id,
+            name: category.name,
+          })),
+        }));
       }
     })
   }
