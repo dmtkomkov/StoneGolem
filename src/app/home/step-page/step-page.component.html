@@ -6,11 +6,7 @@
         <div class="field-row">
           <div class="field">
             <div class="icon">👤</div>
-            <select formControlName="userId">
-              @for (user of users; track user.userId) {
-                <option [ngValue]="user.userId">{{ user.userName }}</option>
-              }
-            </select>
+            <sg-select formControlName="userId" [items]="userOptions"></sg-select>
           </div>
           <div class="field">
             <div class="icon">📅</div>
@@ -18,29 +14,16 @@
           </div>
           <div class="field">
             <div class="icon">🕑</div>
-            <select formControlName="hours">
-              @for (hour of hourOptions; track hour) {
-                <option [ngValue]="hour">{{ hour }}h</option>
-              }
-            </select>
-            <select formControlName="minutes">
-              @for (minute of minuteOptions; track minute) {
-                <option [ngValue]="minute">{{ minute }}m</option>
-              }
-            </select>
+            <sg-select formControlName="hours" [items]="hourOptions"></sg-select>
+            <sg-select formControlName="minutes" [items]="minuteOptions"></sg-select>
           </div>
           <div class="field">
             <div class="icon">📂</div>
-            <sg-select formControlName="categoryId" [optionGroups]="categoryOptions"></sg-select>
+            <sg-select formControlName="categoryId" [items]="categoryOptions"></sg-select>
           </div>
           <div class="field">
             <div class="icon">🎯</div>
-            <select formControlName="goalId">
-              <option [ngValue]="0">-- None --</option>
-              @for (goal of goals; track goal.id) {
-                <option [ngValue]="goal.id">{{ goal.name }}</option>
-              }
-            </select>
+            <sg-select formControlName="goalId" [items]="goalOptions"></sg-select>
           </div>
         </div>
         <div class="field-row">

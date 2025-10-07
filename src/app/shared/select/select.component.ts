@@ -3,8 +3,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { ColorUtils } from '../../utils/color-utils';
 
+export type IOptionSet = (IOptionGroup | IOption)[];
+
 export interface IOption {
-  id: number;
+  id: number | string;
   name: string;
 }
 
@@ -30,18 +32,17 @@ export interface IOptionGroup {
   }]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @Input() optionGroups: IOptionGroup[] = [];
+  @Input() items: IOptionSet = [];
 
-  defaultOption: IOption = { id: 0, name: '-- None --' };
-  value: number = this.defaultOption.id;
-  selectedLabel: string = this.defaultOption.name;
+  value!: number | string;
+  selectedLabel!: string;
 
   private onChange: (v: any) => void = () => {};
   private onTouched: () => void = () => {};
 
   writeValue(obj: any): void {
     this.value = obj;
-    this.selectedLabel = this.getLabel();
+    this.updateLabel();
   }
 
   registerOnChange(fn: any): void { this.onChange = fn; }
@@ -51,23 +52,24 @@ export class SelectComponent implements ControlValueAccessor {
     this.value = option.id;
     this.onChange(option.id);
     this.onTouched();
-    this.selectedLabel = this.getLabel();
+    this.updateLabel();
   }
 
-  private getLabel(): string {
-    for (const item of this.optionGroups) {
+  private updateLabel() {
+    for (const item of this.items) {
       if ('id' in item) {
         if (item.id === this.value) {
-          return item.name;
+          this.selectedLabel = item.name;
+          break;
         }
       } else {
         const option = item.options.find(opt => opt.id === this.value);
         if (option) {
-          return option.name;
+          this.selectedLabel = item.name;
+          break;
         }
       }
     }
-    return this.defaultOption.name;
   }
 
   getTransparentColor(color: string): string {

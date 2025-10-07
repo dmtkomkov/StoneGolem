@@ -50,6 +50,8 @@ export class StepFormService {
   initForm(userId: string) {
     this.stepForm.patchValue({
       userId: userId,
+    }, {
+      emitEvent: false,
     });
   }
 
