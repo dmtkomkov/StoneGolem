@@ -65,7 +65,7 @@ export class SelectComponent implements ControlValueAccessor {
       } else {
         const option = item.options.find(opt => opt.id === this.value);
         if (option) {
-          this.selectedLabel = item.name;
+          this.selectedLabel = option.name;
           break;
         }
       }
