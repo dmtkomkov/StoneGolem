@@ -11,17 +11,13 @@ import { ICreateGoal } from '../models/goal';
 
 export function goalFormValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    return null;
-    // const group = control as FormGroup<StepForm>;
-    //
-    // const hours = group.controls.hours.value;
-    // const minutes = group.controls.minutes.value;
-    // const categoryId = group.controls.categoryId.value;
-    //
-    // const isTimeZero = hours === 0 && minutes === 0;
-    // const isCategoryInvalid = categoryId === 0;
-    //
-    // return (isTimeZero || isCategoryInvalid) ? { stepFormInvalid: true } : null;
+    const group = control as FormGroup<GoalForm>;
+
+    const noName = !group.controls.name.value;
+    const noProjectName = !group.controls.project?.controls.name.value;
+    const isNewProject = group.controls.projectId.value === null;
+
+    return (noName || (isNewProject && noProjectName)) ? { goalFormInvalid: true } : null;
   };
 }
 
