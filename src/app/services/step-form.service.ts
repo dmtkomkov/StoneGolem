@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DateOnly } from '../types/DateOnly';
-import { ICreateGoal } from '../models/goal';
 import { ICreateStep } from '../models/step';
 
 export function stepFormValidator(): ValidatorFn {

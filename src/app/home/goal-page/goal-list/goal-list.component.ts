@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { IGoal } from '../../../models/goal';
 import { GoalService } from '../../../services/goal.service';
-import { first, map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
+import { map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { IProject } from '../../../models/project';
 import { ProjectService } from '../../../services/project.service';
