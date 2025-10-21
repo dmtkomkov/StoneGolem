@@ -1,23 +1,69 @@
 <div class="container">
   <router-outlet></router-outlet>
-  @if (formReady) {
+  @if (categoryForm) {
     <div class="foot-form" [formGroup]="categoryForm">
-      <input formControlName="name"/>
-      <textarea formControlName="description"></textarea>
-      <select formControlName="areaId">
-        @for (area of areas; track area.id) {
-          <option [ngValue]="area.id">{{ area.name }}</option>
+      <div class="fields">
+        <div class="field-row">
+          <div class="field">
+            <fa-icon class="center" [icon]="categoryIcon" />
+            <input formControlName="name"/>
+          </div>
+          <div class="field">
+            <fa-icon class="center" [icon]="areaIcon" />
+            <sg-select formControlName="areaId" [items]="areaOptions"></sg-select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field textarea-row">
+            <fa-icon class="start" [icon]="descriptionIcon" />
+            <textarea formControlName="description"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="fields">
+        @if (categoryForm.controls.area) {
+          @let areaForm = categoryForm.controls.area;
+          <div class="field-row" [formGroup]="areaForm">
+            <div class="field">
+              <fa-icon class="center" [icon]="colorIcon" />
+              <input type="color" [formControl]="areaForm.controls.color"/>
+            </div>
+            <div class="field">
+              <fa-icon class="center" [icon]="areaIcon" />
+              <input [formControl]="areaForm.controls.name"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field textarea-row">
+              <fa-icon class="start" [icon]="descriptionIcon" />
+              <textarea [formControl]="areaForm.controls.description"></textarea>
+            </div>
+          </div>
         }
-        <option [ngValue]="null">-- New --</option>
-      </select>
-      @if (isAreaForm) {
-        <ng-container formGroupName="area">
-          <input type="color" formControlName="color"/>
-          <input formControlName="name"/>
-          <textarea formControlName="description"></textarea>
-        </ng-container>
-      }
-      <button type="button" (click)="createCategory()">Submit</button>
+      </div>
+
+      <div class="buttons">
+        <button type="button" (click)="createCategory()" [disabled]="categoryForm.invalid">
+          <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+                <stop offset="1" stop-color="#a7b3ff"/>
+              </linearGradient>
+              <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.25"/>
+              </filter>
+            </defs>
+
+            <g filter="url(#shadow)">
+              <path fill="url(#grad)" d="M28 10 h8 v18 h18 v8 H36 v18 h-8 V36 H10 v-8 h18z"/>
+              <path d="M28 10 h8 v18 h18 v8 H36 v18 h-8 V36 H10 v-8 h18z"
+                    fill="none" stroke="#4a56cf" stroke-opacity="0.45" stroke-width="1.5"/>
+            </g>
+          </svg>
+        </button>
+      </div>
     </div>
   }
 </div>

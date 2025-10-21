@@ -33,7 +33,7 @@ export class StepPageComponent {
   userIcon = faUser;
   calendarIcon = faCalendarDays;
   timeIcon = faClock;
-  folderIcon = faFolderOpen;
+  categoryIcon = faFolderOpen;
 
   constructor(
     private categoryService: CategoryService,
