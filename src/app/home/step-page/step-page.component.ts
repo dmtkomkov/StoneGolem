@@ -49,8 +49,6 @@ export class StepPageComponent {
     ]).subscribe({
       next: result => {
         const [users, currentUser, categoryGroups, goalGroups] = result;
-        this.stepFormService.initForm(currentUser.userId);
-        this.stepForm = this.stepFormService.getForm();
 
         this.userOptions = users.map(user => ({ id: user.userId, name: user.userName }))
 
@@ -73,6 +71,9 @@ export class StepPageComponent {
           })),
         }));
         this.goalOptions.unshift(this.defaultOption);
+
+        this.stepFormService.initForm(currentUser.userId);
+        this.stepForm = this.stepFormService.getForm();
       }
     })
   }

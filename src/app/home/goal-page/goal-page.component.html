@@ -1,24 +1,59 @@
 <div class="container">
   <router-outlet></router-outlet>
-  @if (formReady) {
+  @if (goalForm) {
     <div class="foot-form" [formGroup]="goalForm">
-      <input formControlName="name"/>
-      <textarea formControlName="description"></textarea>
-      <select formControlName="projectId">
-        <option [ngValue]="0">-- None --</option>
-        @for (project of projects; track project?.id) {
-          <option [ngValue]="project.id">{{ project.name }}</option>
+      <div class="fields">
+        <div class="field-row">
+          <div class="field">
+            <input formControlName="name"/>
+          </div>
+          <div class="field">
+            <sg-select formControlName="projectId" [items]="projectOptions"></sg-select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field textarea-row">
+            <textarea formControlName="description"></textarea>
+          </div>
+        </div>
+        @if (goalForm.controls.project) {
+          @let projectForm = goalForm.controls.project;
+          <div class="field-row" [formGroup]="projectForm">
+            <div class="field">
+              <input type="color" [formControl]="projectForm.controls.color"/>
+            </div>
+            <div class="field">
+              <input [formControl]="projectForm.controls.name"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field textarea-row">
+              <textarea [formControl]="projectForm.controls.description"></textarea>
+            </div>
+          </div>
         }
-        <option [ngValue]="null">-- New --</option>
-      </select>
-      @if (isProjectForm) {
-        <ng-container formGroupName="project">
-          <input type="color" formControlName="color"/>
-          <input formControlName="name"/>
-          <textarea formControlName="description"></textarea>
-        </ng-container>
-      }
-      <button type="button" (click)="createGoal()">Submit</button>
+      </div>
+      <div class="buttons">
+        <button type="button" (click)="createGoal()" [disabled]="goalForm.invalid">
+          <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+                <stop offset="1" stop-color="#a7b3ff"/>
+              </linearGradient>
+              <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.25"/>
+              </filter>
+            </defs>
+
+            <g filter="url(#shadow)">
+              <path fill="url(#grad)" d="M28 10 h8 v18 h18 v8 H36 v18 h-8 V36 H10 v-8 h18z"/>
+              <path d="M28 10 h8 v18 h18 v8 H36 v18 h-8 V36 H10 v-8 h18z"
+                    fill="none" stroke="#4a56cf" stroke-opacity="0.45" stroke-width="1.5"/>
+            </g>
+          </svg>
+        </button>
+      </div>
     </div>
   }
 </div>

@@ -6,7 +6,7 @@ import { ColorUtils } from '../../utils/color-utils';
 export type IOptionSet = (IOptionGroup | IOption)[];
 
 export interface IOption {
-  id: number | string;
+  id: number | string | null;
   name: string;
 }
 
@@ -34,7 +34,7 @@ export interface IOptionGroup {
 export class SelectComponent implements ControlValueAccessor {
   @Input() items: IOptionSet = [];
 
-  value!: number | string;
+  value!: number | string | null;
   selectedLabel!: string;
 
   private onChange: (v: any) => void = () => {};

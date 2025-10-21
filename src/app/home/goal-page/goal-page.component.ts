@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IProject, IProjectFlat } from '../../models/project';
+import { IProject } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
 import { GoalService } from '../../services/goal.service';
 import { Subscription } from 'rxjs';
+import { IOptionSet, SelectComponent } from '../../shared/select/select.component';
 
 interface GoalForm {
   name: FormControl<string>;
@@ -21,15 +22,13 @@ interface ProjectForm {
 
 @Component({
   selector: 'sg-goal-page',
-  imports: [RouterOutlet, ReactiveFormsModule],
+  imports: [RouterOutlet, ReactiveFormsModule, SelectComponent],
   templateUrl: './goal-page.component.html',
   styleUrl: './goal-page.component.scss'
 })
 export class GoalPageComponent {
   goalForm!: FormGroup<GoalForm>;
-  projects!: IProjectFlat[];
-  formReady: boolean = false;
-  isProjectForm: boolean = false;
+  projectOptions: IOptionSet = [];
   private formSubscription!: Subscription;
 
   constructor(
@@ -41,27 +40,6 @@ export class GoalPageComponent {
 
   ngOnInit(): void {
     this.loadForm();
-    this.initProjects();
-  }
-
-  private loadForm(): void {
-    this.goalForm = this.formBuilder.nonNullable.group({
-      name: '',
-      projectId: 0,
-      description: '',
-    });
-
-    this.goalForm.controls.projectId.valueChanges.subscribe({
-      next: (value) => {
-        if (value === null) {
-          this.addProjectForm();
-          this.isProjectForm = true;
-        } else if (this.isProjectForm) {
-          this.removeProjectForm();
-          this.isProjectForm = false;
-        }
-      }
-    });
   }
 
   private addProjectForm(): void {
@@ -78,11 +56,31 @@ export class GoalPageComponent {
     this.goalForm.removeControl('project');
   }
 
-  private initProjects(): void {
-    this.formSubscription = this.projectService.getProjects().subscribe({
-      next: (result: IProject[]) => {
-        this.projects = result;
-        this.formReady = true;
+  private loadForm(): void {
+    this.projectService.getProjects().subscribe({
+      next: (projects: IProject[]) => {
+        this.projectOptions = projects.map(project => ({
+          id: project.id,
+          name: project.name,
+        }));
+        this.projectOptions.unshift({ id: 0, name: '-- None --' });
+        this.projectOptions.push({ id: null, name: '-- New --' });
+
+        this.goalForm = this.formBuilder.nonNullable.group({
+          name: '',
+          projectId: 0,
+          description: '',
+        });
+
+        this.formSubscription = this.goalForm.controls.projectId.valueChanges.subscribe({
+          next: (value) => {
+            if (value === null) {
+              this.addProjectForm();
+            } else {
+              this.removeProjectForm();
+            }
+          }
+        });
       }
     })
   }

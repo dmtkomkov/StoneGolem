@@ -13,6 +13,8 @@
         <button class="menu-item" cdkMenuItem [cdkMenuTriggerFor]="group" [style.background]="getTransparentColor(item.color)">
           {{ item.name }} <span>&#10148;</span>
         </button>
+
+        <!-- This template cannot be standalone, because ng-template is not dynamic and unique inside each cycle depending on data -->
         <ng-template #group>
           <div class="menu" cdkMenu>
             @for (option of item.options; track option.name) {

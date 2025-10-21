@@ -8,17 +8,102 @@
 }
 
 .foot-form {
+  border: 1px solid #ccc;
   background-color: #eeeeee;
+  box-shadow: 0 -0.2rem 0.5rem rgba(0, 0, 0, 0.3);
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-direction: row;
+  gap: 1rem;
   position: sticky;
   bottom: 0;
   z-index: 1;
   padding: 1rem;
+
+  .fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .field-row {
+      display: flex;
+      flex-direction: row;
+      gap: 1.2rem;
+
+      .field {
+        display: inline-flex;
+        gap: 0.25rem;
+
+        &.textarea-row {
+          flex-grow: 1;
+
+          textarea {
+            width: 100%;
+          }
+        }
+
+        .icon {
+          font-size: 1.15rem;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0.2rem solid #777888;
+      border-radius: 2rem;
+      height: 4rem;
+      width: 4rem;
+      font-size: 1rem;
+      background-color: darkseagreen;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      will-change: transform;
+
+      svg {
+        display: block;
+        margin: 0 auto;
+        width: 4rem;
+        height: 4rem;
+        transform-origin: center;
+
+        path {
+          fill: #ada;
+          transition: fill 0.2s ease;
+        }
+      }
+
+      &:hover:not(:disabled) {
+        transform: scale(1.1);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      }
+
+      &:disabled {
+        background-color: #eee;
+        border-color: #ccc;
+
+        svg path {
+          fill: #eee;
+        }
+      }
+    }
+  }
 }
 
 // Disable router-outlet element for css flex
 router-outlet {
   display: contents;
 }
+
+// Disable sg-select for css
+sg-select {
+  display: contents;
+}
+
