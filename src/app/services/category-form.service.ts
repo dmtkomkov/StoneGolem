@@ -11,14 +11,13 @@ import { ICreateCategory } from '../models/category';
 
 export function categoryFormValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    return null;
-    // const group = control as FormGroup<GoalForm>;
-    //
-    // const noName = !group.controls.name.value;
-    // const noProjectName = !group.controls.project?.controls.name.value;
-    // const isNewProject = group.controls.projectId.value === null;
-    //
-    // return (noName || (isNewProject && noProjectName)) ? { goalFormInvalid: true } : null;
+    const group = control as FormGroup<CategoryForm>;
+
+    const noName = !group.controls.name.value;
+    const noAreaName = !group.controls.area?.controls.name.value;
+    const isNewArea = group.controls.areaId.value === null;
+
+    return (noName || (isNewArea && noAreaName)) ? { goalFormInvalid: true } : null;
   };
 }
 
