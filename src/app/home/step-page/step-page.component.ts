@@ -87,17 +87,7 @@ export class StepPageComponent {
   }
 
   createStep() {
-    const formValue = this.stepForm.getRawValue();
-    this.stepService.createStep(
-      {
-        userId: formValue.userId,
-        completedOn: formValue.completeOn as DateOnly,
-        duration: formValue.hours * 60 + formValue.minutes,
-        categoryId: formValue.categoryId,
-        goalId: formValue.goalId !== 0 ? formValue.goalId : undefined,
-        description: formValue.description,
-      }
-    ).subscribe({
+    this.stepService.createStep(this.stepFormService.getValue()).subscribe({
       next: () => {
         this.stepService.pushUpdates();
         this.stepFormService.resetForm();

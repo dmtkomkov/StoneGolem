@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { IGoal } from '../../../models/goal';
 import { GoalService } from '../../../services/goal.service';
-import { map, Observable, startWith, Subject, switchMap } from 'rxjs';
+import { first, map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { IProject } from '../../../models/project';
 import { ProjectService } from '../../../services/project.service';
+import { GoalFormService } from '../../../services/goal-form.service';
 
 @Component({
   selector: 'sg-goal',
@@ -15,6 +16,8 @@ import { ProjectService } from '../../../services/project.service';
   styleUrl: './goal-list.component.scss'
 })
 export class GoalListComponent {
+  goalFormService = inject(GoalFormService);
+
   private _projectName!: string;
 
   @Input() set project(value: string) {
@@ -22,7 +25,7 @@ export class GoalListComponent {
   }
 
   goals$!: Observable<IGoal[]>;
-  project$!: Observable<IProject>;
+  project$!: Observable<IProject | null>;
   private projectUpdates$: Subject<void> = new Subject();
 
   constructor(
@@ -32,16 +35,18 @@ export class GoalListComponent {
   }
 
   ngOnInit(): void {
+    this.project$ = this.projectUpdates$.pipe(
+      startWith(undefined),
+      switchMap(() => this.projectName !== 'null' ? this.projectService.getProjectByName(this.projectName) : of(null)),
+      tap(project => this.goalFormService.setProject(project?.id || 0, true)),
+    );
+
     this.goals$ = this.goalService.getUpdates().pipe(
       startWith(undefined),
       switchMap(() => this.goalService.getGoalsAsync(this.projectName)),
       map(goals =>
         goals.sort((a, b) => Number(a.status) - Number(b.status))
       )
-    );
-    this.project$ = this.projectUpdates$.pipe(
-      startWith(undefined),
-      switchMap(() => this.projectService.getProjectByName(this.projectName)),
     );
   }
 

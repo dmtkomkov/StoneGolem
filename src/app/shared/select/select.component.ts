@@ -35,7 +35,8 @@ export class SelectComponent implements ControlValueAccessor {
   @Input() items: IOptionSet = [];
 
   value!: number | string | null;
-  selectedLabel!: string;
+  selectedLabel!: string
+  isDisabled = false;
 
   private onChange: (v: any) => void = () => {};
   private onTouched: () => void = () => {};
@@ -47,6 +48,10 @@ export class SelectComponent implements ControlValueAccessor {
 
   registerOnChange(fn: any): void { this.onChange = fn; }
   registerOnTouched(fn: any): void { this.onTouched = fn; }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
 
   selectOption(option: IOption) {
     this.value = option.id;

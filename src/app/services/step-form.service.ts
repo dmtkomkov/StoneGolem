@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DateOnly } from '../types/DateOnly';
+import { ICreateGoal } from '../models/goal';
+import { ICreateStep } from '../models/step';
 
 export function stepFormValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -66,6 +68,19 @@ export class StepFormService {
       dateControl.disable();
     } else {
       dateControl.enable();
+    }
+  }
+
+  getValue(): ICreateStep {
+    const formValue = this.stepForm.getRawValue();
+
+    return  {
+      userId: formValue.userId,
+      completedOn: formValue.completeOn as DateOnly,
+      duration: formValue.hours * 60 + formValue.minutes,
+      categoryId: formValue.categoryId,
+      goalId: formValue.goalId !== 0 ? formValue.goalId : undefined,
+      description: formValue.description,
     }
   }
 
