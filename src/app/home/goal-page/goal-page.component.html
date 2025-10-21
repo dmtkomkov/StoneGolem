@@ -5,29 +5,37 @@
       <div class="fields">
         <div class="field-row">
           <div class="field">
+            <fa-icon class="center" [icon]="goalIcon" />
             <input formControlName="name"/>
           </div>
           <div class="field">
+            <fa-icon class="center" [icon]="projectIcon" />
             <sg-select formControlName="projectId" [items]="projectOptions"></sg-select>
           </div>
         </div>
         <div class="field-row">
           <div class="field textarea-row">
+            <fa-icon class="start" [icon]="descriptionIcon" />
             <textarea formControlName="description"></textarea>
           </div>
         </div>
+      </div>
+      <div class="fields">
         @if (goalForm.controls.project) {
           @let projectForm = goalForm.controls.project;
           <div class="field-row" [formGroup]="projectForm">
             <div class="field">
+              <fa-icon class="center" [icon]="colorIcon" />
               <input type="color" [formControl]="projectForm.controls.color"/>
             </div>
             <div class="field">
+              <fa-icon class="center" [icon]="projectIcon" />
               <input [formControl]="projectForm.controls.name"/>
             </div>
           </div>
           <div class="field-row">
             <div class="field textarea-row">
+              <fa-icon class="start" [icon]="descriptionIcon" />
               <textarea [formControl]="projectForm.controls.description"></textarea>
             </div>
           </div>

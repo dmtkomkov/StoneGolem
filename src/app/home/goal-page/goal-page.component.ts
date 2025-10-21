@@ -6,6 +6,8 @@ import { ProjectService } from '../../services/project.service';
 import { GoalService } from '../../services/goal.service';
 import { Subscription } from 'rxjs';
 import { IOptionSet, SelectComponent } from '../../shared/select/select.component';
+import { faPencil, faDiagramProject, faBullseye, faPalette } from '@fortawesome/free-solid-svg-icons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 interface GoalForm {
   name: FormControl<string>;
@@ -22,7 +24,7 @@ interface ProjectForm {
 
 @Component({
   selector: 'sg-goal-page',
-  imports: [RouterOutlet, ReactiveFormsModule, SelectComponent],
+  imports: [RouterOutlet, ReactiveFormsModule, SelectComponent, FaIconComponent],
   templateUrl: './goal-page.component.html',
   styleUrl: './goal-page.component.scss'
 })
@@ -30,6 +32,10 @@ export class GoalPageComponent {
   goalForm!: FormGroup<GoalForm>;
   projectOptions: IOptionSet = [];
   private formSubscription!: Subscription;
+  descriptionIcon = faPencil;
+  projectIcon = faDiagramProject;
+  goalIcon = faBullseye;
+  colorIcon = faPalette;
 
   constructor(
     private formBuilder: FormBuilder,

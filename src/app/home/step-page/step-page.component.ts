@@ -9,10 +9,12 @@ import { forkJoin } from 'rxjs';
 import { StepService } from '../../services/step.service';
 import { StepForm, StepFormService } from '../../services/step-form.service';
 import { SelectComponent, IOptionSet, IOption } from '../../shared/select/select.component';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faPencil, faBullseye, faUser, faCalendarDays, faFolderOpen, faClock } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'sg-step-page',
-  imports: [RouterOutlet, ReactiveFormsModule, SelectComponent],
+  imports: [RouterOutlet, ReactiveFormsModule, SelectComponent, FaIconComponent],
   providers: [StepFormService],
   templateUrl: './step-page.component.html',
   styleUrl: './step-page.component.scss',
@@ -27,6 +29,12 @@ export class StepPageComponent {
   categoryOptions: IOptionSet = [];
   goalOptions: IOptionSet = [];
   defaultOption: IOption = { id: 0, name: '-- None --' };
+  descriptionIcon = faPencil;
+  goalIcon = faBullseye;
+  userIcon = faUser;
+  calendarIcon = faCalendarDays;
+  timeIcon = faClock;
+  folderIcon = faFolderOpen;
 
   constructor(
     private categoryService: CategoryService,

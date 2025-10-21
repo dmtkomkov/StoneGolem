@@ -41,9 +41,14 @@
           }
         }
 
-        .icon {
-          font-size: 1.15rem;
-          vertical-align: middle;
+        fa-icon {
+          &.center {
+            align-self: center;
+          }
+
+          &.start {
+            align-self: flex-start;
+          }
         }
       }
     }

@@ -5,13 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "watch": "ng build --watch --configuration development"
   },
   "private": true,
   "dependencies": {
-    "@angular/cdk": "20.2.7",
     "@angular/animations": "20.3.3",
+    "@angular/cdk": "20.2.7",
     "@angular/common": "20.3.3",
     "@angular/compiler": "20.3.3",
     "@angular/core": "20.3.3",
@@ -19,6 +18,8 @@
     "@angular/platform-browser": "20.3.3",
     "@angular/platform-browser-dynamic": "20.3.3",
     "@angular/router": "20.3.3",
+    "@fortawesome/angular-fontawesome": "3.0.0",
+    "@fortawesome/free-solid-svg-icons" : "7.1.0",
     "rxjs": "7.8.1",
     "tslib": "2.3.1",
     "zone.js": "0.15.0"
@@ -27,13 +28,6 @@
     "@angular/build": "20.3.4",
     "@angular/cli": "20.3.4",
     "@angular/compiler-cli": "20.3.3",
-    "@types/jasmine": "5.1.5",
-    "jasmine-core": "5.5.0",
-    "karma": "6.4.4",
-    "karma-chrome-launcher": "3.2.0",
-    "karma-coverage": "2.2.1",
-    "karma-jasmine": "5.1.0",
-    "karma-jasmine-html-reporter": "2.1.0",
     "typescript": "5.9.3"
   }
 }

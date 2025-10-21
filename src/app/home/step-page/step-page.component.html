@@ -5,30 +5,30 @@
       <div class="fields">
         <div class="field-row">
           <div class="field">
-            <div class="icon">👤</div>
+            <fa-icon class="center" [icon]="userIcon" />
             <sg-select formControlName="userId" [items]="userOptions"></sg-select>
           </div>
           <div class="field">
-            <div class="icon">📅</div>
+            <fa-icon class="center" [icon]="calendarIcon" />
             <input type="date" formControlName="completeOn">
           </div>
           <div class="field">
-            <div class="icon">🕑</div>
+            <fa-icon class="center" [icon]="timeIcon" />
             <sg-select formControlName="hours" [items]="hourOptions"></sg-select>
             <sg-select formControlName="minutes" [items]="minuteOptions"></sg-select>
           </div>
           <div class="field">
-            <div class="icon">📂</div>
+            <fa-icon class="center" [icon]="folderIcon" />
             <sg-select formControlName="categoryId" [items]="categoryOptions"></sg-select>
           </div>
           <div class="field">
-            <div class="icon">🎯</div>
+            <fa-icon class="center" [icon]="goalIcon" />
             <sg-select formControlName="goalId" [items]="goalOptions"></sg-select>
           </div>
         </div>
         <div class="field-row">
           <div class="field textarea-row">
-            <div class="icon">✏️</div>
+            <fa-icon class="start" [icon]="descriptionIcon" />
             <textarea formControlName="description"></textarea>
           </div>
         </div>
