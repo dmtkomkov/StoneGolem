@@ -45,16 +45,16 @@ export class CategoryPageComponent {
         }));
         this.areaOptions.push({ id: null, name: '-- New --' });
 
-        this.categoryFormService.initForm(areas[0]?.id || 0);
         this.categoryForm = this.categoryFormService.getForm();
       }
-    })
+    });
   }
 
   createCategory() {
     this.categoryService.createCategory(this.categoryFormService.getValue()).subscribe({
       next: () => {
         this.categoryService.pushUpdates();
+        this.categoryFormService.resetForm();
       }
     })
   }

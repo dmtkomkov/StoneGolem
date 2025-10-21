@@ -61,14 +61,6 @@ export class CategoryFormService {
     });
   }
 
-  initForm(areaId: number) {
-    this.categoryForm.patchValue({
-      areaId: areaId,
-    }, {
-      emitEvent: false,
-    });
-  }
-
   getForm(): FormGroup<CategoryForm> {
     return this.categoryForm;
   }

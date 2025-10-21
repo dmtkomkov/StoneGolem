@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CategoryService } from '../../../services/category.service';
 import { ICategory } from '../../../models/category';
 import { Observable, startWith, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { AreaService } from '../../../services/area.service';
+import { CategoryFormService } from '../../../services/category-form.service';
 
 @Component({
   selector: 'sg-category-list',
@@ -14,6 +16,8 @@ import { ActivatedRoute } from '@angular/router';
 export class CategoryListComponent {
   categories$!: Observable<ICategory[]>;
   areaName: string;
+  areaService = inject(AreaService);
+  categoryFormService = inject(CategoryFormService);
 
   constructor(
     private categoryService: CategoryService,
@@ -27,6 +31,12 @@ export class CategoryListComponent {
       startWith(undefined),
       switchMap(() => this.categoryService.getCategoriesAsync(this.areaName)),
     );
+
+    this.areaService.getAreaByName(this.areaName).subscribe({
+      next: (area) => {
+        this.categoryFormService.setArea(area.id, true);
+      }
+    });
   }
 
   delete(id: number): void {

@@ -15,4 +15,8 @@ export class AreaService {
   getAreasAsync(): Observable<IArea[]> {
     return this.http.get<IArea[]>('area')
   }
+
+  getAreaByName(name: string): Observable<IArea> {
+    return this.http.get<IArea>('area/' + name);
+  }
 }
