@@ -72,19 +72,6 @@
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       will-change: transform;
 
-      svg {
-        display: block;
-        margin: 0 auto;
-        width: 4rem;
-        height: 4rem;
-        transform-origin: center;
-
-        path {
-          fill: #ada;
-          transition: fill 0.2s ease;
-        }
-      }
-
       &:hover:not(:disabled) {
         transform: scale(1.1);
         box-shadow: 0 8px 16px rgba(0,0,0,0.3);
@@ -93,10 +80,6 @@
       &:disabled {
         background-color: #eee;
         border-color: #ccc;
-
-        svg path {
-          fill: #eee;
-        }
       }
     }
   }

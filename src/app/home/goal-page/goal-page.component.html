@@ -43,23 +43,7 @@
       </div>
       <div class="buttons">
         <button type="button" (click)="createGoal()" [disabled]="goalForm.invalid">
-          <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
-                <stop offset="1" stop-color="#a7b3ff"/>
-              </linearGradient>
-              <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.25"/>
-              </filter>
-            </defs>
-
-            <g filter="url(#shadow)">
-              <path fill="url(#grad)" d="M28 10 h8 v18 h18 v8 H36 v18 h-8 V36 H10 v-8 h18z"/>
-              <path d="M28 10 h8 v18 h18 v8 H36 v18 h-8 V36 H10 v-8 h18z"
-                    fill="none" stroke="#4a56cf" stroke-opacity="0.45" stroke-width="1.5"/>
-            </g>
-          </svg>
+          <sg-submit-button></sg-submit-button>
         </button>
       </div>
     </div>

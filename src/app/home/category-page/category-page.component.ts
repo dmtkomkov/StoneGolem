@@ -9,10 +9,11 @@ import { faFolderOpen, faPalette, faPencil, faGlobe } from '@fortawesome/free-so
 import { CategoryForm, CategoryFormService } from '../../services/category-form.service';
 import { IOptionSet, SelectComponent } from '../../shared/select/select.component';
 import { NEW_OPTION } from '../../static/consts/default-options';
+import { SubmitButtonImageComponent } from '../../shared/submit-button-image/submit-button-image.component';
 
 @Component({
   selector: 'sg-category-page',
-  imports: [RouterOutlet, ReactiveFormsModule, FaIconComponent, SelectComponent],
+  imports: [RouterOutlet, ReactiveFormsModule, FaIconComponent, SelectComponent, SubmitButtonImageComponent],
   providers: [CategoryFormService],
   templateUrl: './category-page.component.html',
   styleUrl: './category-page.component.scss'

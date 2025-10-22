@@ -11,10 +11,11 @@ import { SelectComponent, IOptionSet } from '../../shared/select/select.componen
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faPencil, faBullseye, faUser, faCalendarDays, faFolderOpen, faClock } from '@fortawesome/free-solid-svg-icons';
 import { NONE_OPTION } from '../../static/consts/default-options';
+import { SubmitButtonImageComponent } from '../../shared/submit-button-image/submit-button-image.component';
 
 @Component({
   selector: 'sg-step-page',
-  imports: [RouterOutlet, ReactiveFormsModule, SelectComponent, FaIconComponent],
+  imports: [RouterOutlet, ReactiveFormsModule, SelectComponent, FaIconComponent, SubmitButtonImageComponent],
   providers: [StepFormService],
   templateUrl: './step-page.component.html',
   styleUrl: './step-page.component.scss',

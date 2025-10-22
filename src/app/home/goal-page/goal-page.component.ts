@@ -9,10 +9,11 @@ import { faPencil, faDiagramProject, faBullseye, faPalette } from '@fortawesome/
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { GoalForm, GoalFormService } from '../../services/goal-form.service';
 import { NEW_OPTION, NONE_OPTION } from '../../static/consts/default-options';
+import { SubmitButtonImageComponent } from '../../shared/submit-button-image/submit-button-image.component';
 
 @Component({
   selector: 'sg-goal-page',
-  imports: [RouterOutlet, ReactiveFormsModule, SelectComponent, FaIconComponent],
+  imports: [RouterOutlet, ReactiveFormsModule, SelectComponent, FaIconComponent, SubmitButtonImageComponent],
   providers: [GoalFormService],
   templateUrl: './goal-page.component.html',
   styleUrl: './goal-page.component.scss'
