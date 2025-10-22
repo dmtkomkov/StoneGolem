@@ -7,7 +7,7 @@ import {
   ValidationErrors,
   ValidatorFn
 } from '@angular/forms';
-import { ICreateCategory } from '../models/category';
+import { ICreateCategory } from '../static/models/category';
 
 export function categoryFormValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {

@@ -7,7 +7,7 @@ import {
   ValidationErrors,
   ValidatorFn
 } from '@angular/forms';
-import { ICreateGoal } from '../models/goal';
+import { ICreateGoal } from '../static/models/goal';
 
 export function goalFormValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {

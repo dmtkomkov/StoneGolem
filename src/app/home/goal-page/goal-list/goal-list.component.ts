@@ -1,9 +1,9 @@
 import { Component, inject, Input } from '@angular/core';
-import { IGoal } from '../../../models/goal';
+import { IGoal } from '../../../static/models/goal';
 import { GoalService } from '../../../services/goal.service';
 import { map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { IProject } from '../../../models/project';
+import { IProject } from '../../../static/models/project';
 import { ProjectService } from '../../../services/project.service';
 import { GoalFormService } from '../../../services/goal-form.service';
 

@@ -10,6 +10,7 @@ import { StepForm, StepFormService } from '../../services/step-form.service';
 import { SelectComponent, IOptionSet, IOption } from '../../shared/select/select.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faPencil, faBullseye, faUser, faCalendarDays, faFolderOpen, faClock } from '@fortawesome/free-solid-svg-icons';
+import { NONE_OPTION } from '../../static/consts/default-options';
 
 @Component({
   selector: 'sg-step-page',
@@ -27,7 +28,6 @@ export class StepPageComponent {
   minuteOptions: IOptionSet = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map(m => ({id: m, name: `${m}m`}));
   categoryOptions: IOptionSet = [];
   goalOptions: IOptionSet = [];
-  defaultOption: IOption = { id: 0, name: '-- None --' };
   descriptionIcon = faPencil;
   goalIcon = faBullseye;
   userIcon = faUser;
@@ -67,7 +67,7 @@ export class StepPageComponent {
             name: category.name,
           })),
         }));
-        this.categoryOptions.unshift(this.defaultOption);
+        this.categoryOptions.unshift(NONE_OPTION);
 
         this.goalOptions = goalGroups.map(group => ({
           name: group.project?.name || 'No project',
@@ -77,7 +77,7 @@ export class StepPageComponent {
             name: goal.name,
           })),
         }));
-        this.goalOptions.unshift(this.defaultOption);
+        this.goalOptions.unshift(NONE_OPTION);
 
         this.stepFormService.initForm(currentUser.userId);
         this.stepForm = this.stepFormService.getForm();

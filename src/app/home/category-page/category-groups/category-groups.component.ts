@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { Observable, startWith, switchMap } from 'rxjs';
 import { CategoryService } from '../../../services/category.service';
-import { ICategoryFlat, ICategoryGroup } from '../../../models/category';
+import { ICategoryFlat, ICategoryGroup } from '../../../static/models/category';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { ColorUtils } from '../../../utils/color-utils';
 import { ILabelData, LabelComponent } from '../../../shared/label/label.component';
 import { CategoryFormService } from '../../../services/category-form.service';
-import { IArea } from '../../../models/area';
+import { IArea } from '../../../static/models/area';
 import { AreaService } from '../../../services/area.service';
 
 @Component({

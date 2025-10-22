@@ -2,12 +2,13 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AreaService } from '../../services/area.service';
-import { IArea } from '../../models/area';
+import { IArea } from '../../static/models/area';
 import { CategoryService } from '../../services/category.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faFolderOpen, faPalette, faPencil, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { CategoryForm, CategoryFormService } from '../../services/category-form.service';
 import { IOptionSet, SelectComponent } from '../../shared/select/select.component';
+import { NEW_OPTION } from '../../static/consts/default-options';
 
 @Component({
   selector: 'sg-category-page',
@@ -43,7 +44,7 @@ export class CategoryPageComponent {
           id: area.id,
           name: area.name,
         }));
-        this.areaOptions.push({ id: null, name: '-- New --' });
+        this.areaOptions.push(NEW_OPTION);
 
         this.categoryForm = this.categoryFormService.getForm();
       }

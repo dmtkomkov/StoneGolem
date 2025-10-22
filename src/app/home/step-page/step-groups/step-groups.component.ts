@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { IPagedStepGroup, IStep } from '../../../models/step';
+import { IPagedStepGroup, IStep } from '../../../static/models/step';
 import { StepService } from '../../../services/step.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { distinctUntilChanged, map, mergeWith, Observable, switchMap, tap, withLatestFrom } from 'rxjs';
@@ -11,7 +11,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
 import { DurationFormatPipe } from '../../../pipes/duration-format.pipe';
 import { DateOnlyFormatPipe } from '../../../pipes/dateonly-format.pipe';
 import { StepFormService } from '../../../services/step-form.service';
-import { DateOnly } from '../../../types/DateOnly';
+import { DateOnly } from '../../../static/types/DateOnly';
 
 @Component({
   selector: 'sg-step-groups',

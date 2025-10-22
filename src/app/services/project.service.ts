@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IProject } from '../models/project';
+import { IProject } from '../static/models/project';
 import { Observable } from 'rxjs';
-import { IStep } from '../models/step';
+import { IStep } from '../static/models/step';
 
 @Injectable({
   providedIn: 'root'

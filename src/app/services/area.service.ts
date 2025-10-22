@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IArea } from '../models/area';
+import { IArea } from '../static/models/area';
 import { Observable } from 'rxjs';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CategoryService } from '../../../services/category.service';
-import { ICategory } from '../../../models/category';
+import { ICategory } from '../../../static/models/category';
 import { Observable, startWith, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';

@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import { IStep } from '../../../models/step';
+import { IStep } from '../../../static/models/step';
 import { StepService } from '../../../services/step.service';
-import { DateOnly } from '../../../types/DateOnly';
+import { DateOnly } from '../../../static/types/DateOnly';
 import {
   distinctUntilChanged,
   map,

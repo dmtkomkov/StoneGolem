@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IProject } from '../../models/project';
+import { IProject } from '../../static/models/project';
 import { ProjectService } from '../../services/project.service';
 import { GoalService } from '../../services/goal.service';
 import { IOptionSet, SelectComponent } from '../../shared/select/select.component';
 import { faPencil, faDiagramProject, faBullseye, faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { GoalForm, GoalFormService } from '../../services/goal-form.service';
+import { NEW_OPTION, NONE_OPTION } from '../../static/consts/default-options';
 
 @Component({
   selector: 'sg-goal-page',
@@ -43,8 +44,8 @@ export class GoalPageComponent {
           id: project.id,
           name: project.name,
         }));
-        this.projectOptions.unshift({ id: 0, name: '-- None --' });
-        this.projectOptions.push({ id: null, name: '-- New --' });
+        this.projectOptions.unshift(NONE_OPTION);
+        this.projectOptions.push(NEW_OPTION);
 
         this.goalForm = this.goalFormService.getForm();
       }

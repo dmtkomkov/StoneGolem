@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ICreateStep, IPagedStepGroup, IStep } from '../models/step';
-import { DateOnly } from '../types/DateOnly';
+import { ICreateStep, IPagedStepGroup, IStep } from '../static/models/step';
+import { DateOnly } from '../static/types/DateOnly';
 import { Observable, Subject } from 'rxjs';
 import { EStepParam } from '../home/home.component';
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ICreateGoal, IGoal, IGoalFlat, IGoalGroup } from '../models/goal';
+import { ICreateGoal, IGoal, IGoalFlat, IGoalGroup } from '../static/models/goal';
 import { Observable, Subject } from 'rxjs';
-import { IStep } from '../models/step';
+import { IStep } from '../static/models/step';
 
 @Injectable({
   providedIn: 'root'
