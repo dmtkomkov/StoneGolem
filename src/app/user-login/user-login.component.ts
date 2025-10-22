@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service';
 import { ITokens } from '../static/models/user';
+
+interface LoginForm {
+  username: FormControl<string>;
+  password: FormControl<string>;
+}
 
 @Component({
   selector: 'app-user-login',
@@ -13,7 +18,7 @@ import { ITokens } from '../static/models/user';
   styleUrls: ['./user-login.component.scss'],
 })
 export class UserLoginComponent {
-  loginForm!: FormGroup;
+  loginForm!: FormGroup<LoginForm>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +40,7 @@ export class UserLoginComponent {
       return;
     }
 
-    const {username, password} = this.loginForm.value;
+    const {username, password} = this.loginForm.getRawValue();
     this.authService.login(username, password).subscribe({
       next: (result: ITokens) => {
         this.tokenService.setTokens(result);

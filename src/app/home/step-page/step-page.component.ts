@@ -7,7 +7,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { StepService } from '../../services/step.service';
 import { StepForm, StepFormService } from '../../services/step-form.service';
-import { SelectComponent, IOptionSet, IOption } from '../../shared/select/select.component';
+import { SelectComponent, IOptionSet } from '../../shared/select/select.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faPencil, faBullseye, faUser, faCalendarDays, faFolderOpen, faClock } from '@fortawesome/free-solid-svg-icons';
 import { NONE_OPTION } from '../../static/consts/default-options';

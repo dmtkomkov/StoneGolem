@@ -6,30 +6,30 @@
         <div class="field-row">
           <div class="field">
             <fa-icon class="center" [icon]="userIcon" />
-            <sg-select formControlName="userId" [items]="userOptions"></sg-select>
+            <sg-select [formControl]="stepForm.controls.userId" [items]="userOptions"></sg-select>
           </div>
           <div class="field">
             <fa-icon class="center" [icon]="calendarIcon" />
-            <input type="date" formControlName="completeOn">
+            <input type="date" [formControl]="stepForm.controls.completeOn">
           </div>
           <div class="field">
             <fa-icon class="center" [icon]="timeIcon" />
-            <sg-select formControlName="hours" [items]="hourOptions"></sg-select>
-            <sg-select formControlName="minutes" [items]="minuteOptions"></sg-select>
+            <sg-select [formControl]="stepForm.controls.hours" [items]="hourOptions"></sg-select>
+            <sg-select [formControl]="stepForm.controls.minutes" [items]="minuteOptions"></sg-select>
           </div>
           <div class="field">
             <fa-icon class="center" [icon]="categoryIcon" />
-            <sg-select formControlName="categoryId" [items]="categoryOptions"></sg-select>
+            <sg-select [formControl]="stepForm.controls.categoryId" [items]="categoryOptions"></sg-select>
           </div>
           <div class="field">
             <fa-icon class="center" [icon]="goalIcon" />
-            <sg-select formControlName="goalId" [items]="goalOptions"></sg-select>
+            <sg-select [formControl]="stepForm.controls.goalId" [items]="goalOptions"></sg-select>
           </div>
         </div>
         <div class="field-row">
           <div class="field textarea-row">
             <fa-icon class="start" [icon]="descriptionIcon" />
-            <textarea formControlName="description"></textarea>
+            <textarea [formControl]="stepForm.controls.description"></textarea>
           </div>
         </div>
       </div>
