@@ -1,9 +1,18 @@
 <div class="container">
   <div class="container-center">
     <div class="control-panel">
-      <div class="tab" routerLink="step" routerLinkActive="active" queryParamsHandling="preserve">Step</div>
-      <div class="tab" routerLink="goal" routerLinkActive="active" queryParamsHandling="preserve">Goal</div>
-      <div class="tab" routerLink="category" routerLinkActive="active" queryParamsHandling="preserve">Category</div>
+      <div class="tab" routerLink="step" routerLinkActive="active" queryParamsHandling="preserve">
+        <fa-icon [icon]="stepIcon" />
+        <div>Step</div>
+      </div>
+      <div class="tab" routerLink="goal" routerLinkActive="active" queryParamsHandling="preserve">
+        <fa-icon [icon]="goalIcon" />
+        <div>Goal</div>
+      </div>
+      <div class="tab" routerLink="category" routerLinkActive="active" queryParamsHandling="preserve">
+        <fa-icon [icon]="categoryIcon" />
+        <div>Category</div>
+      </div>
       <select [formControl]="stepParamControl">
         <option [ngValue]="stepParam.all">All</option>
         <option [ngValue]="stepParam.active">Active</option>

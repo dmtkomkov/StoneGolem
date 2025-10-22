@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faBullseye, faFolderOpen, faShoePrints } from '@fortawesome/free-solid-svg-icons';
 
 export enum EStepParam {
   active = 'active',
@@ -16,13 +18,17 @@ export enum EParamName {
 
 @Component({
   selector: 'sg-home',
-  imports: [CommonModule, RouterOutlet, RouterLink, ReactiveFormsModule, RouterLinkActive],
+  imports: [CommonModule, RouterOutlet, RouterLink, ReactiveFormsModule, RouterLinkActive, FaIconComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+
+  protected readonly goalIcon = faBullseye;
+  protected readonly categoryIcon = faFolderOpen;
+  protected readonly stepIcon = faShoePrints;
 
   stepParam = EStepParam;
 
