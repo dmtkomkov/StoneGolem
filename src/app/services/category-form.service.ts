@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -36,11 +36,11 @@ export interface AreaForm {
 
 @Injectable()
 export class CategoryFormService {
+  private formBuilder = inject(FormBuilder);
+
   private readonly categoryForm: FormGroup<CategoryForm>;
 
-  constructor(
-    private formBuilder: FormBuilder,
-  ) {
+  constructor() {
     this.categoryForm = this.formBuilder.nonNullable.group({
       name: '',
       areaId: 0,

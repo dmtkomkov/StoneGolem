@@ -18,20 +18,17 @@ import { NEW_OPTION } from '../../static/consts/default-options';
   styleUrl: './category-page.component.scss'
 })
 export class CategoryPageComponent {
+  private areaService = inject(AreaService);
+  private categoryService = inject(CategoryService);
+  private categoryFormService = inject(CategoryFormService);
+
   categoryForm!: FormGroup<CategoryForm>;
-  categoryFormService = inject(CategoryFormService);
 
   areaOptions: IOptionSet = [];
   descriptionIcon = faPencil;
   colorIcon = faPalette;
   areaIcon = faGlobe;
   categoryIcon = faFolderOpen;
-
-  constructor(
-    private areaService: AreaService,
-    private categoryService: CategoryService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.loadForm();

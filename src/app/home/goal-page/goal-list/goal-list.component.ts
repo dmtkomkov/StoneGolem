@@ -16,7 +16,9 @@ import { GoalFormService } from '../../../services/goal-form.service';
   styleUrl: './goal-list.component.scss'
 })
 export class GoalListComponent {
-  goalFormService = inject(GoalFormService);
+  private goalService = inject(GoalService);
+  private projectService = inject(ProjectService);
+  private goalFormService = inject(GoalFormService);
 
   private _projectName!: string;
 
@@ -27,12 +29,6 @@ export class GoalListComponent {
   goals$!: Observable<IGoal[]>;
   project$!: Observable<IProject | null>;
   private projectUpdates$: Subject<void> = new Subject();
-
-  constructor(
-    private goalService: GoalService,
-    private projectService: ProjectService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.project$ = this.projectUpdates$.pipe(

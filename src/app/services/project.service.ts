@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IProject } from '../static/models/project';
 import { Observable } from 'rxjs';
@@ -8,10 +8,8 @@ import { IStep } from '../static/models/step';
   providedIn: 'root'
 })
 export class ProjectService {
-  constructor(
-    private http: HttpClient
-  ) {
-  }
+  private http = inject(HttpClient);
+
 
   getProjects(): Observable<IProject[]> {
     return this.http.get<IProject[]>('project');

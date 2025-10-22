@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IArea } from '../static/models/area';
 import { Observable } from 'rxjs';
@@ -7,10 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AreaService {
-  constructor(
-    private http: HttpClient,
-  ) {
-  }
+  private http = inject(HttpClient);
+
 
   getAreasAsync(): Observable<IArea[]> {
     return this.http.get<IArea[]>('area')

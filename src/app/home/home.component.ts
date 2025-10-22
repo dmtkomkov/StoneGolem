@@ -21,8 +21,9 @@ export enum EParamName {
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  route = inject(ActivatedRoute);
-  router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   stepParam = EStepParam;
 
   private destroy$ = new Subject<void>();

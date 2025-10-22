@@ -15,7 +15,7 @@ const DEFAULT_STEP_PARAM = EStepParam.active;
   providedIn: 'root'
 })
 export class AddDefaultParams implements CanActivateChild {
-  router = inject(Router);
+  private router = inject(Router);
 
   canActivateChild(
     route: ActivatedRouteSnapshot,

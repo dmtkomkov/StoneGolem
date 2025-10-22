@@ -25,10 +25,12 @@ import { StepFormService } from '../../../services/step-form.service';
 })
 export class StepListComponent {
   @Input() date!: DateOnly;
+
+  private stepService = inject(StepService);
+  private stepFormService = inject(StepFormService);
+  private route = inject(ActivatedRoute);
+
   steps$!: Observable<IStep[]>;
-  stepService = inject(StepService);
-  route = inject(ActivatedRoute);
-  stepFormService = inject(StepFormService);
 
   ngOnInit(): void {
     this.stepFormService.setDate(this.date, true);

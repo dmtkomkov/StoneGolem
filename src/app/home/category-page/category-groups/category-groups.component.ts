@@ -17,14 +17,11 @@ import { AreaService } from '../../../services/area.service';
   styleUrl: './category-groups.component.scss'
 })
 export class CategoryGroupsComponent {
-  categoryGroups$!: Observable<ICategoryGroup[]>;
-  categoryFormService = inject(CategoryFormService);
-  areaService = inject(AreaService);
+  private categoryService = inject(CategoryService);
+  private categoryFormService = inject(CategoryFormService);
+  private areaService = inject(AreaService);
 
-  constructor(
-    private categoryService: CategoryService,
-  ) {
-  }
+  categoryGroups$!: Observable<ICategoryGroup[]>;
 
   ngOnInit(): void {
     this.categoryGroups$ = this.categoryService.getUpdates().pipe(

@@ -20,8 +20,14 @@ import { NONE_OPTION } from '../../static/consts/default-options';
   styleUrl: './step-page.component.scss',
 })
 export class StepPageComponent {
+  private categoryService = inject(CategoryService);
+  private goalService = inject(GoalService);
+  private userService = inject(UserService);
+  private stepService = inject(StepService);
+  private stepFormService = inject(StepFormService);
+
   stepForm!: FormGroup<StepForm>;
-  stepFormService = inject(StepFormService);
+
 
   userOptions: IOptionSet = [];
   hourOptions: IOptionSet = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(h => ({id: h, name: `${h}h`}));
@@ -34,14 +40,6 @@ export class StepPageComponent {
   calendarIcon = faCalendarDays;
   timeIcon = faClock;
   categoryIcon = faFolderOpen;
-
-  constructor(
-    private categoryService: CategoryService,
-    private goalService: GoalService,
-    private userService: UserService,
-    private stepService: StepService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.loadForm();

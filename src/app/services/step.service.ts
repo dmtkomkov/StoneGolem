@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ICreateStep, IPagedStepGroup, IStep } from '../static/models/step';
 import { DateOnly } from '../static/types/DateOnly';
@@ -9,12 +9,9 @@ import { EStepParam } from '../home/home.component';
   providedIn: 'root'
 })
 export class StepService {
-  private updates$: Subject<void> = new Subject();
+  private http = inject(HttpClient);
 
-  constructor(
-    private http: HttpClient,
-  ) {
-  }
+  private updates$: Subject<void> = new Subject();
 
   getStepsAsync(date: DateOnly, showSteps: EStepParam): Observable<IStep[]> {
     const params = new HttpParams({fromObject: {date: date as string, showSteps}});

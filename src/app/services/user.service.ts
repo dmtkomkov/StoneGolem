@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../static/models/user';
 import { Observable } from 'rxjs';
@@ -7,11 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-
-  constructor(
-    private http: HttpClient
-  ) {
-  }
+  private http = inject(HttpClient);
 
   getUsersAsync(): Observable<IUser[]> {
     return this.http.get<IUser[]>('user');

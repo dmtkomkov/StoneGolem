@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenService } from './token.service';
@@ -8,11 +8,8 @@ import { ICredentials, ITokens } from '../static/models/user';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(
-    private http: HttpClient,
-    private tokenService: TokenService,
-  ) {
-  }
+  private http = inject(HttpClient);
+  private tokenService = inject(TokenService);
 
   login(username: string, password: string): Observable<ITokens> {
     const payload: ICredentials = {username, password};

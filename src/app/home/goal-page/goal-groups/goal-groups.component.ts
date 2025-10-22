@@ -15,14 +15,10 @@ import { GoalFormService } from '../../../services/goal-form.service';
   styleUrl: './goal-groups.component.scss'
 })
 export class GoalGroupsComponent {
-  goalFormService = inject(GoalFormService);
+  private goalService = inject(GoalService);
+  private goalFormService = inject(GoalFormService);
 
   goalGroups$!: Observable<IGoalGroup[]>;
-
-  constructor(
-    private goalService: GoalService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.goalFormService.setProject(0, false);

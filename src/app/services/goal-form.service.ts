@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -36,11 +36,11 @@ export interface ProjectForm {
 
 @Injectable()
 export class GoalFormService {
+  private formBuilder = inject(FormBuilder);
+
   private readonly goalForm: FormGroup<GoalForm>;
 
-  constructor(
-    private formBuilder: FormBuilder,
-  ) {
+  constructor() {
     this.goalForm = this.formBuilder.nonNullable.group({
       name: '',
       projectId: 0,

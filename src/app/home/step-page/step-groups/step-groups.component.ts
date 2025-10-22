@@ -20,10 +20,11 @@ import { DateOnly } from '../../../static/types/DateOnly';
   styleUrl: './step-groups.component.scss',
 })
 export class StepGroupsComponent {
+  private stepService = inject(StepService);
+  private route = inject(ActivatedRoute);
+  private stepFormService = inject(StepFormService);
+
   stepGroups$!: Observable<IPagedStepGroup>;
-  stepService = inject(StepService);
-  route = inject(ActivatedRoute);
-  stepFormService = inject(StepFormService);
   durationPipe = new DurationFormatPipe();
   pageNumber: number = 1;
   pageSize: number = 7;

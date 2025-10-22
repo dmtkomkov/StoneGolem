@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ICreateGoal, IGoal, IGoalFlat, IGoalGroup } from '../static/models/goal';
 import { Observable, Subject } from 'rxjs';
@@ -8,12 +8,9 @@ import { IStep } from '../static/models/step';
   providedIn: 'root'
 })
 export class GoalService {
-  private updates$: Subject<void> = new Subject();
+  private http = inject(HttpClient);
 
-  constructor(
-    private http: HttpClient
-  ) {
-  }
+  private updates$: Subject<void> = new Subject();
 
   getGoalsAsync(project?: string): Observable<IGoal[]> {
     let params = new HttpParams();

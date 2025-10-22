@@ -14,15 +14,15 @@ import { CategoryFormService } from '../../../services/category-form.service';
   styleUrl: './category-list.component.scss'
 })
 export class CategoryListComponent {
+  private categoryService = inject(CategoryService);
+  private route = inject(ActivatedRoute);
+  private categoryFormService = inject(CategoryFormService);
+  private areaService = inject(AreaService);
+
   categories$!: Observable<ICategory[]>;
   areaName: string;
-  areaService = inject(AreaService);
-  categoryFormService = inject(CategoryFormService);
 
-  constructor(
-    private categoryService: CategoryService,
-    private route: ActivatedRoute,
-  ) {
+  constructor() {
     this.areaName = this.route.snapshot.paramMap.get('area') as string;
   }
 

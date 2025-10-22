@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DateOnly } from '../static/types/DateOnly';
 import { ICreateStep } from '../static/models/step';
@@ -30,11 +30,11 @@ export interface StepForm {
 
 @Injectable()
 export class StepFormService {
+  private formBuilder = inject(FormBuilder);
+
   private readonly stepForm: FormGroup<StepForm>;
 
-  constructor(
-    private formBuilder: FormBuilder,
-  ) {
+  constructor() {
     this.stepForm = this.formBuilder.nonNullable.group({
       userId: '',
       completeOn: '' as DateOnly,

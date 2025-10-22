@@ -18,20 +18,16 @@ import { NEW_OPTION, NONE_OPTION } from '../../static/consts/default-options';
   styleUrl: './goal-page.component.scss'
 })
 export class GoalPageComponent {
-  goalForm!: FormGroup<GoalForm>;
-  goalFormService = inject(GoalFormService);
+  private projectService = inject(ProjectService);
+  private goalService = inject(GoalService);
+  private goalFormService = inject(GoalFormService);
 
+  goalForm!: FormGroup<GoalForm>;
   projectOptions: IOptionSet = [];
   descriptionIcon = faPencil;
   projectIcon = faDiagramProject;
   goalIcon = faBullseye;
   colorIcon = faPalette;
-
-  constructor(
-    private projectService: ProjectService,
-    private goalService: GoalService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.loadForm();

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
@@ -18,15 +18,12 @@ interface LoginForm {
   styleUrls: ['./user-login.component.scss'],
 })
 export class UserLoginComponent {
-  loginForm!: FormGroup<LoginForm>;
+  private formBuilder = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private tokenService = inject(TokenService);
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    private tokenService: TokenService,
-  ) {
-  }
+  loginForm!: FormGroup<LoginForm>;
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.nonNullable.group({
