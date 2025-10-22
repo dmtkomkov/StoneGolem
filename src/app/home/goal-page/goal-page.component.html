@@ -6,17 +6,17 @@
         <div class="field-row">
           <div class="field">
             <fa-icon class="center" [icon]="goalIcon" />
-            <input formControlName="name"/>
+            <input [formControl]="goalForm.controls.name"/>
           </div>
           <div class="field">
             <fa-icon class="center" [icon]="projectIcon" />
-            <sg-select formControlName="projectId" [items]="projectOptions"></sg-select>
+            <sg-select [formControl]="goalForm.controls.projectId" [items]="projectOptions"></sg-select>
           </div>
         </div>
         <div class="field-row">
           <div class="field textarea-row">
             <fa-icon class="start" [icon]="descriptionIcon" />
-            <textarea formControlName="description"></textarea>
+            <textarea [formControl]="goalForm.controls.description"></textarea>
           </div>
         </div>
       </div>
