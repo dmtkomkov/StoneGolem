@@ -101,7 +101,7 @@ export class CategoryFormService {
       this.formBuilder.nonNullable.group({
         name: '',
         description: '',
-        color: '#ffffff'
+        color: '#aaaaaa'
       })
     );
   }

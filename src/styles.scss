@@ -22,6 +22,10 @@ input, textarea, select, button.select {
   box-sizing: border-box;
   font-family: 'Inter', 'Roboto', 'Work Sans', system-ui, sans-serif;
 
+  &[type="color"] {
+    padding: 0.1rem ;
+  }
+
   &:disabled {
     background-color: #eee;
     color: #000;

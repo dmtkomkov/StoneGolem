@@ -101,7 +101,7 @@ export class GoalFormService {
       this.formBuilder.nonNullable.group({
         name: '',
         description: '',
-        color: '#ffffff'
+        color: '#aaaaaa'
       })
     );
   }
