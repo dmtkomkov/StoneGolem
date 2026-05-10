@@ -5,23 +5,17 @@
 }
 
 .group-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
   font-size: 1.2rem;
   color: var(--md-sys-color-on-surface);
-
-  button {
-    margin-left: 0.5rem;
-    min-height: 1.8rem;
-    min-width: 1.8rem;
-    padding: 0;
-    border-radius: 999px;
-    background: var(--md-sys-color-secondary-container);
-    color: var(--md-sys-color-on-secondary-container);
-  }
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 10rem 1fr 10rem 10rem 5rem 5rem 2rem;
+  grid-template-columns: 10rem 1fr 10rem 10rem 5rem 5rem 3rem;
   border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: var(--md-ref-shape-corner-medium);
   overflow: hidden;
@@ -43,14 +37,25 @@
   padding: 0.4rem 0.8rem;
 }
 
-.grid-row > button {
-  margin: 0.25rem;
-  min-height: 1.8rem;
-  min-width: 1.8rem;
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+}
+
+.menu-trigger {
+  width: 2.25rem;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
   padding: 0;
-  border-radius: 999px;
-  background: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
+  justify-content: center;
+  line-height: 1;
+}
+
+.actions-menu {
+  width: max-content;
+  max-width: min(90vw, 16rem);
 }
 
 .grid-row {

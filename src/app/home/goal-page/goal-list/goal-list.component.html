@@ -1,11 +1,32 @@
 <div class="group">
   @let project = project$ | async;
   <div class="group-title">
-    @let closed = isClosed(project);
-    {{ projectName === 'null' ? 'No project' : projectName }} | start: {{ project?.startDate }} |
-    end: {{ project?.endDate }} | status: {{ project?.status }}
+    <span>
+      {{ projectName === 'null' ? 'No project' : projectName }} | start: {{ project?.startDate }} |
+      end: {{ project?.endDate }} | status: {{ project?.status }}
+    </span>
     @if (project !== null) {
-      <button (click)="toggleProject(project.id)">{{ closed ? 'O' : 'C' }}</button>
+      <button
+        class="m3-menu-trigger menu-trigger"
+        type="button"
+        [cdkMenuTriggerFor]="projectMenu"
+        aria-label="Open project actions"
+      >
+        &#8942;
+      </button>
+
+      <ng-template #projectMenu>
+        <div class="m3-menu-panel actions-menu" cdkMenu>
+          <button
+            type="button"
+            class="m3-menu-item"
+            cdkMenuItem
+            (cdkMenuItemTriggered)="toggleProject(project.id)"
+          >
+            {{ isClosed(project) ? 'Open project' : 'Complete project' }}
+          </button>
+        </div>
+      </ng-template>
     }
   </div>
   <div class="grid">
@@ -21,19 +42,36 @@
     </div>
 
     @for (goal of goals$ | async; track goal.id) {
-      @let closed = isClosed(goal);
-      <div class="grid-row" [class.closed]="closed">
+      <div class="grid-row" [class.closed]="isClosed(goal)">
         <div>{{ goal.name }}</div>
         <div>{{ goal.description }}</div>
         <div>{{ goal.startDate || '-' }}</div>
         <div>{{ goal.endDate || '-' }}</div>
         <div>{{ goal.stepCount }}</div>
         <div>{{ goal.status }}</div>
-        @if (goal.stepCount === 0) {
-          <button (click)="delete(goal.id)">D</button>
-        } @else {
-          <button (click)="toggle(goal.id)">{{ closed ? 'O' : 'C' }}</button>
-        }
+        <div class="actions">
+          <button
+            class="m3-menu-trigger menu-trigger"
+            type="button"
+            [cdkMenuTriggerFor]="goalMenu"
+            aria-label="Open goal actions"
+          >
+            &#8942;
+          </button>
+
+          <ng-template #goalMenu>
+            <div class="m3-menu-panel actions-menu" cdkMenu>
+              <button type="button" class="m3-menu-item" cdkMenuItem (cdkMenuItemTriggered)="toggle(goal.id)">
+                {{ isClosed(goal) ? 'Open goal' : 'Complete goal' }}
+              </button>
+              @if (goal.stepCount === 0) {
+                <button type="button" class="m3-menu-item danger" cdkMenuItem (cdkMenuItemTriggered)="delete(goal.id)">
+                  Delete goal
+                </button>
+              }
+            </div>
+          </ng-template>
+        </div>
       </div>
     } @empty {
       <li>There are no items.</li>

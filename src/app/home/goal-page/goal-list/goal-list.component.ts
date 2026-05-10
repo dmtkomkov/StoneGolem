@@ -5,11 +5,13 @@ import { map, Observable, startWith, Subject, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { IProject } from '../../../models/project';
 import { ProjectService } from '../../../services/project.service';
+import { CdkMenuModule } from '@angular/cdk/menu';
 
 @Component({
   selector: 'sg-goal',
   imports: [
-    AsyncPipe
+    AsyncPipe,
+    CdkMenuModule,
   ],
   templateUrl: './goal-list.component.html',
   styleUrl: './goal-list.component.scss'
