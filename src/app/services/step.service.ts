@@ -34,6 +34,10 @@ export class StepService {
     return this.http.put<IStep>('step/toggle/' + id, null);
   }
 
+  deleteStep(id: number): Observable<void> {
+    return this.http.delete<void>('step/' + id);
+  }
+
   getUpdates(): Subject<void> {
     return this.updates$;
   }

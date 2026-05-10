@@ -20,7 +20,12 @@
         <div>{{ step.goal?.name || '-' }}</div>
         <div>{{ step.description || '-' }}</div>
         <div>{{ step.updatedOn }}</div>
-        <button (click)="toggle(step.id)">{{ step.isDeleted ? 'R' : 'D' }}</button>
+        <div class="actions">
+          <button (click)="toggle(step.id)">{{ step.isDeleted ? 'R' : 'D' }}</button>
+          @if (canHardDelete(step)) {
+            <button class="danger" (click)="delete(step.id)">X</button>
+          }
+        </div>
       </div>
     } @empty {
       <li>There are no steps.</li>

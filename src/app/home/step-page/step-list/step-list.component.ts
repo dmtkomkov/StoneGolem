@@ -16,9 +16,12 @@ import { ActivatedRoute } from '@angular/router';
 import { DurationFormatPipe } from '../../../pipes/duration-format.pipe';
 import { DateOnlyFormatPipe } from '../../../pipes/dateonly-format.pipe';
 import { StepFormService } from '../../../services/step-form.service';
+import { DateUtils } from '../../../utils/date-utils';
+import { HARD_DELETE_DELAY_DAYS } from '../../../types/constants';
 
 @Component({
   selector: 'sg-step-list',
+  standalone: true,
   imports: [AsyncPipe, DurationFormatPipe, DateOnlyFormatPipe],
   templateUrl: './step-list.component.html',
   styleUrl: './step-list.component.scss',
@@ -55,5 +58,17 @@ export class StepListComponent {
         this.stepService.pushUpdates();
       }
     });
+  }
+
+  delete(id: number): void {
+    this.stepService.deleteStep(id).subscribe({
+      next: () => {
+        this.stepService.pushUpdates();
+      }
+    });
+  }
+
+  canHardDelete(step: IStep): boolean {
+    return step.isDeleted && DateUtils.daysSince(step.updatedOn) > HARD_DELETE_DELAY_DAYS;
   }
 }
