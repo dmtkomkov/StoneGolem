@@ -8,9 +8,10 @@
 }
 
 .foot-form {
-  border: 1px solid #ccc;
-  background-color: #eeeeee;
-  box-shadow: 0 -0.2rem 0.5rem rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container-highest);
+  border-radius: var(--md-ref-shape-corner-small);
+  box-shadow: var(--md-elevation-1);
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -58,12 +59,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 0.2rem solid #777888;
-      border-radius: 2rem;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: 999px;
       height: 4rem;
       width: 4rem;
       font-size: 1rem;
-      background-color: darkseagreen;
+      background: var(--md-sys-color-primary-container);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       will-change: transform;
 
@@ -75,22 +76,22 @@
         transform-origin: center;
 
         path {
-          fill: #ada;
+          fill: var(--md-sys-color-primary);
           transition: fill 0.2s ease;
         }
       }
 
       &:hover:not(:disabled) {
-        transform: scale(1.1);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        transform: scale(1.04);
+        box-shadow: var(--md-elevation-2);
       }
 
       &:disabled {
-        background-color: #eee;
-        border-color: #ccc;
+        background: var(--md-sys-color-surface-dim);
+        border-color: var(--md-sys-color-outline-variant);
 
         svg path {
-          fill: #eee;
+          fill: var(--md-sys-color-on-surface-variant);
         }
       }
     }

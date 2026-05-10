@@ -8,14 +8,22 @@
 }
 
 .foot-form {
-  background-color: #eeeeee;
+  background: var(--md-sys-color-surface-container-highest);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-ref-shape-corner-small);
+  box-shadow: var(--md-elevation-1);
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.5rem;
   position: sticky;
   bottom: 0;
   z-index: 1;
   padding: 1rem;
+
+  button {
+    min-width: 6.5rem;
+  }
 }
 
 // Disable router-outlet element for css flex

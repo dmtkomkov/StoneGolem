@@ -1,3 +1,5 @@
+@use './styles/m3-tokens';
+@use './styles/m3-base';
 @use './styles/m3-menu';
 
 html, body {
@@ -13,24 +15,5 @@ body {
   overflow: auto;
   font-size: 1rem;
   font-family: 'Inter', 'Roboto', 'Work Sans', system-ui, sans-serif;
-}
-
-input, textarea {
-  padding: 0.2rem 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  background-color: #fff;
-  box-sizing: border-box;
-  font-family: 'Inter', 'Roboto', 'Work Sans', system-ui, sans-serif;
-
-  &:disabled {
-    background-color: #eee;
-    color: #000;
-  }
-}
-
-textarea {
-  resize: vertical;
 }
 

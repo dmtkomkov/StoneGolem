@@ -2,7 +2,7 @@
   @for (categoryGroup of categoryGroups$ | async; track categoryGroup.area.id) {
     <div class="group"
          [style.background]="getTransparentColor(categoryGroup)"
-         [style.border-color]="getColor(categoryGroup)"
+         [style.--group-accent]="getColor(categoryGroup)"
          [routerLink]="categoryGroup.area.name" [queryParamsHandling]="'preserve'">
       <div class="group-title">{{ categoryGroup.area.name }}</div>
       <div class="category-list">

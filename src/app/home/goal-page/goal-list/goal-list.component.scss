@@ -6,13 +6,25 @@
 
 .group-title {
   font-size: 1.2rem;
-  text-decoration: underline;
+  color: var(--md-sys-color-on-surface);
+
+  button {
+    margin-left: 0.5rem;
+    min-height: 1.8rem;
+    min-width: 1.8rem;
+    padding: 0;
+    border-radius: 999px;
+    background: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+  }
 }
 
 .grid {
   display: grid;
   grid-template-columns: 10rem 1fr 10rem 10rem 5rem 5rem 2rem;
-  border: 0.1rem solid #ccc;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-ref-shape-corner-medium);
+  overflow: hidden;
   min-width: 50rem;
 }
 
@@ -21,8 +33,8 @@
 }
 
 .grid-header > div {
-  background: #444;
-  color: #eee;
+  background: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
   font-weight: bold;
   padding: 0.6rem 0.8rem;
 }
@@ -31,22 +43,32 @@
   padding: 0.4rem 0.8rem;
 }
 
+.grid-row > button {
+  margin: 0.25rem;
+  min-height: 1.8rem;
+  min-width: 1.8rem;
+  padding: 0;
+  border-radius: 999px;
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
 .grid-row {
   &:nth-child(even) > div {
-    background-color: #eee;
+    background: var(--md-sys-color-surface-container);
   }
 
   &:nth-child(odd) > div {
-    background-color: #fff;
+    background: var(--md-sys-color-surface);
   }
 
   &.closed {
     &:nth-child(even) > div {
-      background-color: #fdd;
+      background: color-mix(in srgb, var(--md-sys-color-error) 14%, var(--md-sys-color-surface-container));
     }
 
     &:nth-child(odd) > div {
-      background-color: #fcc;
+      background: color-mix(in srgb, var(--md-sys-color-error) 18%, var(--md-sys-color-surface));
     }
   }
 }

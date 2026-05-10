@@ -6,12 +6,15 @@
 
 .group-title {
   font-size: 1.2rem;
+  color: var(--md-sys-color-on-surface);
 }
 
 .grid {
   display: grid;
   grid-template-columns: 5rem 6rem 10rem 1fr 2fr 10rem 5rem;
-  border: 0.1rem solid #ccc;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-ref-shape-corner-medium);
+  overflow: hidden;
   min-width: 50rem;
 }
 
@@ -20,8 +23,8 @@
 }
 
 .grid-header > div {
-  background: #444;
-  color: #eee;
+  background: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
   font-weight: bold;
   padding: 0.6rem 0.8rem;
 }
@@ -54,20 +57,20 @@
 
 .grid-row {
   &:nth-child(even) > div {
-    background-color: #eee;
+    background: var(--md-sys-color-surface-container);
   }
 
   &:nth-child(odd) > div {
-    background-color: #fff;
+    background: var(--md-sys-color-surface);
   }
 
   &.deleted {
     &:nth-child(even) > div {
-      background-color: #fdd;
+      background: color-mix(in srgb, var(--md-sys-color-error) 14%, var(--md-sys-color-surface-container));
     }
 
     &:nth-child(odd) > div {
-      background-color: #fcc;
+      background: color-mix(in srgb, var(--md-sys-color-error) 18%, var(--md-sys-color-surface));
     }
   }
 }

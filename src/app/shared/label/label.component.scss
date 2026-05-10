@@ -1,11 +1,13 @@
 .label-data {
   display: flex;
   flex-direction: row;
-  border-radius: 0.5rem;
+  border-radius: var(--md-ref-shape-corner-medium);
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
   overflow: hidden;
 }
 
 .label-item {
   white-space: nowrap;
   padding: 0.2rem 0.5rem;
+  color: var(--md-sys-color-on-surface);
 }
