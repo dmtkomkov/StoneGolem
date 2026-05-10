@@ -59,17 +59,23 @@
   line-height: 1.25;
   white-space: nowrap;
 
-  &:hover {
-    background: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
-  }
-
-  &:focus-visible {
+  &:hover,
+  &:focus-visible,
+  &.cdk-menu-item-highlighted {
     outline: none;
-    background: color-mix(in srgb, var(--md-sys-color-primary) 14%, transparent);
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
   }
 
   &.danger {
     color: var(--md-sys-color-error);
+
+    &:hover,
+    &:focus-visible,
+    &.cdk-menu-item-highlighted {
+      background: var(--md-sys-color-error);
+      color: var(--md-sys-color-on-primary);
+    }
   }
 }
 
