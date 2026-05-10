@@ -6,6 +6,7 @@ import { IArea } from '../../static/models/area';
 import { CategoryService } from '../../services/category.service';
 import { Subscription } from 'rxjs';
 import { MenuSelectComponent, MenuSelectOption } from '../../shared/menu-select/menu-select.component';
+import { CategoryFormService } from '../../services/category-form.service';
 
 interface CategoryForm {
   name: FormControl<string>;
@@ -23,6 +24,7 @@ interface AreaForm {
 @Component({
   selector: 'sg-category-page',
   imports: [RouterOutlet, ReactiveFormsModule, MenuSelectComponent],
+  providers: [CategoryFormService],
   templateUrl: './category-page.component.html',
   styleUrl: './category-page.component.scss'
 })

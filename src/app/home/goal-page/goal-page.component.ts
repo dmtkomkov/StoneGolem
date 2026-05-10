@@ -6,6 +6,7 @@ import { ProjectService } from '../../services/project.service';
 import { GoalService } from '../../services/goal.service';
 import { Subscription } from 'rxjs';
 import { MenuSelectComponent, MenuSelectOption } from '../../shared/menu-select/menu-select.component';
+import { GoalFormService } from '../../services/goal-form.service';
 
 interface GoalForm {
   name: FormControl<string>;
@@ -23,6 +24,7 @@ interface ProjectForm {
 @Component({
   selector: 'sg-goal-page',
   imports: [RouterOutlet, ReactiveFormsModule, MenuSelectComponent],
+  providers: [GoalFormService],
   templateUrl: './goal-page.component.html',
   styleUrl: './goal-page.component.scss'
 })
