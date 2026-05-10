@@ -11,10 +11,11 @@ import { DateOnly } from '../../types/DateOnly';
 import { forkJoin } from 'rxjs';
 import { StepService } from '../../services/step.service';
 import { StepForm, StepFormService } from '../../services/step-form.service';
+import { MenuSelectComponent, MenuSelectOption } from '../../shared/menu-select/menu-select.component';
 
 @Component({
   selector: 'sg-step-page',
-  imports: [RouterOutlet, ReactiveFormsModule],
+  imports: [RouterOutlet, ReactiveFormsModule, MenuSelectComponent],
   providers: [StepFormService],
   templateUrl: './step-page.component.html',
   styleUrl: './step-page.component.scss',
@@ -27,6 +28,11 @@ export class StepPageComponent {
   currentUser!: IUser;
   categories!: ICategory[];
   goals!: IGoal[];
+  userOptions: MenuSelectOption[] = [];
+  hourMenuOptions: MenuSelectOption[] = this.hourOptions.map(hour => ({label: `${hour}h`, value: hour}));
+  minuteMenuOptions: MenuSelectOption[] = this.minuteOptions.map(minute => ({label: `${minute}m`, value: minute}));
+  categoryOptions: MenuSelectOption[] = [];
+  goalOptions: MenuSelectOption[] = [];
   stepFormService = inject(StepFormService);
 
   constructor(
@@ -50,6 +56,15 @@ export class StepPageComponent {
     ]).subscribe({
       next: result => {
         [this.users, this.currentUser, this.categories, this.goals] = result;
+        this.userOptions = this.users.map(user => ({label: user.userName, value: user.userId}));
+        this.categoryOptions = [
+          {label: '-- None --', value: 0},
+          ...this.categories.map(category => ({label: category.name, value: category.id})),
+        ];
+        this.goalOptions = [
+          {label: '-- None --', value: 0},
+          ...this.goals.map(goal => ({label: goal.name, value: goal.id})),
+        ];
         this.stepFormService.initForm(this.currentUser.userId);
         this.stepForm = this.stepFormService.getForm();
       }

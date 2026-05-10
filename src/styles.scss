@@ -1,3 +1,5 @@
+@use './styles/m3-menu';
+
 html, body {
   height: 100%;
   margin: 0;
@@ -13,7 +15,7 @@ body {
   font-family: 'Inter', 'Roboto', 'Work Sans', system-ui, sans-serif;
 }
 
-input, textarea, select {
+input, textarea {
   padding: 0.2rem 0.5rem;
   border: 1px solid #ddd;
   border-radius: 0.5rem;

@@ -5,6 +5,7 @@ import { AreaService } from '../../services/area.service';
 import { IArea } from '../../models/area';
 import { CategoryService } from '../../services/category.service';
 import { Subscription } from 'rxjs';
+import { MenuSelectComponent, MenuSelectOption } from '../../shared/menu-select/menu-select.component';
 
 interface CategoryForm {
   name: FormControl<string>;
@@ -21,13 +22,14 @@ interface AreaForm {
 
 @Component({
   selector: 'sg-category-page',
-  imports: [RouterOutlet, ReactiveFormsModule],
+  imports: [RouterOutlet, ReactiveFormsModule, MenuSelectComponent],
   templateUrl: './category-page.component.html',
   styleUrl: './category-page.component.scss'
 })
 export class CategoryPageComponent {
   categoryForm!: FormGroup<CategoryForm>;
   areas!: IArea[];
+  areaOptions: MenuSelectOption[] = [];
   formReady: boolean = false;
   isAreaForm: boolean = false;
   private formSubscription!: Subscription;
@@ -68,6 +70,10 @@ export class CategoryPageComponent {
     this.areaService.getAreasAsync().subscribe({
       next: (result: IArea[]) => {
         this.areas = result;
+        this.areaOptions = [
+          ...this.areas.map(area => ({label: area.name, value: area.id})),
+          {label: '-- New --', value: null},
+        ];
         this.formReady = true;
         this.categoryForm.controls.areaId.setValue(this.areas[0]?.id || 0);
       }

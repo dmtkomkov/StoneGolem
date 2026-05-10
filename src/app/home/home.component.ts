@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
+import { MenuSelectComponent, MenuSelectOption } from '../shared/menu-select/menu-select.component';
 
 export enum EStepParam {
   active = 'active',
@@ -15,14 +16,18 @@ export enum EParamName {
 
 @Component({
   selector: 'sg-home',
-  imports: [RouterOutlet, RouterLink, ReactiveFormsModule, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, ReactiveFormsModule, RouterLinkActive, MenuSelectComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   route = inject(ActivatedRoute);
   router = inject(Router);
-  stepParam = EStepParam;
+  readonly stepFilterOptions: ReadonlyArray<MenuSelectOption> = [
+    {label: 'All', value: EStepParam.all},
+    {label: 'Active', value: EStepParam.active},
+    {label: 'Deleted', value: EStepParam.deleted},
+  ];
 
   private destroy$ = new Subject<void>();
   stepParamControl = new FormControl<EStepParam>(EStepParam.all, {nonNullable: true});

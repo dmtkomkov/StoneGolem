@@ -1,0 +1,26 @@
+.m3-select {
+  display: inline-flex;
+  min-width: 0;
+}
+
+.m3-select-trigger {
+  min-width: 9rem;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.m3-select-panel {
+  min-width: 10rem;
+}
+
+.m3-select-item {
+  width: 100%;
+  justify-content: space-between;
+  gap: 1rem;
+
+  .check {
+    color: var(--md-sys-color-primary);
+    font-size: 0.875rem;
+  }
+}
+

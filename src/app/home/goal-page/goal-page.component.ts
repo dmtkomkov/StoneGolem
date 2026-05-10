@@ -5,6 +5,7 @@ import { IProject, IProjectFlat } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
 import { GoalService } from '../../services/goal.service';
 import { Subscription } from 'rxjs';
+import { MenuSelectComponent, MenuSelectOption } from '../../shared/menu-select/menu-select.component';
 
 interface GoalForm {
   name: FormControl<string>;
@@ -21,13 +22,14 @@ interface ProjectForm {
 
 @Component({
   selector: 'sg-goal-page',
-  imports: [RouterOutlet, ReactiveFormsModule],
+  imports: [RouterOutlet, ReactiveFormsModule, MenuSelectComponent],
   templateUrl: './goal-page.component.html',
   styleUrl: './goal-page.component.scss'
 })
 export class GoalPageComponent {
   goalForm!: FormGroup<GoalForm>;
   projects!: IProjectFlat[];
+  projectOptions: MenuSelectOption[] = [];
   formReady: boolean = false;
   isProjectForm: boolean = false;
   private formSubscription!: Subscription;
@@ -82,6 +84,11 @@ export class GoalPageComponent {
     this.formSubscription = this.projectService.getProjects().subscribe({
       next: (result: IProject[]) => {
         this.projects = result;
+        this.projectOptions = [
+          {label: '-- None --', value: 0},
+          ...this.projects.map(project => ({label: project.name, value: project.id})),
+          {label: '-- New --', value: null},
+        ];
         this.formReady = true;
       }
     })

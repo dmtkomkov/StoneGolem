@@ -4,12 +4,11 @@
     <div class="foot-form" [formGroup]="categoryForm">
       <input formControlName="name"/>
       <textarea formControlName="description"></textarea>
-      <select formControlName="areaId">
-        @for (area of areas; track area.id) {
-          <option [ngValue]="area.id">{{ area.name }}</option>
-        }
-        <option [ngValue]="null">-- New --</option>
-      </select>
+      <sg-menu-select
+        formControlName="areaId"
+        [options]="areaOptions"
+        placeholder="Select area"
+      ></sg-menu-select>
       @if (isAreaForm) {
         <ng-container formGroupName="area">
           <input type="color" formControlName="color"/>

@@ -4,13 +4,11 @@
     <div class="foot-form" [formGroup]="goalForm">
       <input formControlName="name"/>
       <textarea formControlName="description"></textarea>
-      <select formControlName="projectId">
-        <option [ngValue]="0">-- None --</option>
-        @for (project of projects; track project?.id) {
-          <option [ngValue]="project.id">{{ project.name }}</option>
-        }
-        <option [ngValue]="null">-- New --</option>
-      </select>
+      <sg-menu-select
+        formControlName="projectId"
+        [options]="projectOptions"
+        placeholder="-- None --"
+      ></sg-menu-select>
       @if (isProjectForm) {
         <ng-container formGroupName="project">
           <input type="color" formControlName="color"/>

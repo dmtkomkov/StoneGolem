@@ -7,26 +7,68 @@
 
   .control-panel {
     display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: 1rem 1rem 0 0;
+    background: var(--md-sys-color-surface-container);
 
     .tab {
-      display: flex;
+      position: relative;
+      display: inline-flex;
       justify-content: center;
       align-items: center;
-      height: 2rem;
-      width: 8rem;
-      border: solid 1px #ccc;
+      min-height: 3rem;
+      min-width: 6.5rem;
+      padding: 0 1rem;
+      border: 0;
       cursor: pointer;
-      border-radius: 0.5rem 0.5rem 0 0;
+      border-radius: 999px;
+      color: var(--md-sys-color-on-surface-variant);
+      user-select: none;
+      transition: background-color 120ms ease, color 120ms ease;
+
+      &:hover {
+        background: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
+      }
+
+      &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--md-sys-color-primary) 25%, transparent);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0.35rem;
+        width: 0;
+        height: 0.18rem;
+        border-radius: 999px;
+        background: var(--md-sys-color-primary);
+        transform: translateX(-50%);
+        transition: width 140ms ease;
+      }
 
       &.active {
-        background-color: #777888;
-        color: #eee;
+        color: var(--md-sys-color-on-surface);
+        font-weight: 600;
+        background: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+
+        &::after {
+          width: 2.2rem;
+        }
       }
     }
+
   }
 
   .main-content {
-    border: solid 1px #ccc;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-top: 0;
+    border-radius: 0 0 1rem 1rem;
+    background: var(--md-sys-color-surface);
     flex-grow: 1;
     padding: 2rem;
     overflow-y: auto;

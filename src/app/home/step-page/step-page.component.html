@@ -6,11 +6,7 @@
         <div class="field-row">
           <div class="field">
             <div class="icon">👤</div>
-            <select formControlName="userId">
-              @for (user of users; track user.userId) {
-                <option [ngValue]="user.userId">{{ user.userName }}</option>
-              }
-            </select>
+            <sg-menu-select formControlName="userId" [options]="userOptions" placeholder="Select user"></sg-menu-select>
           </div>
           <div class="field">
             <div class="icon">📅</div>
@@ -18,34 +14,16 @@
           </div>
           <div class="field">
             <div class="icon">🕑</div>
-            <select formControlName="hours">
-              @for (hour of hourOptions; track hour) {
-                <option [ngValue]="hour">{{ hour }}h</option>
-              }
-            </select>
-            <select formControlName="minutes">
-              @for (minute of minuteOptions; track minute) {
-                <option [ngValue]="minute">{{ minute }}m</option>
-              }
-            </select>
+            <sg-menu-select formControlName="hours" [options]="hourMenuOptions" placeholder="0h"></sg-menu-select>
+            <sg-menu-select formControlName="minutes" [options]="minuteMenuOptions" placeholder="0m"></sg-menu-select>
           </div>
           <div class="field">
             <div class="icon">📂</div>
-            <select formControlName="categoryId">
-              <option [ngValue]="0">-- None --</option>
-              @for (category of categories; track category.id) {
-                <option [ngValue]="category.id">{{ category.name }}</option>
-              }
-            </select>
+            <sg-menu-select formControlName="categoryId" [options]="categoryOptions" placeholder="-- None --"></sg-menu-select>
           </div>
           <div class="field">
             <div class="icon">🎯</div>
-            <select formControlName="goalId">
-              <option [ngValue]="0">-- None --</option>
-              @for (goal of goals; track goal.id) {
-                <option [ngValue]="goal.id">{{ goal.name }}</option>
-              }
-            </select>
+            <sg-menu-select formControlName="goalId" [options]="goalOptions" placeholder="-- None --"></sg-menu-select>
           </div>
         </div>
         <div class="field-row">
