@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IProject, IProjectFlat } from '../../models/project';
+import { IProject, IProjectFlat } from '../../static/models/project';
 import { ProjectService } from '../../services/project.service';
 import { GoalService } from '../../services/goal.service';
 import { Subscription } from 'rxjs';

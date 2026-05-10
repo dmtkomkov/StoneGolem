@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { Observable, startWith, switchMap } from 'rxjs';
-import { IGoalFlat, IGoalGroup } from '../../../models/goal';
+import { IGoalFlat, IGoalGroup } from '../../../static/models/goal';
 import { GoalService } from '../../../services/goal.service';
 import { ColorUtils } from '../../../utils/color-utils';
 import { ILabelData, LabelComponent } from '../../../shared/label/label.component';
+import { GoalFormService } from '../../../services/goal-form.service';
 
 @Component({
   selector: 'sg-goal-groups',
@@ -14,14 +15,14 @@ import { ILabelData, LabelComponent } from '../../../shared/label/label.componen
   styleUrl: './goal-groups.component.scss'
 })
 export class GoalGroupsComponent {
+  private goalService = inject(GoalService);
+  private goalFormService = inject(GoalFormService);
+
   goalGroups$!: Observable<IGoalGroup[]>;
 
-  constructor(
-    private goalService: GoalService,
-  ) {
-  }
-
   ngOnInit(): void {
+    this.goalFormService.setProject(0, false);
+
     this.goalGroups$ = this.goalService.getUpdates().pipe(
       startWith(undefined),
       switchMap(() => this.goalService.getGoalGroupsAsync()),

@@ -1,0 +1,112 @@
+import { Injectable, inject } from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn
+} from '@angular/forms';
+import { ICreateCategory } from '../static/models/category';
+
+export function categoryFormValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const group = control as FormGroup<CategoryForm>;
+
+    const noName = !group.controls.name.value;
+    const noAreaName = !group.controls.area?.controls.name.value;
+    const isNewArea = group.controls.areaId.value === null;
+
+    return (noName || (isNewArea && noAreaName)) ? { goalFormInvalid: true } : null;
+  };
+}
+
+export interface CategoryForm {
+  name: FormControl<string>;
+  areaId: FormControl<number>;
+  description: FormControl<string>;
+  area?: FormGroup<AreaForm>;
+}
+
+export interface AreaForm {
+  name: FormControl<string>;
+  description: FormControl<string>;
+  color: FormControl<string>;
+}
+
+@Injectable()
+export class CategoryFormService {
+  private formBuilder = inject(FormBuilder);
+
+  private readonly categoryForm: FormGroup<CategoryForm>;
+
+  constructor() {
+    this.categoryForm = this.formBuilder.nonNullable.group({
+      name: '',
+      areaId: 0,
+      description: '',
+    }, {
+      validators: categoryFormValidator()
+    });
+
+    this.categoryForm.controls.areaId.valueChanges.subscribe({
+      next: (value) => {
+        if (value === null) {
+          this.addAreaForm();
+        } else {
+          this.removeAreaForm();
+        }
+      }
+    });
+  }
+
+  getForm(): FormGroup<CategoryForm> {
+    return this.categoryForm;
+  }
+
+  setArea(areaId: number, disable: boolean) {
+    const areaControl = this.categoryForm.controls.areaId;
+    areaControl.setValue(areaId);
+    if (disable) {
+      areaControl.disable();
+    } else {
+      areaControl.enable();
+    }
+  }
+
+  getValue(): ICreateCategory {
+    const formValue = this.categoryForm.getRawValue();
+
+    return {
+      name: formValue.name,
+      areaId: formValue.areaId || undefined,
+      description: formValue.description,
+      area: formValue.area ? {
+        name: formValue.area.name,
+        description: formValue.area.description,
+        color: formValue.area.color
+      } : undefined
+    }
+  }
+
+  resetForm() {
+    this.categoryForm.patchValue({
+      name: '',
+      description: '',
+    });
+  }
+
+  private addAreaForm(): void {
+    this.categoryForm.addControl('area',
+      this.formBuilder.nonNullable.group({
+        name: '',
+        description: '',
+        color: '#aaaaaa'
+      })
+    );
+  }
+
+  private removeAreaForm(): void {
+    this.categoryForm.removeControl('area');
+  }
+}

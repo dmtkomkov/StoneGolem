@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ICategory } from '../../models/category';
+import { ICategory } from '../../static/models/category';
 import { CategoryService } from '../../services/category.service';
 import { GoalService } from '../../services/goal.service';
-import { IGoal } from '../../models/goal';
-import { IUser } from '../../models/user';
+import { IGoal } from '../../static/models/goal';
+import { IUser } from '../../static/models/user';
 import { UserService } from '../../services/user.service';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DateOnly } from '../../types/DateOnly';
+import { DateOnly } from '../../static/types/DateOnly';
 import { forkJoin } from 'rxjs';
 import { StepService } from '../../services/step.service';
 import { StepForm, StepFormService } from '../../services/step-form.service';

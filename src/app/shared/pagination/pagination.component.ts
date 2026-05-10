@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IPagination } from '../../models/step';
+import { IPagination } from '../../static/models/step';
 
 @Component({
   selector: 'sg-pagination',

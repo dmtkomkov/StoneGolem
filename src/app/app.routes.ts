@@ -6,7 +6,7 @@ import { GoalListComponent } from './home/goal-page/goal-list/goal-list.componen
 import { CategoryListComponent } from './home/category-page/category-list/category-list.component';
 import { StepListComponent } from './home/step-page/step-list/step-list.component';
 import { StepGroupsComponent } from './home/step-page/step-groups/step-groups.component';
-import { CategoryGroupsComponent } from './home/category-page/catgory-groups/category-groups.component';
+import { CategoryGroupsComponent } from './home/category-page/category-groups/category-groups.component';
 import { CategoryPageComponent } from './home/category-page/category-page.component';
 import { GoalPageComponent } from './home/goal-page/goal-page.component';
 import { GoalGroupsComponent } from './home/goal-page/goal-groups/goal-groups.component';

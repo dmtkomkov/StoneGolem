@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { DateOnly } from '../types/DateOnly';
+import { DateOnly } from '../static/types/DateOnly';
+import { ICreateStep } from '../static/models/step';
 
 export function stepFormValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -29,11 +30,11 @@ export interface StepForm {
 
 @Injectable()
 export class StepFormService {
+  private formBuilder = inject(FormBuilder);
+
   private readonly stepForm: FormGroup<StepForm>;
 
-  constructor(
-    private formBuilder: FormBuilder,
-  ) {
+  constructor() {
     this.stepForm = this.formBuilder.nonNullable.group({
       userId: '',
       completeOn: '' as DateOnly,
@@ -50,6 +51,8 @@ export class StepFormService {
   initForm(userId: string) {
     this.stepForm.patchValue({
       userId: userId,
+    }, {
+      emitEvent: false,
     });
   }
 
@@ -64,6 +67,19 @@ export class StepFormService {
       dateControl.disable();
     } else {
       dateControl.enable();
+    }
+  }
+
+  getValue(): ICreateStep {
+    const formValue = this.stepForm.getRawValue();
+
+    return  {
+      userId: formValue.userId,
+      completedOn: formValue.completeOn as DateOnly,
+      duration: formValue.hours * 60 + formValue.minutes,
+      categoryId: formValue.categoryId,
+      goalId: formValue.goalId !== 0 ? formValue.goalId : undefined,
+      description: formValue.description,
     }
   }
 

@@ -1,0 +1,12 @@
+svg {
+  display: block;
+  margin: 0 auto;
+  width: 4rem;
+  height: 4rem;
+  transform-origin: center;
+
+  path {
+    fill: #ada;
+    transition: fill 0.2s ease;
+  }
+}

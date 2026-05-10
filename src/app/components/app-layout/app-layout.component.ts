@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { TokenService } from '../../services/token.service';
 
@@ -10,12 +10,8 @@ import { TokenService } from '../../services/token.service';
   standalone: true,
 })
 export class AppLayoutComponent {
-
-  constructor(
-    private router: Router,
-    private tokenService: TokenService,
-  ) {
-  }
+  private router = inject(Router);
+  private tokenService = inject(TokenService);
 
   logout() {
     this.tokenService.removeTokens()

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AreaService } from '../../services/area.service';
-import { IArea } from '../../models/area';
+import { IArea } from '../../static/models/area';
 import { CategoryService } from '../../services/category.service';
 import { Subscription } from 'rxjs';
 import { MenuSelectComponent, MenuSelectOption } from '../../shared/menu-select/menu-select.component';

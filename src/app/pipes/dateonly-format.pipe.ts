@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DateOnly } from '../types/DateOnly';
+import { DateOnly } from '../static/types/DateOnly';
 
 @Pipe({
   name: 'dateOnly',

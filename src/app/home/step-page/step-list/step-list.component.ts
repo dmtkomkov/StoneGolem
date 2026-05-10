@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import { IStep } from '../../../models/step';
+import { IStep } from '../../../static/models/step';
 import { StepService } from '../../../services/step.service';
-import { DateOnly } from '../../../types/DateOnly';
+import { DateOnly } from '../../../static/types/DateOnly';
 import {
   distinctUntilChanged,
   map,
@@ -17,7 +17,7 @@ import { DurationFormatPipe } from '../../../pipes/duration-format.pipe';
 import { DateOnlyFormatPipe } from '../../../pipes/dateonly-format.pipe';
 import { StepFormService } from '../../../services/step-form.service';
 import { DateUtils } from '../../../utils/date-utils';
-import { HARD_DELETE_DELAY_DAYS } from '../../../types/constants';
+import { HARD_DELETE_DELAY_DAYS } from '../../../static/types/constants';
 import { CdkMenuModule } from '@angular/cdk/menu';
 
 @Component({
@@ -29,10 +29,12 @@ import { CdkMenuModule } from '@angular/cdk/menu';
 })
 export class StepListComponent {
   @Input() date!: DateOnly;
+
+  private stepService = inject(StepService);
+  private stepFormService = inject(StepFormService);
+  private route = inject(ActivatedRoute);
+
   steps$!: Observable<IStep[]>;
-  stepService = inject(StepService);
-  route = inject(ActivatedRoute);
-  stepFormService = inject(StepFormService);
 
   ngOnInit(): void {
     this.stepFormService.setDate(this.date, true);

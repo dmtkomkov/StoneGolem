@@ -1,4 +1,4 @@
-import { DateOnly } from '../types/DateOnly';
+import { DateOnly } from '../static/types/DateOnly';
 
 export class DateUtils {
   static daysSince(date: DateOnly): number {

@@ -1,18 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ICategory, ICategoryFlat, ICategoryGroup, ICreateCategory } from '../models/category';
+import { ICategory, ICategoryFlat, ICategoryGroup, ICreateCategory } from '../static/models/category';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-  private updates$: Subject<void> = new Subject();
+  private http = inject(HttpClient);
 
-  constructor(
-    private http: HttpClient,
-  ) {
-  }
+  private updates$: Subject<void> = new Subject();
 
   getCategoriesAsync(area?: string): Observable<ICategory[]> {
     let params = new HttpParams();
