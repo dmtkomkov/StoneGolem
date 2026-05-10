@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
@@ -16,7 +15,7 @@ export enum EParamName {
 
 @Component({
   selector: 'sg-home',
-  imports: [CommonModule, RouterOutlet, RouterLink, ReactiveFormsModule, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, ReactiveFormsModule, RouterLinkActive],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

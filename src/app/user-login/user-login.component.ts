@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service';
@@ -8,7 +8,7 @@ import { ITokens } from '../models/user';
 
 @Component({
   selector: 'app-user-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.scss'],
 })
