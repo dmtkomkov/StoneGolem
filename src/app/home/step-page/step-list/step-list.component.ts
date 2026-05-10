@@ -18,11 +18,12 @@ import { DateOnlyFormatPipe } from '../../../pipes/dateonly-format.pipe';
 import { StepFormService } from '../../../services/step-form.service';
 import { DateUtils } from '../../../utils/date-utils';
 import { HARD_DELETE_DELAY_DAYS } from '../../../types/constants';
+import { CdkMenuModule } from '@angular/cdk/menu';
 
 @Component({
   selector: 'sg-step-list',
   standalone: true,
-  imports: [AsyncPipe, DurationFormatPipe, DateOnlyFormatPipe],
+  imports: [AsyncPipe, DurationFormatPipe, DateOnlyFormatPipe, CdkMenuModule],
   templateUrl: './step-list.component.html',
   styleUrl: './step-list.component.scss',
 })

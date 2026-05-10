@@ -21,10 +21,27 @@
         <div>{{ step.description || '-' }}</div>
         <div>{{ step.updatedOn }}</div>
         <div class="actions">
-          <button (click)="toggle(step.id)">{{ step.isDeleted ? 'R' : 'D' }}</button>
-          @if (canHardDelete(step)) {
-            <button class="danger" (click)="delete(step.id)">X</button>
-          }
+          <button
+            class="menu-trigger"
+            type="button"
+            [cdkMenuTriggerFor]="stepMenu"
+            aria-label="Open step actions"
+          >
+            &#8942;
+          </button>
+
+          <ng-template #stepMenu>
+            <div class="step-menu" cdkMenu>
+              <button type="button" cdkMenuItem (cdkMenuItemTriggered)="toggle(step.id)">
+                {{ step.isDeleted ? 'Restore' : 'Delete' }}
+              </button>
+              @if (canHardDelete(step)) {
+                <button type="button" class="danger" cdkMenuItem (cdkMenuItemTriggered)="delete(step.id)">
+                  Delete permanently
+                </button>
+              }
+            </div>
+          </ng-template>
         </div>
       </div>
     } @empty {
