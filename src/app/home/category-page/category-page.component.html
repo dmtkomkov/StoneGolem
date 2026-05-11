@@ -4,11 +4,11 @@
     <div class="foot-form" [formGroup]="categoryForm">
       <input formControlName="name"/>
       <textarea formControlName="description"></textarea>
-      <sg-menu-select
+      <sg-select
         formControlName="areaId"
-        [options]="areaOptions"
+        [items]="areaOptions"
         placeholder="Select area"
-      ></sg-menu-select>
+      ></sg-select>
       @if (isAreaForm) {
         <ng-container formGroupName="area">
           <input type="color" formControlName="color"/>

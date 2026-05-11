@@ -3,12 +3,12 @@
     <div class="tab" routerLink="step" routerLinkActive="active" queryParamsHandling="preserve">Step</div>
     <div class="tab" routerLink="goal" routerLinkActive="active" queryParamsHandling="preserve">Goal</div>
     <div class="tab" routerLink="category" routerLinkActive="active" queryParamsHandling="preserve">Category</div>
-    <sg-menu-select
+    <sg-select
       class="filter-select"
       [formControl]="stepParamControl"
-      [options]="stepFilterOptions"
+      [items]="stepFilterOptions"
       placeholder="All"
-    ></sg-menu-select>
+    ></sg-select>
   </div>
   <div class="main-content">
     <router-outlet/>

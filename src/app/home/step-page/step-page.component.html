@@ -6,7 +6,7 @@
         <div class="field-row">
           <div class="field">
             <div class="icon">👤</div>
-            <sg-menu-select formControlName="userId" [options]="userOptions" placeholder="Select user"></sg-menu-select>
+            <sg-select formControlName="userId" [items]="userItems" placeholder="Select user"></sg-select>
           </div>
           <div class="field">
             <div class="icon">📅</div>
@@ -14,16 +14,16 @@
           </div>
           <div class="field">
             <div class="icon">🕑</div>
-            <sg-menu-select formControlName="hours" [options]="hourMenuOptions" placeholder="0h"></sg-menu-select>
-            <sg-menu-select formControlName="minutes" [options]="minuteMenuOptions" placeholder="0m"></sg-menu-select>
+            <sg-select formControlName="hours" [items]="hourItems" placeholder="0h"></sg-select>
+            <sg-select formControlName="minutes" [items]="minuteItems" placeholder="0m"></sg-select>
           </div>
           <div class="field">
             <div class="icon">📂</div>
-            <sg-select [formControl]="stepForm.controls.categoryId" [items]="categoryOptions"></sg-select>
+            <sg-select [formControl]="stepForm.controls.categoryId" [items]="categoryItems"></sg-select>
           </div>
           <div class="field">
             <div class="icon">🎯</div>
-            <sg-select [formControl]="stepForm.controls.goalId" [items]="goalOptions"></sg-select>
+            <sg-select [formControl]="stepForm.controls.goalId" [items]="goalItems"></sg-select>
           </div>
         </div>
         <div class="field-row">

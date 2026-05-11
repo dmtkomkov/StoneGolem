@@ -3,10 +3,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { ColorUtils } from '../../utils/color-utils';
 
+export type SelectValue = number | string | null;
+
 export type IOptionSet = (IOptionGroup | IOption)[];
 
 export interface IOption {
-  id: number | string | null;
+  id: SelectValue;
   name: string;
 }
 
@@ -33,48 +35,41 @@ export interface IOptionGroup {
 })
 export class SelectComponent implements ControlValueAccessor {
   @Input() items: IOptionSet = [];
+  @Input() placeholder: string = 'Select';
 
-  value!: number | string | null;
-  selectedLabel!: string
-  isDisabled = false;
+  value: SelectValue = null;
+  disabled = false;
 
-  private onChange: (v: any) => void = () => {};
+  private onChange: (v: SelectValue) => void = () => {};
   private onTouched: () => void = () => {};
 
-  writeValue(obj: any): void {
-    this.value = obj;
-    this.updateLabel();
+  get selectedLabel(): string {
+    for (const item of this.items) {
+      if ('id' in item) {
+        if (item.id === this.value) return item.name;
+      } else {
+        const option = item.options.find(opt => opt.id === this.value);
+        if (option) return option.name;
+      }
+    }
+    return this.placeholder;
   }
 
-  registerOnChange(fn: any): void { this.onChange = fn; }
-  registerOnTouched(fn: any): void { this.onTouched = fn; }
+  writeValue(obj: SelectValue): void {
+    this.value = obj;
+  }
+
+  registerOnChange(fn: (v: SelectValue) => void): void { this.onChange = fn; }
+  registerOnTouched(fn: () => void): void { this.onTouched = fn; }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.disabled = isDisabled;
   }
 
   selectOption(option: IOption) {
     this.value = option.id;
     this.onChange(option.id);
     this.onTouched();
-    this.updateLabel();
-  }
-
-  private updateLabel() {
-    for (const item of this.items) {
-      if ('id' in item) {
-        if (item.id === this.value) {
-          this.selectedLabel = item.name;
-          break;
-        }
-      } else {
-        const option = item.options.find(opt => opt.id === this.value);
-        if (option) {
-          this.selectedLabel = option.name;
-          break;
-        }
-      }
-    }
   }
 
   getTransparentColor(color: string): string {

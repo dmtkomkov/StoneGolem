@@ -4,11 +4,11 @@
     <div class="foot-form" [formGroup]="goalForm">
       <input formControlName="name"/>
       <textarea formControlName="description"></textarea>
-      <sg-menu-select
+      <sg-select
         formControlName="projectId"
-        [options]="projectOptions"
+        [items]="projectOptions"
         placeholder="-- None --"
-      ></sg-menu-select>
+      ></sg-select>
       @if (isProjectForm) {
         <ng-container formGroupName="project">
           <input type="color" formControlName="color"/>

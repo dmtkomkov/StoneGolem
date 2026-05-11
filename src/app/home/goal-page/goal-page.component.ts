@@ -5,7 +5,8 @@ import { IProject, IProjectFlat } from '../../static/models/project';
 import { ProjectService } from '../../services/project.service';
 import { GoalService } from '../../services/goal.service';
 import { Subscription } from 'rxjs';
-import { MenuSelectComponent, MenuSelectOption } from '../../shared/menu-select/menu-select.component';
+import { SelectComponent, IOptionSet } from '../../shared/select/select.component';
+import { NONE_OPTION, NEW_OPTION } from '../../static/consts/default-options';
 import { GoalFormService } from '../../services/goal-form.service';
 
 interface GoalForm {
@@ -23,7 +24,7 @@ interface ProjectForm {
 
 @Component({
   selector: 'sg-goal-page',
-  imports: [RouterOutlet, ReactiveFormsModule, MenuSelectComponent],
+  imports: [RouterOutlet, ReactiveFormsModule, SelectComponent],
   providers: [GoalFormService],
   templateUrl: './goal-page.component.html',
   styleUrl: './goal-page.component.scss'
@@ -31,7 +32,7 @@ interface ProjectForm {
 export class GoalPageComponent {
   goalForm!: FormGroup<GoalForm>;
   projects!: IProjectFlat[];
-  projectOptions: MenuSelectOption[] = [];
+  projectOptions: IOptionSet = [];
   formReady: boolean = false;
   isProjectForm: boolean = false;
   private formSubscription!: Subscription;
@@ -87,9 +88,9 @@ export class GoalPageComponent {
       next: (result: IProject[]) => {
         this.projects = result;
         this.projectOptions = [
-          {label: '-- None --', value: 0},
-          ...this.projects.map(project => ({label: project.name, value: project.id})),
-          {label: '-- New --', value: null},
+          NONE_OPTION,
+          ...this.projects.map(project => ({id: project.id, name: project.name})),
+          NEW_OPTION,
         ];
         this.formReady = true;
       }
