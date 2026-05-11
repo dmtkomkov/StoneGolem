@@ -1,104 +1,18 @@
+@use '../../../styles/m3-utilities' as u;
+
 .container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  position: relative;
-  overflow-y: auto;
-  height: 100%;
+  @include u.page-container;
 }
 
 .foot-form {
-  border: 1px solid var(--md-sys-color-outline-variant);
-  background: var(--md-sys-color-surface-container-highest);
-  border-radius: var(--md-ref-shape-corner-small);
-  box-shadow: var(--md-elevation-1);
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  position: sticky;
-  bottom: 0;
-  z-index: 1;
-  padding: 1rem;
+  @include u.foot-form;
 
-  .fields {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    .field-row {
-      display: flex;
-      flex-direction: row;
-      gap: 1.2rem;
-
-      .field {
-        display: inline-flex;
-        gap: 0.25rem;
-
-        &.textarea-row {
-          flex-grow: 1;
-
-          textarea {
-            width: 100%;
-          }
-        }
-
-        .icon {
-          font-size: 1.15rem;
-          vertical-align: middle;
-        }
-      }
-    }
-  }
-
-  .buttons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--md-sys-color-outline-variant);
-      border-radius: 999px;
-      height: 4rem;
-      width: 4rem;
-      font-size: 1rem;
-      background: var(--md-sys-color-primary-container);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      will-change: transform;
-
-      svg {
-        display: block;
-        margin: 0 auto;
-        width: 4rem;
-        height: 4rem;
-        transform-origin: center;
-
-        path {
-          fill: var(--md-sys-color-primary);
-          transition: fill 0.2s ease;
-        }
-      }
-
-      &:hover:not(:disabled) {
-        transform: scale(1.04);
-        box-shadow: var(--md-elevation-2);
-      }
-
-      &:disabled {
-        background: var(--md-sys-color-surface-dim);
-        border-color: var(--md-sys-color-outline-variant);
-
-        svg path {
-          fill: var(--md-sys-color-on-surface-variant);
-        }
-      }
-    }
+  .buttons button {
+    @include u.fab-button;
   }
 }
 
-// Disable router-outlet element for css flex
+// router-outlet is a structural element; collapse it for flex layout.
 router-outlet {
   display: contents;
 }

@@ -1,9 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  padding: 2rem;
   height: 100%;
+  padding: 2rem;
 
   .control-panel {
     display: flex;
@@ -17,17 +16,16 @@
     .tab {
       position: relative;
       display: inline-flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       gap: 0.4rem;
-      min-height: 2.5rem;
       min-width: 7rem;
+      min-height: 2.5rem;
       padding: 0 0.9rem;
       border: 1px solid transparent;
-      cursor: pointer;
       border-radius: 0.65rem 0.65rem 0 0;
       color: var(--md-sys-color-on-surface-variant);
-      user-select: none;
+      cursor: pointer;
       transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
 
       &:hover {
@@ -40,8 +38,8 @@
       }
 
       &.active {
-        color: var(--md-sys-color-on-surface);
         font-weight: 600;
+        color: var(--md-sys-color-on-surface);
         border-color: var(--md-sys-color-outline-variant);
         border-bottom-color: transparent;
         background: var(--md-sys-color-surface);
@@ -51,15 +49,12 @@
   }
 
   .main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    overflow-y: auto;
     border: 1px solid var(--md-sys-color-outline-variant);
     border-top: 0;
     border-radius: 0 0 1rem 1rem;
     background: var(--md-sys-color-surface);
-    flex-grow: 1;
-    padding: 2rem;
-    overflow-y: auto;
   }
 }
-
-
-

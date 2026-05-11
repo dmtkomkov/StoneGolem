@@ -16,7 +16,7 @@ textarea {
   border-radius: var(--md-ref-shape-corner-medium);
   font: inherit;
   line-height: 1.3;
-  background: #fff;
+  background: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
 
   &:focus-visible {

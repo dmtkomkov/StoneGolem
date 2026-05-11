@@ -1,3 +1,7 @@
+@use '../../../../styles/m3-utilities' as u;
+
+@include u.grid-table('10rem 1fr 10rem 10rem 5rem 5rem 3rem', $errorClass: 'closed');
+
 .group {
   display: flex;
   flex-direction: column;
@@ -13,30 +17,6 @@
   color: var(--md-sys-color-on-surface);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 10rem 1fr 10rem 10rem 5rem 5rem 3rem;
-  border: 1px solid var(--md-sys-color-outline-variant);
-  border-radius: var(--md-ref-shape-corner-medium);
-  overflow: hidden;
-  min-width: 50rem;
-}
-
-.grid-header, .grid-row {
-  display: contents;
-}
-
-.grid-header > div {
-  background: var(--md-sys-color-surface-container-highest);
-  color: var(--md-sys-color-on-surface);
-  font-weight: bold;
-  padding: 0.6rem 0.8rem;
-}
-
-.grid-row > div {
-  padding: 0.4rem 0.8rem;
-}
-
 .actions {
   display: flex;
   align-items: center;
@@ -45,35 +25,10 @@
 }
 
 .menu-trigger {
-  width: 2.25rem;
-  min-width: 2.25rem;
-  min-height: 2.25rem;
-  padding: 0;
-  justify-content: center;
-  line-height: 1;
+  @include u.icon-button(2.25rem);
 }
 
 .actions-menu {
   width: max-content;
   max-width: min(90vw, 16rem);
-}
-
-.grid-row {
-  &:nth-child(even) > div {
-    background: var(--md-sys-color-surface-container);
-  }
-
-  &:nth-child(odd) > div {
-    background: var(--md-sys-color-surface);
-  }
-
-  &.closed {
-    &:nth-child(even) > div {
-      background: color-mix(in srgb, var(--md-sys-color-error) 14%, var(--md-sys-color-surface-container));
-    }
-
-    &:nth-child(odd) > div {
-      background: color-mix(in srgb, var(--md-sys-color-error) 18%, var(--md-sys-color-surface));
-    }
-  }
 }

@@ -1,8 +1,10 @@
+@use '../../../../styles/m3-utilities' as u;
+
 .goal-list {
   display: flex;
   flex-direction: row;
-  gap: 0.5rem;
   flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .goal {
@@ -17,25 +19,7 @@
 }
 
 .group {
-  border-radius: var(--md-ref-shape-corner-small);
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--md-sys-color-outline-variant);
-  border-left: 0.35rem solid var(--group-accent, var(--md-sys-color-outline-variant));
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  overflow: hidden;
-  background: var(--md-sys-color-surface-container);
-  box-shadow: var(--md-elevation-1);
-  cursor: pointer;
-  transition: transform 120ms ease, box-shadow 120ms ease;
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--md-elevation-2);
-  }
+  @include u.group-card;
 }
 
 .group-title {

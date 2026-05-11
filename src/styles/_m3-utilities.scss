@@ -1,0 +1,203 @@
+// Reusable SCSS mixins. Imported via @use from component styles.
+// Keep these pure (no top-level selectors emitted) so they don't leak.
+
+// Surface card with elevation + outline.
+@mixin surface-card($bg: var(--md-sys-color-surface), $radius: var(--md-ref-shape-corner-small)) {
+  background: $bg;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: $radius;
+  box-shadow: var(--md-elevation-1);
+}
+
+// Page-level scrollable column.
+@mixin page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  overflow-y: auto;
+  height: 100%;
+}
+
+// Sticky bottom form used on *-page components.
+@mixin foot-form {
+  @include surface-card(var(--md-sys-color-surface-container-highest));
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+
+  .fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .field-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1.2rem;
+  }
+
+  .field {
+    display: inline-flex;
+    gap: 0.25rem;
+
+    &.textarea-row {
+      flex-grow: 1;
+
+      textarea { width: 100%; }
+    }
+
+    .icon {
+      font-size: 1.15rem;
+      vertical-align: middle;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Round FAB-style submit button in the foot-form.
+@mixin fab-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 50%;
+  background: var(--md-sys-color-primary-container);
+  font-size: 1rem;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  will-change: transform;
+
+  svg {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+
+    path {
+      fill: var(--md-sys-color-primary);
+      transition: fill 120ms ease;
+    }
+  }
+
+  &:hover:not(:disabled) {
+    transform: scale(1.04);
+    box-shadow: var(--md-elevation-2);
+  }
+
+  &:disabled {
+    background: var(--md-sys-color-surface-dim);
+
+    svg path { fill: var(--md-sys-color-on-surface-variant); }
+  }
+}
+
+// Table-like CSS grid with header + zebra rows.
+// $columns - grid-template-columns string.
+// $errorClass - optional row modifier class (e.g. 'deleted', 'closed') that
+//               recolors the row to indicate an error/closed state.
+@mixin grid-table($columns, $errorClass: null) {
+  .grid {
+    display: grid;
+    grid-template-columns: #{$columns};
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--md-ref-shape-corner-medium);
+    overflow: hidden;
+    min-width: 50rem;
+  }
+
+  .grid-header,
+  .grid-row {
+    display: contents;
+  }
+
+  .grid-header > div {
+    background: var(--md-sys-color-surface-container-highest);
+    color: var(--md-sys-color-on-surface);
+    font-weight: bold;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .grid-row > div {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .grid-row:nth-child(even) > div {
+    background: var(--md-sys-color-surface-container);
+  }
+
+  .grid-row:nth-child(odd) > div {
+    background: var(--md-sys-color-surface);
+  }
+
+  @if $errorClass {
+    .grid-row.#{$errorClass} {
+      &:nth-child(even) > div {
+        background: color-mix(in srgb, var(--md-sys-color-error) 14%, var(--md-sys-color-surface-container));
+      }
+
+      &:nth-child(odd) > div {
+        background: color-mix(in srgb, var(--md-sys-color-error) 18%, var(--md-sys-color-surface));
+      }
+    }
+  }
+}
+
+// Group card with accent left border used on *-groups components.
+@mixin group-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-left: 0.35rem solid var(--group-accent, var(--md-sys-color-outline-variant));
+  border-radius: var(--md-ref-shape-corner-small);
+  overflow: hidden;
+  background: var(--md-sys-color-surface-container);
+  box-shadow: var(--md-elevation-1);
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--md-elevation-2);
+  }
+}
+
+// Sticky filters/header form used on *-groups components.
+@mixin header-form {
+  @include surface-card(var(--md-sys-color-surface-container-highest));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+// Common circular icon-only button (used in grid action cells, pagination).
+// Width equals height, so 50% gives a perfect circle.
+@mixin icon-button($size: 2.25rem) {
+  width: $size;
+  min-width: $size;
+  min-height: $size;
+  padding: 0;
+  justify-content: center;
+  line-height: 1;
+  border-radius: 50%;
+}
+
+
+

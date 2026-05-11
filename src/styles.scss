@@ -2,7 +2,8 @@
 @use './styles/m3-base';
 @use './styles/m3-menu';
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -10,8 +11,11 @@ html, body {
 }
 
 body {
-  margin: 3rem 0 0;
-  height: calc(100vh - 3rem);
+  // Toolbar (3rem) is fixed at the top; body becomes the scroll viewport
+  // for the remaining viewport height. Components rely on body height being
+  // the available area (height:100% propagates down).
+  margin-top: 3rem;
+  height: calc(100% - 3rem);
   overflow: auto;
   font-size: 1rem;
   font-family: 'Inter', 'Roboto', 'Work Sans', system-ui, sans-serif;
@@ -19,7 +23,9 @@ body {
   user-select: none;
 }
 
-input, textarea {
+input,
+textarea {
   caret-color: auto;
   user-select: text;
 }
+

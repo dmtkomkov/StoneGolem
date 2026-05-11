@@ -1,18 +1,15 @@
-
 .m3-menu-trigger {
   display: inline-flex;
   align-items: center;
   min-height: 2.5rem;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--md-sys-color-outline-variant);
-  border-radius: 0.75rem;
+  border-radius: var(--md-ref-shape-corner-medium);
   background: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
-  cursor: pointer;
-  user-select: none;
-  caret-color: transparent;
   font: inherit;
   line-height: 1.2;
+  cursor: pointer;
   transition: background-color 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
 
   &:hover:not(:disabled) {
@@ -36,28 +33,26 @@
   flex-direction: column;
   gap: 0.125rem;
   padding: 0.5rem;
-  border-radius: 0.75rem;
-  background: var(--md-sys-color-surface-container-high);
   border: 1px solid var(--md-sys-color-outline-variant);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  border-radius: var(--md-ref-shape-corner-medium);
+  background: var(--md-sys-color-surface-container-high);
+  box-shadow: var(--md-elevation-2);
 }
 
 .m3-menu-item {
   display: inline-flex;
   align-items: center;
   min-height: 2rem;
-  border: 0;
-  border-radius: 0.5rem;
   padding: 0.4rem 0.5rem;
+  border: 0;
+  border-radius: var(--md-ref-shape-corner-small);
   background: transparent;
   color: var(--md-sys-color-on-surface);
-  text-align: left;
-  cursor: pointer;
-  user-select: none;
-  caret-color: transparent;
   font: inherit;
   line-height: 1.25;
+  text-align: left;
   white-space: nowrap;
+  cursor: pointer;
 
   &:hover,
   &:focus-visible,
@@ -78,4 +73,3 @@
     }
   }
 }
-
