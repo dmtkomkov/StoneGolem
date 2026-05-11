@@ -19,11 +19,11 @@
           </div>
           <div class="field">
             <div class="icon">📂</div>
-            <sg-menu-select formControlName="categoryId" [options]="categoryOptions" placeholder="-- None --"></sg-menu-select>
+            <sg-select [formControl]="stepForm.controls.categoryId" [items]="categoryOptions"></sg-select>
           </div>
           <div class="field">
             <div class="icon">🎯</div>
-            <sg-menu-select formControlName="goalId" [options]="goalOptions" placeholder="-- None --"></sg-menu-select>
+            <sg-select [formControl]="stepForm.controls.goalId" [items]="goalOptions"></sg-select>
           </div>
         </div>
         <div class="field-row">

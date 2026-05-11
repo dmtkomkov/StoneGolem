@@ -1,25 +1,40 @@
-<button class="select" [cdkMenuTriggerFor]="menu" [disabled]="isDisabled">
-  {{ selectedLabel }}
-</button>
+<div class="m3-select">
+  <button class="m3-menu-trigger m3-select-trigger" type="button" [cdkMenuTriggerFor]="menu" [disabled]="isDisabled">
+    <span>{{ selectedLabel }}</span>
+    <span aria-hidden="true">&#9662;</span>
+  </button>
+</div>
 
 <ng-template #menu>
-  <div class="menu" cdkMenu>
+  <div class="m3-menu-panel m3-select-panel" cdkMenu>
     @for (item of items; track item.name) {
       @if ('id' in item) {
-        <button class="menu-item" cdkMenuItem (click)="selectOption(item)">
-          {{ item.name }}
+        <button type="button" class="m3-menu-item m3-select-item" cdkMenuItem (cdkMenuItemTriggered)="selectOption(item)"
+          [class.selected]="item.id === value"
+        >
+          <span>{{ item.name }}</span>
+          @if (item.id === value) {
+            <span class="check" aria-hidden="true">&#10003;</span>
+          }
         </button>
       } @else {
-        <button class="menu-item" cdkMenuItem [cdkMenuTriggerFor]="group" [style.background]="getTransparentColor(item.color)">
-          {{ item.name }} <span>&#10148;</span>
+        <button type="button" class="m3-menu-item m3-select-group" cdkMenuItem [cdkMenuTriggerFor]="group"
+          [style.background]="getTransparentColor(item.color)"
+        >
+          <span>{{ item.name }}</span>
+          <span class="arrow" aria-hidden="true">&#10148;</span>
         </button>
 
-        <!-- This template cannot be standalone, because ng-template is not dynamic and unique inside each cycle depending on data -->
         <ng-template #group>
-          <div class="menu" cdkMenu>
+          <div class="m3-menu-panel m3-select-panel" cdkMenu>
             @for (option of item.options; track option.name) {
-              <button class="menu-item" cdkMenuItem (click)="selectOption(option)">
-                {{ option.name }}
+              <button type="button" class="m3-menu-item m3-select-item" cdkMenuItem (cdkMenuItemTriggered)="selectOption(option)"
+                [class.selected]="option.id === value"
+              >
+                <span>{{ option.name }}</span>
+                @if (option.id === value) {
+                  <span class="check" aria-hidden="true">&#10003;</span>
+                }
               </button>
             }
           </div>
