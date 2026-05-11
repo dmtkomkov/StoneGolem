@@ -1,8 +1,17 @@
 <div class="container">
   <div class="control-panel">
-    <div class="tab" routerLink="step" routerLinkActive="active" queryParamsHandling="preserve">Step</div>
-    <div class="tab" routerLink="goal" routerLinkActive="active" queryParamsHandling="preserve">Goal</div>
-    <div class="tab" routerLink="category" routerLinkActive="active" queryParamsHandling="preserve">Category</div>
+    <div class="tab" routerLink="step" routerLinkActive="active" queryParamsHandling="preserve">
+      <span class="icon">👣</span>
+      <span>Step</span>
+    </div>
+    <div class="tab" routerLink="goal" routerLinkActive="active" queryParamsHandling="preserve">
+      <span class="icon">🎯</span>
+      <span>Goal</span>
+    </div>
+    <div class="tab" routerLink="category" routerLinkActive="active" queryParamsHandling="preserve">
+      <span class="icon">📂</span>
+      <span>Category</span>
+    </div>
     <sg-select
       class="filter-select"
       [formControl]="stepParamControl"

@@ -15,5 +15,11 @@ body {
   overflow: auto;
   font-size: 1rem;
   font-family: 'Inter', 'Roboto', 'Work Sans', system-ui, sans-serif;
+  caret-color: transparent;
+  user-select: none;
 }
 
+input, textarea {
+  caret-color: auto;
+  user-select: text;
+}

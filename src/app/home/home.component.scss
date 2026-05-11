@@ -19,6 +19,7 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
+      gap: 0.4rem;
       min-height: 2.5rem;
       min-width: 7rem;
       padding: 0 0.9rem;
@@ -38,29 +39,12 @@
         box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--md-sys-color-primary) 25%, transparent);
       }
 
-      &::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        bottom: 0.2rem;
-        width: 0;
-        height: 0.18rem;
-        border-radius: 999px;
-        background: var(--md-sys-color-primary);
-        transform: translateX(-50%);
-        transition: width 140ms ease;
-      }
-
       &.active {
         color: var(--md-sys-color-on-surface);
         font-weight: 600;
         border-color: var(--md-sys-color-outline-variant);
         border-bottom-color: transparent;
         background: var(--md-sys-color-surface);
-
-        &::after {
-          width: 2.6rem;
-        }
       }
     }
 

@@ -1,26 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AreaService } from '../../services/area.service';
 import { IArea } from '../../static/models/area';
 import { CategoryService } from '../../services/category.service';
-import { Subscription } from 'rxjs';
-import { SelectComponent, IOptionSet } from '../../shared/select/select.component';
+import { CategoryForm, CategoryFormService } from '../../services/category-form.service';
+import { IOptionSet, SelectComponent } from '../../shared/select/select.component';
 import { NEW_OPTION } from '../../static/consts/default-options';
-import { CategoryFormService } from '../../services/category-form.service';
-
-interface CategoryForm {
-  name: FormControl<string>;
-  areaId: FormControl<number>;
-  description: FormControl<string>;
-  area?: FormGroup<AreaForm>;
-}
-
-interface AreaForm {
-  name: FormControl<string>;
-  description: FormControl<string>;
-  color: FormControl<string>;
-}
 
 @Component({
   selector: 'sg-category-page',
@@ -30,94 +16,37 @@ interface AreaForm {
   styleUrl: './category-page.component.scss'
 })
 export class CategoryPageComponent {
-  categoryForm!: FormGroup<CategoryForm>;
-  areas!: IArea[];
-  areaOptions: IOptionSet = [];
-  formReady: boolean = false;
-  isAreaForm: boolean = false;
-  private formSubscription!: Subscription;
+  private areaService = inject(AreaService);
+  private categoryService = inject(CategoryService);
+  private categoryFormService = inject(CategoryFormService);
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private areaService: AreaService,
-    private categoryService: CategoryService,
-  ) {
-  }
+  categoryForm!: FormGroup<CategoryForm>;
+  areaOptions: IOptionSet = [];
 
   ngOnInit(): void {
     this.loadForm();
-    this.initAreas();
   }
 
   private loadForm(): void {
-    this.categoryForm = this.formBuilder.nonNullable.group({
-      name: '',
-      areaId: 0,
-      description: '',
-    });
-
-    this.formSubscription = this.categoryForm.controls.areaId.valueChanges.subscribe({
-      next: (value) => {
-        if (value === null) {
-          this.addAreaForm();
-          this.isAreaForm = true;
-        } else if (this.isAreaForm) {
-          this.removeAreaForm();
-          this.isAreaForm = false;
-        }
-      }
-    });
-  }
-
-  initAreas(): void {
     this.areaService.getAreasAsync().subscribe({
-      next: (result: IArea[]) => {
-        this.areas = result;
-        this.areaOptions = [
-          ...this.areas.map(area => ({id: area.id, name: area.name})),
-          NEW_OPTION,
-        ];
-        this.formReady = true;
-        this.categoryForm.controls.areaId.setValue(this.areas[0]?.id || 0);
+      next: (areas: IArea[]) => {
+        this.areaOptions = areas.map(area => ({
+          id: area.id,
+          name: area.name,
+        }));
+        this.areaOptions.push(NEW_OPTION);
+
+        this.categoryForm = this.categoryFormService.getForm();
       }
-    })
+    });
   }
 
   createCategory() {
-    const formValue = this.categoryForm.getRawValue();
-    this.categoryService.createCategory(
-      {
-        name: formValue.name,
-        areaId: formValue.areaId || undefined,
-        description: formValue.description,
-        area: formValue.area ? {
-          name: formValue.area.name,
-          description: formValue.area.description,
-          color: formValue.area.color
-        } : undefined
-      }
-    ).subscribe({
+    this.categoryService.createCategory(this.categoryFormService.getValue()).subscribe({
       next: () => {
         this.categoryService.pushUpdates();
+        this.categoryFormService.resetForm();
       }
     })
-  }
-
-  private addAreaForm(): void {
-    this.categoryForm.addControl('area',
-      this.formBuilder.nonNullable.group({
-        name: '',
-        description: '',
-        color: '#ffffff'
-      })
-    );
-  }
-
-  private removeAreaForm(): void {
-    this.categoryForm.removeControl('area');
-  }
-
-  ngOnDestroy(): void {
-    this.formSubscription?.unsubscribe();
   }
 }
