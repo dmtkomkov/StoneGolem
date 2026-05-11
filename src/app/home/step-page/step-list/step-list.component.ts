@@ -22,7 +22,6 @@ import { CdkMenuModule } from '@angular/cdk/menu';
 
 @Component({
   selector: 'sg-step-list',
-  standalone: true,
   imports: [AsyncPipe, DurationFormatPipe, DateOnlyFormatPipe, CdkMenuModule],
   templateUrl: './step-list.component.html',
   styleUrl: './step-list.component.scss',

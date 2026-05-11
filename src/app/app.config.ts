@@ -1,6 +1,5 @@
 import { ApplicationConfig, inject, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, Router, withComponentInputBinding } from '@angular/router';
-import { catchError } from 'rxjs';
 
 import { routes } from './app.routes';
 import {
@@ -12,13 +11,13 @@ import {
   provideHttpClient,
   withInterceptors
 } from '@angular/common/http';
-import { Observable, switchMap, throwError } from 'rxjs';
+import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../environments/environment';
 import { AuthService } from './services/auth.service';
 import { TokenService } from './services/token.service';
 import { ITokens } from './static/models/user';
 
-function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
+function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
   const tokenService = inject(TokenService);
   const router = inject(Router);
   const authService = inject(AuthService);
@@ -72,7 +71,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
       withInterceptors([
-        loggingInterceptor,
+        authInterceptor,
       ])
     ),
     provideRouter(routes, withComponentInputBinding()),

@@ -26,15 +26,11 @@ export class StepPageComponent {
   minuteItems: IOptionSet = this.minuteOptions.map(m => ({id: m, name: `${m}m`}));
   categoryItems: IOptionSet = [];
   goalItems: IOptionSet = [];
-  stepFormService = inject(StepFormService);
-
-  constructor(
-    private categoryService: CategoryService,
-    private goalService: GoalService,
-    private userService: UserService,
-    private stepService: StepService,
-  ) {
-  }
+  private categoryService = inject(CategoryService);
+  private goalService = inject(GoalService);
+  private userService = inject(UserService);
+  private stepService = inject(StepService);
+  private stepFormService = inject(StepFormService);
 
   ngOnInit(): void {
     this.loadForm();

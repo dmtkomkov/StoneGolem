@@ -2,7 +2,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'duration',
-  standalone: true
 })
 export class DurationFormatPipe implements PipeTransform {
   transform(totalMinutes: number): string {

@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ICreateGoal, IGoal, IGoalFlat, IGoalGroup } from '../static/models/goal';
 import { Observable, Subject } from 'rxjs';
-import { IStep } from '../static/models/step';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +27,8 @@ export class GoalService {
     return this.http.post<IGoalFlat>('goal', goal);
   }
 
-  toggleGoal(id: number): Observable<IStep> {
-    return this.http.put<IStep>('goal/toggle/' + id, null);
+  toggleGoal(id: number): Observable<IGoalFlat> {
+    return this.http.put<IGoalFlat>('goal/toggle/' + id, null);
   }
 
   deleteGoal(id: number): Observable<void> {

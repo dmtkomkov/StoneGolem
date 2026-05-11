@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { IGoal } from '../../../static/models/goal';
 import { GoalService } from '../../../services/goal.service';
 import { map, Observable, startWith, Subject, switchMap } from 'rxjs';
@@ -17,6 +17,9 @@ import { CdkMenuModule } from '@angular/cdk/menu';
   styleUrl: './goal-list.component.scss'
 })
 export class GoalListComponent {
+  private goalService = inject(GoalService);
+  private projectService = inject(ProjectService);
+
   private _projectName!: string;
 
   @Input() set project(value: string) {
@@ -27,11 +30,6 @@ export class GoalListComponent {
   project$!: Observable<IProject>;
   private projectUpdates$: Subject<void> = new Subject();
 
-  constructor(
-    private goalService: GoalService,
-    private projectService: ProjectService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.goals$ = this.goalService.getUpdates().pipe(

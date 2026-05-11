@@ -3,7 +3,6 @@ import { DateOnly } from '../static/types/DateOnly';
 
 @Pipe({
   name: 'dateOnly',
-  standalone: true
 })
 export class DateOnlyFormatPipe implements PipeTransform {
   transform(value: DateOnly): string {

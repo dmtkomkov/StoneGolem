@@ -7,7 +7,6 @@ import { TokenService } from '../../services/token.service';
   imports: [RouterOutlet],
   templateUrl: './app-layout.component.html',
   styleUrl: './app-layout.component.scss',
-  standalone: true,
 })
 export class AppLayoutComponent {
   private router = inject(Router);
