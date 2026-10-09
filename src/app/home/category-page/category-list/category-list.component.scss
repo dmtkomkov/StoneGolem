@@ -1,6 +1,6 @@
 @use '../../../../styles/m3-utilities' as u;
 
-@include u.grid-table('10rem 1fr 5rem 2rem');
+@include u.grid-table('minmax(6rem, 1fr) minmax(8rem, 2fr) 3.5rem 3rem');
 
 .group {
   display: flex;
@@ -9,14 +9,16 @@
 }
 
 .group-title {
-  font-size: 1.2rem;
+  font-size: 1.0625rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
   color: var(--md-sys-color-on-surface);
 }
 
 // Small circular action button placed directly inside grid rows.
 .grid-row > button {
   @include u.icon-button(1.8rem);
-  margin: 0.25rem;
+  margin: 0.125rem;
   background: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
 }

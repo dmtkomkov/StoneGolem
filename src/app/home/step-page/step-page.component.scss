@@ -1,5 +1,11 @@
 @use '../../../styles/m3-utilities' as u;
 
+:host {
+  display: block;
+  height: 100%;
+  min-width: 0;
+}
+
 .container {
   @include u.page-container;
 }

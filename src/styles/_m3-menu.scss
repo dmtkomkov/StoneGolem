@@ -1,8 +1,8 @@
 .m3-menu-trigger {
   display: inline-flex;
   align-items: center;
-  min-height: 2.5rem;
-  padding: 0.5rem 0.75rem;
+  min-height: var(--app-control-height);
+  padding: 0.375rem 0.625rem;
   border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: var(--md-ref-shape-corner-medium);
   background: var(--md-sys-color-surface);
@@ -32,7 +32,11 @@
   display: inline-flex;
   flex-direction: column;
   gap: 0.125rem;
-  padding: 0.5rem;
+  max-width: calc(100vw - 1rem);
+  max-height: min(24rem, calc(100dvh - 1rem));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.25rem;
   border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: var(--md-ref-shape-corner-medium);
   background: var(--md-sys-color-surface-container-high);
@@ -42,7 +46,9 @@
 .m3-menu-item {
   display: inline-flex;
   align-items: center;
-  min-height: 2rem;
+  flex-shrink: 0;
+  min-width: 0;
+  min-height: var(--app-control-height);
   padding: 0.4rem 0.5rem;
   border: 0;
   border-radius: var(--md-ref-shape-corner-small);
@@ -51,7 +57,8 @@
   font: inherit;
   line-height: 1.25;
   text-align: left;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
   cursor: pointer;
 
   &:hover,

@@ -15,7 +15,7 @@ body {
   // for the remaining viewport height. Components rely on body height being
   // the available area (height:100% propagates down).
   margin-top: 3rem;
-  height: calc(100% - 3rem);
+  height: calc(100dvh - 3rem);
   overflow: auto;
   font-size: 1rem;
   font-family: 'Inter', 'Roboto', 'Work Sans', system-ui, sans-serif;
@@ -23,9 +23,14 @@ body {
   user-select: none;
 }
 
+sg-app-root {
+  display: block;
+  height: 100%;
+  min-width: 0;
+}
+
 input,
 textarea {
   caret-color: auto;
   user-select: text;
 }
-
