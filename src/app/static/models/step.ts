@@ -2,6 +2,7 @@ import { DateOnly } from '../types/DateOnly';
 import { ICategory } from './category';
 import { IGoal } from './goal';
 import { IUser } from './user';
+import { IPagination } from './pagination';
 
 export interface IStep {
   id: number,
@@ -27,15 +28,6 @@ export interface ICreateStep {
 export interface IStepGroup {
   completedOn: DateOnly,
   steps: IStep[],
-}
-
-export interface IPagination {
-  pageNumber: number;
-  pageSize: number;
-  totalCount: number;
-  totalPages: number;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
 }
 
 export interface IPagedStepGroup extends IPagination {

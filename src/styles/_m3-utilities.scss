@@ -245,3 +245,101 @@
   line-height: 1;
   border-radius: 50%;
 }
+
+// Section shell: tab bar on top of a scrollable content panel (Time, Money and Blog sections).
+// Tabs are elements with the .tab class; an optional .filter-select is pushed to the end of the bar.
+@mixin section-shell {
+  :host {
+    display: block;
+    height: 100%;
+    min-width: 0;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: clamp(0.5rem, 1.5vw, 1rem);
+
+    .control-panel {
+      display: flex;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: 1rem 1rem 0 0;
+      background: var(--md-sys-color-surface-container);
+
+      .tab {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        min-width: 0;
+        min-height: var(--app-control-height);
+        padding: 0 0.75rem;
+        border: 1px solid transparent;
+        border-radius: 0.65rem 0.65rem 0 0;
+        color: var(--md-sys-color-on-surface-variant);
+        cursor: pointer;
+        transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+
+        &:hover {
+          background: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
+        }
+
+        &:focus-visible {
+          outline: none;
+          box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--md-sys-color-primary) 25%, transparent);
+        }
+
+        &.active {
+          font-weight: 600;
+          color: var(--md-sys-color-on-surface);
+          border-color: var(--md-sys-color-outline-variant);
+          border-bottom-color: transparent;
+          background: var(--md-sys-color-surface);
+        }
+      }
+
+      .filter-select {
+        flex: 0 1 9rem;
+        min-width: 0;
+        margin-inline-start: auto;
+      }
+    }
+
+    .main-content {
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      padding: clamp(0.5rem, 1vw, 0.75rem);
+      overflow: auto;
+      overscroll-behavior: contain;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-top: 0;
+      border-radius: 0 0 1rem 1rem;
+      background: var(--md-sys-color-surface);
+    }
+  }
+
+  @media (max-width: 36rem) {
+    .container .control-panel {
+      .tab {
+        flex: 1 1 0;
+        gap: 0.25rem;
+        padding-inline: 0.25rem;
+        font-size: 0.9375rem;
+      }
+
+      .filter-select {
+        flex: 1 1 100%;
+      }
+    }
+  }
+}

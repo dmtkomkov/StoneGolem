@@ -1,5 +1,16 @@
 <div class="toolbar">
   <span class="main-title">StoneGolem</span>
+  @let section = section$ | async;
+  @if (section && section !== 'login') {
+    <nav class="sections">
+      @for (item of sections; track item.id) {
+        <a class="section" [routerLink]="item.link" [class.active]="section === item.id">
+          <span class="icon">{{ item.icon }}</span>
+          <span class="name">{{ item.name }}</span>
+        </a>
+      }
+    </nav>
+  }
   <span class="separator"></span>
   <button class="btn" (click)="logout()">Logout</button>
 </div>

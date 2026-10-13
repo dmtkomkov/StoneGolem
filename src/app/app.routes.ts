@@ -10,9 +10,18 @@ import { CategoryGroupsComponent } from './home/category-page/category-groups/ca
 import { CategoryPageComponent } from './home/category-page/category-page.component';
 import { GoalPageComponent } from './home/goal-page/goal-page.component';
 import { GoalGroupsComponent } from './home/goal-page/goal-groups/goal-groups.component';
-import { AddDefaultParams } from './services/route-activate.service';
+import { defaultQueryParamGuard } from './services/route-activate.service';
+import { EParamName, EStepParam } from './static/types/params';
 
 export const routes: Routes = [
+  {
+    path: 'money',
+    loadChildren: () => import('./money/money.routes').then(m => m.MONEY_ROUTES),
+  },
+  {
+    path: 'blog',
+    loadChildren: () => import('./blog/blog.routes').then(m => m.BLOG_ROUTES),
+  },
   {
     path: '', component: HomeComponent, children: [
       {
@@ -45,7 +54,7 @@ export const routes: Routes = [
         ],
       },
     ],
-    canActivateChild: [AddDefaultParams],
+    canActivateChild: [defaultQueryParamGuard(EParamName.showSteps, Object.values(EStepParam), EStepParam.active)],
   },
   {path: 'login', component: UserLoginComponent},
   {path: '**', redirectTo: ''}

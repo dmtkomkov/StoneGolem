@@ -1,0 +1,39 @@
+<div class="report">
+  @let report = report$ | async;
+  @if (report) {
+    @if (report.rows.length > 0) {
+      <div class="header-form">
+        <sg-pagination [pg]="report.page" (onPageNumberChange)="changePage($event)"></sg-pagination>
+      </div>
+      <div class="grid" [style.--report-columns]="report.gridColumns">
+        <div class="grid-header">
+          <div>Month</div>
+          <div>Total</div>
+          @for (category of report.columns; track category.id) {
+            <div class="number" [title]="getTooltip(category)">{{ category.label || category.name }}</div>
+          }
+        </div>
+
+        @for (row of report.rows; track row.key) {
+          <div class="grid-row">
+            <div>{{ row.year | monthYear: row.month }}</div>
+            <div class="totals">
+              @for (total of row.totals; track total.currency) {
+                <sg-label [labelData]="getTotalLabel(total)"></sg-label>
+              }
+            </div>
+            @for (cell of row.cells; track $index) {
+              <div class="number">
+                @for (total of cell; track total.currency) {
+                  <div [class.zero]="total.amount === 0">{{ total.amount }}</div>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty">There are no payments.</div>
+    }
+  }
+</div>

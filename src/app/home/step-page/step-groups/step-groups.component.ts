@@ -6,7 +6,7 @@ import { distinctUntilChanged, map, mergeWith, Observable, switchMap, tap, withL
 import { AsyncPipe } from '@angular/common';
 import { ILabelData, LabelComponent } from '../../../shared/label/label.component';
 import { ColorUtils } from '../../../utils/color-utils';
-import { EParamName, EStepParam } from '../../home.component';
+import { EParamName, EStepParam } from '../../../static/types/params';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { DurationFormatPipe } from '../../../pipes/duration-format.pipe';
 import { DateOnlyFormatPipe } from '../../../pipes/dateonly-format.pipe';

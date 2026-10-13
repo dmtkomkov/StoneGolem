@@ -1,0 +1,48 @@
+<div class="group">
+  <div class="group-title">{{ date | dateOnly }}</div>
+  <div class="grid">
+
+    <div class="grid-header">
+      <div>Category</div>
+      <div class="amount">Amount</div>
+      <div>Currency</div>
+      <div></div>
+    </div>
+
+    @for (payment of payments$ | async; track payment.id) {
+      <div class="grid-row">
+        <div>{{ payment.category.name }}</div>
+        <div class="amount">{{ payment.amount }}</div>
+        <div>{{ payment.currency }}</div>
+        <div class="actions">
+          <button
+            class="m3-menu-trigger menu-trigger"
+            type="button"
+            [cdkMenuTriggerFor]="paymentMenu"
+            aria-label="Open payment actions"
+          >
+            &#8942;
+          </button>
+
+          <ng-template #paymentMenu>
+            <div class="m3-menu-panel actions-menu" cdkMenu>
+              <button type="button" class="m3-menu-item" cdkMenuItem [cdkMenuTriggerFor]="confirmMenu">
+                Delete…
+              </button>
+            </div>
+          </ng-template>
+
+          <ng-template #confirmMenu>
+            <div class="m3-menu-panel actions-menu" cdkMenu>
+              <button type="button" class="m3-menu-item danger" cdkMenuItem (cdkMenuItemTriggered)="delete(payment.id)">
+                Delete permanently
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty">There are no payments.</div>
+    }
+  </div>
+</div>

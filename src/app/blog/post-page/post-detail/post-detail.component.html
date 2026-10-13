@@ -1,0 +1,48 @@
+@let state = state$ | async;
+@if (state) {
+  @if (state.post; as post) {
+    <div class="post" [class.deleted]="post.isDeleted">
+      <div class="header">
+        <div class="title">{{ post.title }}</div>
+        <button
+          class="m3-menu-trigger menu-trigger"
+          type="button"
+          [cdkMenuTriggerFor]="postMenu"
+          aria-label="Open post actions"
+        >
+          &#8942;
+        </button>
+
+        <ng-template #postMenu>
+          <div class="m3-menu-panel actions-menu" cdkMenu>
+            <button type="button" class="m3-menu-item" cdkMenuItem (cdkMenuItemTriggered)="toggle(post.id)">
+              {{ post.isDeleted ? 'Restore' : 'Delete' }}
+            </button>
+            @if (post.isDeleted) {
+              <button type="button" class="m3-menu-item" cdkMenuItem [cdkMenuTriggerFor]="confirmMenu">
+                Delete permanently…
+              </button>
+            }
+          </div>
+        </ng-template>
+
+        <ng-template #confirmMenu>
+          <div class="m3-menu-panel actions-menu" cdkMenu>
+            <button type="button" class="m3-menu-item danger" cdkMenuItem (cdkMenuItemTriggered)="delete(post.id)">
+              Delete permanently
+            </button>
+          </div>
+        </ng-template>
+      </div>
+      <div class="meta">
+        {{ post.createdOn | dateTime }} · {{ post.user.userName }}
+        @if (post.isDeleted) {
+          · Deleted
+        }
+      </div>
+      <div class="body">{{ post.body }}</div>
+    </div>
+  } @else {
+    <div class="empty">Post not found.</div>
+  }
+}

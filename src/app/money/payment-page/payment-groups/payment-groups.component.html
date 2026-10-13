@@ -1,0 +1,27 @@
+<div class="groups">
+  @let paymentGroups = paymentGroups$ | async;
+  @if (paymentGroups && paymentGroups.items.length > 0) {
+    <div class="header-form">
+      <sg-pagination [pg]="paymentGroups" (onPageNumberChange)="changePage($event)"></sg-pagination>
+    </div>
+  }
+  @if (paymentGroups) {
+    @for (paymentGroup of paymentGroups.items; track paymentGroup.spentOn) {
+      <div class="group" [routerLink]="paymentGroup.spentOn">
+        <div class="group-title">{{ paymentGroup.spentOn | dateOnly }}</div>
+        <div class="label-list">
+          @for (total of paymentGroup.totals; track total.currency) {
+            <sg-label [labelData]="getTotalLabel(total)"></sg-label>
+          }
+        </div>
+        <div class="label-list">
+          @for (payment of paymentGroup.payments; track payment.id) {
+            <sg-label [labelData]="getPaymentLabel(payment)"></sg-label>
+          }
+        </div>
+      </div>
+    } @empty {
+      <div class="empty">There are no payments.</div>
+    }
+  }
+</div>

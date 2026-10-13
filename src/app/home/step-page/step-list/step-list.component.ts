@@ -11,7 +11,7 @@ import {
   withLatestFrom
 } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { EParamName, EStepParam } from '../../home.component';
+import { EParamName, EStepParam } from '../../../static/types/params';
 import { ActivatedRoute } from '@angular/router';
 import { DurationFormatPipe } from '../../../pipes/duration-format.pipe';
 import { DateOnlyFormatPipe } from '../../../pipes/dateonly-format.pipe';

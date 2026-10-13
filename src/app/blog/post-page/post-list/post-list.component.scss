@@ -1,0 +1,45 @@
+@use '../../../../styles/m3-utilities' as u;
+
+.header-form {
+  @include u.header-form;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.post {
+  @include u.group-card;
+  background: var(--md-sys-color-surface);
+
+  &.deleted {
+    background: color-mix(in srgb, var(--md-sys-color-error) 14%, var(--md-sys-color-surface));
+  }
+}
+
+.meta {
+  font-size: 0.8125rem;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+// Preview: plain text with line breaks, cut after three lines
+.body {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { ICreateStep, IPagedStepGroup, IStep } from '../static/models/step';
 import { DateOnly } from '../static/types/DateOnly';
 import { Observable, Subject } from 'rxjs';
-import { EStepParam } from '../home/home.component';
+import { EStepParam } from '../static/types/params';
 
 @Injectable({
   providedIn: 'root'

@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="control-panel">
+    <div class="tab" routerLink="." routerLinkActive="active" queryParamsHandling="preserve">
+      <span class="icon">📝</span>
+      <span>Posts</span>
+    </div>
+    <sg-param-filter
+      class="filter-select"
+      [param]="postParamName"
+      [options]="postFilterOptions"
+    ></sg-param-filter>
+  </div>
+  <div class="main-content">
+    <router-outlet/>
+  </div>
+</div>

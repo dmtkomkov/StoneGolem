@@ -1,0 +1,33 @@
+@use '../../../styles/m3-utilities' as u;
+
+:host {
+  display: block;
+  height: 100%;
+  min-width: 0;
+}
+
+.container {
+  @include u.page-container;
+}
+
+.foot-form {
+  @include u.foot-form;
+
+  .field > sg-select.currency-select {
+    flex: 0 0 5.5rem;
+  }
+
+  .hint {
+    font-size: 0.875rem;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .buttons button {
+    @include u.fab-button;
+  }
+}
+
+// router-outlet is a structural element; collapse it for flex layout.
+router-outlet {
+  display: contents;
+}

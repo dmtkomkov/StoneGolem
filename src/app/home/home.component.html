@@ -12,12 +12,11 @@
       <span class="icon">📂</span>
       <span>Category</span>
     </div>
-    <sg-select
+    <sg-param-filter
       class="filter-select"
-      [formControl]="stepParamControl"
-      [items]="stepFilterOptions"
-      placeholder="All"
-    ></sg-select>
+      [param]="stepParamName"
+      [options]="stepFilterOptions"
+    ></sg-param-filter>
   </div>
   <div class="main-content">
     <router-outlet/>

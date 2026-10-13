@@ -1,0 +1,24 @@
+<div class="posts">
+  @let posts = posts$ | async;
+  @if (posts && posts.items.length > 0) {
+    <div class="header-form">
+      <sg-pagination [pg]="posts" (onPageNumberChange)="changePage($event)"></sg-pagination>
+    </div>
+  }
+  @if (posts) {
+    @for (post of posts.items; track post.id) {
+      <div class="post" [class.deleted]="post.isDeleted" [routerLink]="[post.id]" queryParamsHandling="preserve">
+        <div class="meta">
+          {{ post.createdOn | dateTime }} · {{ post.user.userName }}
+          @if (post.isDeleted) {
+            · Deleted
+          }
+        </div>
+        <div class="title">{{ post.title }}</div>
+        <div class="body">{{ post.body }}</div>
+      </div>
+    } @empty {
+      <div class="empty">There are no posts.</div>
+    }
+  }
+</div>

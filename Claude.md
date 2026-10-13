@@ -9,12 +9,21 @@ decisions rather than implementation details that change frequently.
 
 ## 1. Purpose and Scope
 
-StoneGolem lets a small, trusted group of users, such as a household, record and review how they spend their time.
-The central record is a **step**: a duration of work done by a user on a given day. Every step is classified by a
-**category** (categories are grouped into **areas**) and may contribute to a **goal** (goals may be grouped into
-**projects**).
+StoneGolem lets a small, trusted group of users, such as a household, record and review how they spend their time,
+track household expenses and keep a family blog. The central record of time tracking is a **step**: a duration of work
+done by a user on a given day. Every step is classified by a **category** (categories are grouped into **areas**) and
+may contribute to a **goal** (goals may be grouped into **projects**). Expenses are **payments** in whole currency
+units, classified by a **payment category**. The blog consists of **posts**.
 
-The client provides three workspaces:
+The client is organized in three **sections**, selected in the toolbar:
+
+| Section | Workspaces | Purpose |
+|---|---|---|
+| **Time** | Steps, Goals, Categories | Time tracking (see the table below). |
+| **Money** | Spent, Report | Record payments day by day and review monthly totals per currency and payment category. |
+| **Blog** | Posts | Write, read and edit posts; hide, restore and permanently delete them. |
+
+The Time section provides three workspaces:
 
 | Workspace | Purpose |
 |---|---|
@@ -25,9 +34,13 @@ The client provides three workspaces:
 Design boundaries:
 
 - The client contains no rules that define data. Derived values are computed by the server and only displayed by the
-  client. Examples are goal and project timelines, step counters and the removal of parents that lost their last child.
-- The interaction model is **create, toggle and delete**. Existing records are not edited in place.
+  client. Examples are goal and project timelines, step counters, the removal of parents that lost their last child
+  and payment totals per currency.
+- The interaction model is **create, toggle and delete**. Existing records are not edited in place. Blog posts are the
+  only exception: their title and body can be edited.
 - User accounts are provisioned outside the client. There is no registration and no profile management.
+- Payment categories are managed through the API only; the client reads them. Payments cannot be edited, only created
+  and deleted.
 
 ---
 
@@ -88,21 +101,25 @@ flowchart TD
     Shared -.-> Views
 ```
 
-- **Shell components.** The root component renders the application layout: a fixed top toolbar with the title and a
-  logout button, and the router outlet. The home component adds the workspace tabs, the step visibility filter and a
-  scrollable content panel.
-- **Page components.** Each workspace has a page component. It loads the reference data for its creation form,
-  renders the form at the bottom of the page and hosts a child router outlet for the views.
-- **Views.** Each workspace has two child views:
-  - an **overview** that shows parents as cards with their children: days with steps, projects with goals, areas
-    with categories;
-  - a **detail** view for one parent, shown as a table with per-row actions.
+- **Shell components.** The root component renders the application layout: a fixed top toolbar with the title, the
+  section links (Time, Money, Blog) and a logout button, and the router outlet. Each section has a shell component —
+  the home component for Time, plus the Money and Blog shells — that adds the workspace tabs, an optional URL-bound
+  filter select and a scrollable content panel. The Money and Blog route trees are lazy-loaded.
+- **Page components.** Each workspace has a page component. It loads the reference data for its form, renders the
+  form at the bottom of the page and hosts a child router outlet for the views. The monthly report is a single page
+  without a form.
+- **Views.** Each workspace with a form has two child views:
+  - an **overview**: days with steps, projects with goals, areas with categories, days with payments, the list of
+    posts;
+  - a **detail** view for one parent or record: a table with per-row actions, or one post with its actions.
 - **Resource services.** Application-wide singletons, one per API resource. They are thin wrappers around HTTP calls,
   return observables and hold no data. Their only state is a refresh notification stream (see §4.3).
-- **Form services.** One per workspace. Each owns its reactive form, the cross-field validator, dynamic sub-forms,
-  conversion of form values into API payloads and reset behavior.
+- **Form services.** One per workspace with a form. Each owns its reactive form, the cross-field validator, dynamic
+  sub-forms, conversion of form values into API payloads and reset behavior. The post form service also owns the
+  form mode: create or edit (the id of the edited post).
 - **Shared components and pipes.** Presentational building blocks with no knowledge of the API: a select control, a
-  multi-segment label, a pagination control and formatting pipes for dates and durations.
+  URL-bound filter select, a multi-segment label, a pagination control and formatting pipes for dates, date-times,
+  months and durations.
 
 ### 4.2 Page-Scoped Form State
 
@@ -118,22 +135,31 @@ Child views set the form context when they are activated:
 | Goals overview | Project is set to "None" and stays editable. |
 | Categories overview | Area is set to the first existing area and stays editable. |
 | Categories of one area | Area is set to that area and locked. |
+| Payments overview | Date is set to today in the browser's time zone and stays editable. |
+| Payments of one day | Date is set to that day and locked. |
+| Post list | The form creates a new post (create mode). |
+| One post | The form edits that post (edit mode). It is filled once, when the post is opened, so reloads after a toggle or save keep the user's input. |
 
 Locked fields are disabled controls. Their values are still included when the payload is built.
+
+A view that can be activated while the page form is already rendered (the post list, when returning from a post)
+changes the form context in its constructor, before the first change detection, so the page bindings stay
+consistent.
 
 ### 4.3 Data Flow and Refresh Model
 
 The client has **no store and no cache**. The server is the single source of truth, and each view loads exactly the
 data it shows.
 
-- The step, goal and category services each expose an **update stream**: a notification without payload.
-- Views build their data streams from the update stream and, for steps, the step filter in the URL. Every emission
-  switches to a fresh HTTP request, which cancels an outdated request that is still running. Views also load once on
-  activation.
-- After every successful mutation (create, toggle, delete), the component that triggered it **publishes an update**.
-  Every active view that depends on that resource reloads.
-- Paging in the steps overview uses the same mechanism: changing the page publishes an update, which reloads the data
-  with the new page number.
+- The step, goal, category, payment and post services each expose an **update stream**: a notification without
+  payload.
+- Views build their data streams from the update stream and, for steps and posts, the visibility filter in the URL.
+  Every emission switches to a fresh HTTP request, which cancels an outdated request that is still running. Views
+  also load once on activation.
+- After every successful mutation (create, update, toggle, delete), the component that triggered it **publishes an
+  update**. Every active view that depends on that resource reloads.
+- Paging in the steps, payments and posts overviews uses the same mechanism: changing the page publishes an update,
+  which reloads the data with the new page number. The monthly report has its own local page stream.
 - The project header in a project's goal list has its own local refresh stream, which fires after the project's status
   is toggled.
 
@@ -154,17 +180,17 @@ sequenceDiagram
     API-->>View: fresh data
 ```
 
-Because goal dates, project dates and step counters are computed by the server, reloading after each change is what
-keeps them correct on screen.
+Because goal dates, project dates, step counters and payment totals are computed by the server, reloading after each
+change is what keeps them correct on screen.
 
 ### 4.4 State Placement
 
 | State | Location |
 |---|---|
-| Current workspace, selected day, project or area | URL path |
-| Step visibility filter | URL query parameter |
-| Current page of the steps overview | View state; reset to the first page when the filter changes |
-| Creation form values | Page-scoped form service |
+| Current section and workspace, selected day, project, area or post | URL path |
+| Step and post visibility filters (`showSteps`, `showPosts`) | URL query parameters |
+| Current page of paged views (steps, payments, report, posts) | View state; reset to the first page when the filter changes |
+| Form values and the post form mode | Page-scoped form service |
 | Access and refresh tokens | Browser local storage |
 | Domain data | Server only; loaded per view |
 
@@ -183,19 +209,29 @@ keeps them correct on screen.
 | `/goal/:project` | Goals of one project, identified by **project name**. The literal `null` selects goals without a project. |
 | `/category` | Categories overview: areas with their categories. |
 | `/category/:area` | Categories of one area, identified by **area name**. |
-| `/login` | Login form, outside the home shell. |
+| `/money` | Redirects to `/money/payment`. |
+| `/money/payment` | Payments overview: days with their payments and per-currency totals, paged. |
+| `/money/payment/:date` | Payments of one day (`yyyy-MM-dd`). |
+| `/money/report` | Monthly report: months × payment categories, paged. |
+| `/blog` | Posts overview: posts filtered by `showPosts`, paged. |
+| `/blog/:id` | One post, identified by **id**. |
+| `/login` | Login form, outside the section shells. |
 | any other path | Redirects to `/`. |
 
 ### 5.2 Routing Rules
 
+- **Sections.** The Time section keeps its routes at the root (`/step`, `/goal`, `/category`). The Money (`/money`) and
+  Blog (`/blog`) sections are separate, lazy-loaded route trees. The toolbar marks the active section from the first
+  URL segment and hides the section links on `/login`. Section links carry no query parameters.
 - **Readable URLs.** Projects and areas are addressed by name, not by id. The client relies on the API's
-  read-by-name lookup. Days are addressed by their ISO date.
-- **Filter in the URL.** Every home route carries the query parameter `showSteps` with the value `active`, `deleted`
-  or `all`. A child-activation guard on the home shell redirects a URL with a missing or invalid value to the same path
-  with `showSteps=active`. The filter select in the tab bar writes its value to the URL, merging it with other query
-  parameters, and the URL in turn drives the select.
+  read-by-name lookup. Days are addressed by their ISO date. Posts are addressed by id.
+- **Filters in the URL.** Every Time route carries the query parameter `showSteps`, and every Blog route carries
+  `showPosts`, each with the value `active`, `deleted` or `all`. A child-activation guard on each section shell
+  (built by one guard factory) redirects a URL with a missing or invalid value to the same path with the value
+  `active`. The filter select in the tab bar writes its value to the URL, merging it with other query parameters,
+  and the URL in turn drives the select.
 - **Filter survives navigation.** Workspace tabs and overview cards preserve query parameters, so the selected filter
-  is kept when moving between workspaces and between overview and detail. Only the step views use it.
+  is kept when moving between workspaces and between overview and detail.
 - **Route parameters as inputs.** Router component-input binding passes route parameters, such as the selected day or
   project, directly to view inputs.
 - **No client-side authentication guard.** The API enforces access control. The HTTP layer detects an expired or
@@ -217,6 +253,8 @@ erDiagram
     USER ||--o{ STEP : performs
     PROJECT |o--o{ GOAL : groups
     GOAL |o--o{ STEP : "advanced by"
+    PAYMENT_CATEGORY ||--o{ PAYMENT : classifies
+    USER ||--o{ POST : writes
 ```
 
 | Entity | Role in the UI |
@@ -226,7 +264,10 @@ erDiagram
 | **Project** | Optional container of goals, with an open/closed status and server-derived start and end dates. Its color tints its goals. |
 | **Goal** | Outcome that steps contribute to, with an open/closed status, derived dates and a step counter. |
 | **Step** | Time entry made by a user on a day. Can be soft-deleted and restored. |
-| **User** | Author of steps, identified by a string id and shown by user name. |
+| **User** | Author of steps and posts, identified by a string id and shown by user name. |
+| **Payment category** | Expense type with a name, an optional short label (≤ 4 characters) and a description. Read-only in the client; ordered by id, which is also the column order of the report. |
+| **Payment** | Expense of a whole amount in one currency on a day. Created and permanently deleted; never edited. |
+| **Post** | Blog entry with a title and a plain-text body. The author and creation time are set by the server. Can be edited, soft-deleted, restored and permanently deleted. |
 
 ### 6.2 Representation Shapes
 
@@ -237,8 +278,8 @@ Each entity is modeled in the same shapes as the API:
 | **Flat** | Own fields and foreign-key ids. | Children inside groups; create and toggle responses. |
 | **Full** | Flat fields plus the embedded parent and derived counters, or the embedded children for parents. | Detail tables, step labels, lookups by name. |
 | **Group** | A parent with its flat children. | Overview cards and grouped select menus. |
-| **Create** | Input fields only; may embed a new parent. | Creation payloads. |
-| **Paged** | A page of items plus paging metadata. | Steps overview. |
+| **Create** | Input fields only; may embed a new parent. | Creation payloads (and the post update payload). |
+| **Paged** | A page of items plus paging metadata (`IPagination`). | Steps, payments, report and posts overviews. |
 
 ### 6.3 Value Semantics
 
@@ -252,6 +293,12 @@ Each entity is modeled in the same shapes as the API:
 - **Counters** (`stepCount`) on categories and goals count non-deleted steps and are computed by the server.
 - **Optional references** are omitted from payloads when not set. Select controls use `0` for "None" and `null` for
   "New". Form services translate these values into an omitted id or an embedded new parent.
+- **Currency** is a string (`PLN`, `EUR`) mirrored by one client constant (`CURRENCIES`). The payment form preselects
+  `EUR`. Currencies are never converted or summed together.
+- **Amount** of a payment is an integer number of whole currency units, at least `1`.
+- **Totals** are lists of `{ currency, amount }` that always contain every currency in server order, zeros included.
+  The client renders them as returned and never computes them.
+- **Post timestamps** (`createdOn`) are UTC ISO date-times with a `Z` suffix.
 
 ### 6.4 Display Formats
 
@@ -259,6 +306,11 @@ Each entity is modeled in the same shapes as the API:
   omitted, and an empty duration is shown as `0`.
 - **Day titles** use a long, human-readable Russian form: day, month in the genitive case, year and weekday, for
   example `12 октября 2026 (понедельник)`. Table cells show raw ISO dates.
+- **Months** in the report are shown as `Jan 25`.
+- **Post date-times** are shown in the browser's time zone as `13 Oct 2026 01:19`.
+- **Post bodies** are plain text; line breaks and spacing are preserved.
+- **Currency amounts** are shown as `120 PLN` chips tinted with the currency color; zero amounts are neutral or
+  dimmed.
 - All other UI text is in English.
 
 ---
@@ -269,9 +321,9 @@ Each entity is modeled in the same shapes as the API:
 
 ```
 +-----------------------------------------------------------------+
-| StoneGolem                                            [Logout]  |  fixed toolbar
+| StoneGolem  [Time] [Money] [Blog]                     [Logout]  |  fixed toolbar with sections
 +-----------------------------------------------------------------+
-| [Step] [Goal] [Category]                        [Step filter]   |  tabs + filter
+| [Step] [Goal] [Category]                        [Step filter]   |  section tabs + optional filter
 |-----------------------------------------------------------------|
 |                                                                 |
 |   overview cards  or  detail table                              |  scrollable panel
@@ -281,10 +333,12 @@ Each entity is modeled in the same shapes as the API:
 +-----------------------------------------------------------------+
 ```
 
-- The toolbar is fixed, and the content panel is the scroll container.
-- Every workspace has its creation form, the **foot form**, at the bottom of the page. It is sticky on large screens
-  and becomes part of the normal flow on narrow or short screens, so it never covers the content.
-- The submit button is a round "plus" action button, disabled while the form is invalid.
+- The toolbar is fixed, and the content panel is the scroll container. The toolbar links switch between the Time,
+  Money and Blog sections; the active section is highlighted.
+- Every workspace except the monthly report has its form, the **foot form**, at the bottom of the page. It is sticky
+  on large screens and becomes part of the normal flow on narrow or short screens, so it never covers the content.
+- The submit button is a round "plus" action button ("check" when the post form edits a post), disabled while the
+  form is invalid or a request is running.
 - Row actions are hidden behind a "⋮" menu. Destructive items are styled as dangerous.
 
 ### 7.2 Steps Workspace
@@ -363,11 +417,75 @@ A table with name, description and step count. A category can be deleted only wh
 - In the detail view, the area is preselected and locked.
 - The form is valid when the category has a name and, for a new area, the area has a name too.
 
-### 7.5 Interaction Principles
+### 7.5 Money Section
+
+The section has two tabs: **Spent** and **Report**. There is no filter.
+
+**Spent overview (days)**
+
+- Shows the days that have payments, newest day first, **twenty days per page**, with previous and next buttons.
+- Each day card shows the long date title, the day's totals as one chip per currency, and one two-segment label per
+  payment: category name and `amount currency`, in recording order.
+- Clicking a day opens the payments of that day.
+
+**Spent detail (one day)**
+
+- A table with category, amount, currency and actions.
+- The only action is **Delete…**, which opens a confirmation submenu with **Delete permanently**. Payments have no
+  soft delete.
+
+**Payment form**
+
+| Field | Behavior |
+|---|---|
+| Amount | Whole number, at least 1. Enter in this field submits a valid form. |
+| Currency | `PLN` or `EUR`; `EUR` is preselected. |
+| Category | Required; flat list of payment categories in id order. Nothing is preselected. |
+| Date | Today (browser time zone) in the overview; fixed to the selected day in the detail view. |
+
+After a successful save, amount and category are cleared; currency and date are kept. Without payment categories
+the form shows a hint that they must be created through the API or imported.
+
+**Report**
+
+- One row per month, newest first, **twenty months per page**.
+- Columns: month (`Jan 25`), month totals per currency, then one column per payment category in id order. The header
+  shows the category label (or the name when there is no label) with the tooltip `name (description)`.
+- Each category cell shows one amount per currency, in the server's currency order; zeros are dimmed.
+- Cells are matched to columns by category id. The month column stays visible while the table scrolls horizontally.
+
+### 7.6 Blog Section
+
+The section has one tab, **Posts**, and the post filter select (All, Active, Deleted).
+
+**Overview (posts)**
+
+- Posts matching the filter, newest first, **twenty posts per page**. Changing the filter returns to the first page.
+- Each card shows the creation time, the author, the title and the first three lines of the body. Soft-deleted posts
+  are highlighted.
+- Clicking a post opens it.
+
+**Detail (one post)**
+
+- Shows the title, creation time, author, a "Deleted" marker and the full body. Title and body text can be selected.
+- Actions: **Delete** (soft) or **Restore**, depending on the post's state. Soft-deleted posts also offer
+  **Delete permanently…** with a confirmation submenu; afterwards the view returns to the overview.
+- An unknown post shows "Post not found."
+
+**Post form**
+
+- Title (required, not blank, at most 255 characters) and body (required, not blank).
+- In the overview, the form creates a post; after a successful save it is cleared.
+- In the detail view, the form edits the open post and keeps its values after a save. The author and the creation
+  time never change.
+
+### 7.7 Interaction Principles
 
 - **Safe destructive actions.** Destructive actions are offered only when they cannot lose data unexpectedly: goals
-  and categories can be deleted only when they have no steps, and steps can be permanently deleted only after the
-  grace period.
+  and categories can be deleted only when they have no steps, steps can be permanently deleted only after the
+  grace period, and posts only when they are soft-deleted.
+- **Confirmed hard deletes.** Deletes that cannot be undone and have no grace period (payments, posts) require a
+  second click in a confirmation submenu.
 - **Server side effects appear through reloading.** Deleting the last category of an area or the last goal of a
   project also removes the parent on the server. The next reload shows the result.
 - **One form, one request.** A child and its new parent are created from one form in one request.
@@ -422,8 +540,9 @@ sequenceDiagram
 
 ### 8.3 Trust Model
 
-The client follows the API's model: all authenticated users share all data, there are no roles, and any user can
-record a step on behalf of another user. The UI therefore has no permission-dependent behavior.
+The client follows the API's model: all authenticated users share all data, there are no roles, any user can record a
+step on behalf of another user, and any user can edit, hide or delete any post. The author of a new post is always the
+signed-in user. The UI therefore has no permission-dependent behavior.
 
 ---
 
@@ -440,20 +559,30 @@ record a step on behalf of another user. The UI therefore has no permission-depe
 | Project | `GET project`, `GET project/{name}`, `PUT project/toggle/{id}` |
 | Goal | `GET goal?project={name}`, `GET goal/group`, `POST goal`, `PUT goal/toggle/{id}`, `DELETE goal/{id}` |
 | Step | `GET step?date={date}&showSteps={filter}`, `GET step/group?showSteps={filter}&pageNumber={n}&pageSize={n}`, `POST step`, `PUT step/toggle/{id}`, `DELETE step/{id}` |
+| Payment category | `GET payment-category` |
+| Payment | `GET payment?date={date}`, `GET payment/group?pageNumber={n}&pageSize={n}`, `GET payment/report?pageNumber={n}&pageSize={n}`, `POST payment`, `DELETE payment/{id}` |
+| Post | `GET post?showPosts={filter}&pageNumber={n}&pageSize={n}`, `GET post/{id}`, `POST post`, `PUT post/{id}`, `PUT post/toggle/{id}`, `DELETE post/{id}` |
+
+The API also offers `payment/summary`, payment updates and payment-category management; the client does not use them.
 
 ### 9.2 Contract Assumptions
 
 The client relies on the following API behavior:
 
-- Lists and groups are already ordered by the server: days newest first, and steps within a day in recording order.
-  The client adds only secondary ordering: deleted steps last and closed goals last.
-- The steps group endpoint pages by **days**. Its paging metadata (`pageNumber`, `totalPages` and the related flags)
-  drives the pagination control.
+- Lists and groups are already ordered by the server: days newest first, and steps within a day in recording order;
+  payment days newest first with payments in recording order; report months newest first; posts newest first;
+  payment categories by id. The client adds only secondary ordering: deleted steps last and closed goals last.
+- The steps and payments group endpoints page by **days**, the report by **months**, the post list by **posts**.
+  Paging metadata (`pageNumber`, `totalPages` and the related flags) drives the pagination control.
+- Totals always contain every currency, and every report month contains every payment category.
 - Read-by-name lookups for areas and projects make name-based URLs possible.
 - The goal list accepts the project name `null` and then returns goals without a project.
+- `post/{id}` also returns soft-deleted posts; `PUT post/{id}` changes only the title and body.
 - Create endpoints accept an embedded new parent: an area for categories and a project for goals.
-- Derived fields (goal and project dates, step counters and the step's `updatedOn`) are always set by the server.
-- Only the `401` status has dedicated client handling (see §8.2).
+- Derived fields (goal and project dates, step counters, the step's `updatedOn`, payment totals, the post author and
+  `createdOn`) are always set by the server.
+- Only the `401` status has dedicated client handling (see §8.2); the post detail view also treats `404` as "Post not
+  found". Client validation mirrors the API rules so that normal input never produces `400`.
 
 ### 9.3 Contract Ownership
 
@@ -484,28 +613,36 @@ The theme is light-only.
 2. **Base styles:** the global look of inputs, text areas and buttons, including focus rings and disabled state.
 3. **Menu styles:** global classes for CDK menu triggers, panels and items, including a "danger" item variant. They
    are global because CDK menus render in an overlay outside the component that opens them.
-4. **Mixins:** reusable SCSS mixins for component styles: page container, foot form, round action button, grid table,
-   group card, sticky header form and icon button. Mixins emit no global selectors.
+4. **Mixins:** reusable SCSS mixins for component styles: section shell, page container, foot form, round action
+   button, grid table, group card, sticky header form and icon button. Mixins emit no global selectors.
 5. **Component styles:** encapsulated per component and built from tokens and mixins.
 
 ### 10.3 Recurring Patterns
 
+- **Section shell.** The tab bar on top of the scrollable content panel, shared by the Time, Money and Blog shells
+  through one mixin.
+- **URL-bound filter.** A select whose value lives in a query parameter (`showSteps`, `showPosts`).
 - **Grid table.** Detail lists are CSS grids whose header and row wrappers use `display: contents`, so cells align
   across rows. Rows alternate surface colors. A row modifier, for deleted steps or closed goals, adds an error tint.
+  The report passes its dynamic column template as a CSS variable.
 - **Group card.** Overview cards of projects and areas are elevated, clickable surfaces. They have a left accent
-  border in the entity color, passed as a CSS variable, and a translucent tint of the same color as background.
-- **Composite label.** A chip made of colored segments. It shows a step (author, category, goal, duration) or a single
-  child name.
+  border in the entity color, passed as a CSS variable, and a translucent tint of the same color as background. Day
+  and post cards use the same card on a plain surface.
+- **Composite label.** A chip made of colored segments. It shows a step (author, category, goal, duration), a payment
+  (category, amount with currency), a currency total or a single child name.
+- **Confirmation submenu.** A hard delete opens a nested CDK submenu with a single danger item.
 - **Grouped select.** A custom form control (`ControlValueAccessor`) built on CDK Menu. It accepts flat options and
   colored option groups; groups open as nested submenus.
 - **Entity tinting.** Entity colors are applied with transparency: lighter for card and group backgrounds, stronger
-  for labels. A neutral default is used when an entity has no color.
+  for labels. A neutral default is used when an entity has no color. Currencies have fixed colors (PLN blue, EUR
+  orange) defined next to the currency list.
 
 ### 10.4 Responsiveness and Feel
 
 - The layout fits small screens through flex wrapping, `clamp()` spacing and shrinkable flex items. On narrow screens,
-  the tabs and the filter reflow, and the foot form is no longer sticky.
-- Text selection and the text caret are disabled outside input fields to give an application-like feel.
+  the toolbar shows section icons only, the tabs and the filter reflow, and the foot form is no longer sticky.
+- Text selection and the text caret are disabled outside input fields to give an application-like feel. Post titles
+  and bodies in the post view are selectable.
 - Icons are emoji and inline SVG; there is no icon font.
 - The typeface is Inter with system fallbacks.
 
@@ -527,6 +664,9 @@ rebuild.
 
 - The production build is the default. It enables optimization and output hashing for cache busting, and it enforces
   size budgets for the initial bundle and for each component's styles.
+- The Money and Blog sections are separate lazy chunks, which keeps the initial bundle under its budget. Dates are
+  formatted with `Intl` (`toLocaleString`) rather than Angular's `DatePipe`, which would add its formatting code to the
+  initial bundle.
 - The development build disables optimization and enables source maps. The dev server uses it by default.
 - Static assets, such as the favicon, are copied unchanged.
 
@@ -584,12 +724,14 @@ flowchart LR
 
 - After every successful mutation, publish an update on the affected resource's update stream so that dependent views
   reload.
-- Keep navigation state and the step filter in the URL, and preserve query parameters on in-app links.
-- Never compute derived domain values on the client; display what the server returns.
-- Offer destructive actions only when they cannot lose data unexpectedly (see §7.5).
+- Keep navigation state and the step and post filters in the URL, and preserve query parameters on in-app links.
+- Never compute derived domain values on the client; display what the server returns. Never convert or sum
+  currencies on the client.
+- Offer destructive actions only when they cannot lose data unexpectedly (see §7.7).
 - Route every HTTP call through `HttpClient` with an API-relative path, so the interceptor applies the base URL, the
   access token and the refresh logic.
-- Build component styles from design tokens and shared mixins. Entity colors are the only data-driven colors.
+- Build component styles from design tokens and shared mixins. Entity and currency colors are the only data-driven
+  colors.
 
 ### 12.5 Contract Changes
 

@@ -1,0 +1,28 @@
+@use '../../../styles/m3-utilities' as u;
+
+:host {
+  display: block;
+  height: 100%;
+  min-width: 0;
+}
+
+.container {
+  @include u.page-container;
+}
+
+.foot-form {
+  @include u.foot-form;
+
+  .body-input {
+    min-height: 6rem;
+  }
+
+  .buttons button {
+    @include u.fab-button;
+  }
+}
+
+// router-outlet is a structural element; collapse it for flex layout.
+router-outlet {
+  display: contents;
+}

@@ -1,31 +1,17 @@
-import { inject, Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivateChild,
-  GuardResult,
-  MaybeAsync,
-  Router,
-  RouterStateSnapshot
-} from '@angular/router';
-import { EParamName, EStepParam } from '../home/home.component';
+import { inject } from '@angular/core';
+import { CanActivateChildFn, Router } from '@angular/router';
+import { EParamName } from '../static/types/params';
 
-const DEFAULT_STEP_PARAM = EStepParam.active;
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AddDefaultParams implements CanActivateChild {
-  private router = inject(Router);
-
-  canActivateChild(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): MaybeAsync<GuardResult> {
-    if (route.queryParamMap.has(EParamName.showSteps) && Object.values(EStepParam).includes(route.queryParams[EParamName.showSteps])) {
+// Keeps a query parameter valid on every child route: a missing or unknown value is replaced by the fallback
+export function defaultQueryParamGuard(name: EParamName, allowedValues: string[], fallback: string): CanActivateChildFn {
+  return (route, state) => {
+    const value = route.queryParamMap.get(name);
+    if (value !== null && allowedValues.includes(value)) {
       return true;
     }
-    return this.router.createUrlTree([state.url.split('?')[0]], {
-      queryParams: {...route.queryParams, showSteps: DEFAULT_STEP_PARAM},
+
+    return inject(Router).createUrlTree([state.url.split('?')[0]], {
+      queryParams: {...route.queryParams, [name]: fallback},
     });
-  }
+  };
 }
