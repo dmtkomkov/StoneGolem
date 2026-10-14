@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { Observable, startWith, switchMap } from 'rxjs';
@@ -12,6 +12,7 @@ import { DateOnlyFormatPipe } from '../../../pipes/dateonly-format.pipe';
   selector: 'sg-payment-list',
   imports: [AsyncPipe, CdkMenuModule, DateOnlyFormatPipe],
   templateUrl: './payment-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './payment-list.component.scss',
 })
 export class PaymentListComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
@@ -11,6 +11,7 @@ import { EParamName } from '../../static/types/params';
   imports: [ReactiveFormsModule, SelectComponent],
   template: `
     <sg-select [formControl]="control" [items]="options" placeholder="All"></sg-select>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: `
     :host {
       display: block;

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { BehaviorSubject, combineLatest, map, Observable, shareReplay, switchMap } from 'rxjs';
 import { PaymentService } from '../../services/payment.service';
@@ -31,6 +31,7 @@ interface IReportView {
   selector: 'sg-report-page',
   imports: [AsyncPipe, LabelComponent, PaginationComponent, MonthYearPipe],
   templateUrl: './report-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './report-page.component.scss',
 })
 export class ReportPageComponent {

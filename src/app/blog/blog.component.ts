@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { IOptionSet } from '../shared/select/select.component';
 import { ParamFilterComponent } from '../shared/param-filter/param-filter.component';
@@ -8,6 +8,7 @@ import { EParamName, EPostParam } from '../static/types/params';
   selector: 'sg-blog',
   imports: [RouterOutlet, RouterLink, RouterLinkActive, ParamFilterComponent],
   templateUrl: './blog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './blog.component.scss',
 })
 export class BlogComponent {

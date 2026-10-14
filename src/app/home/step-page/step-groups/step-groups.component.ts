@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { IPagedStepGroup, IStep } from '../../../static/models/step';
 import { StepService } from '../../../services/step.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -17,6 +17,7 @@ import { DateOnly } from '../../../static/types/DateOnly';
   selector: 'sg-step-groups',
   imports: [RouterLink, AsyncPipe, LabelComponent, PaginationComponent, DateOnlyFormatPipe],
   templateUrl: './step-groups.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './step-groups.component.scss',
 })
 export class StepGroupsComponent {

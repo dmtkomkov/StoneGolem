@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { GoalService } from '../../services/goal.service';
@@ -15,6 +15,7 @@ import { NONE_OPTION } from '../../static/consts/default-options';
   imports: [RouterOutlet, ReactiveFormsModule, SelectComponent],
   providers: [StepFormService],
   templateUrl: './step-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './step-page.component.scss',
 })
 export class StepPageComponent {

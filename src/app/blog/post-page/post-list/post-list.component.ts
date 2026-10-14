@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { distinctUntilChanged, map, Observable, startWith, switchMap, tap } from 'rxjs';
@@ -14,6 +14,7 @@ import { DateTimeFormatPipe } from '../../../pipes/datetime-format.pipe';
   selector: 'sg-post-list',
   imports: [RouterLink, AsyncPipe, PaginationComponent, DateTimeFormatPipe],
   templateUrl: './post-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './post-list.component.scss',
 })
 export class PostListComponent {

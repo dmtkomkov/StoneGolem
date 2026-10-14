@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { AuthService } from '../services/auth.service';
@@ -15,6 +15,7 @@ interface LoginForm {
   selector: 'app-user-login',
   imports: [ReactiveFormsModule],
   templateUrl: './user-login.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./user-login.component.scss'],
 })
 export class UserLoginComponent {

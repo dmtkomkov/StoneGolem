@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { IPost } from '../../static/models/post';
   imports: [RouterOutlet, ReactiveFormsModule],
   providers: [PostFormService],
   templateUrl: './post-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './post-page.component.scss',
 })
 export class PostPageComponent {

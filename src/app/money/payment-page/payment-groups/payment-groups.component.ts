@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { Observable, startWith, switchMap } from 'rxjs';
@@ -17,6 +17,7 @@ import { CurrencyUtils } from '../../../utils/currency-utils';
   selector: 'sg-payment-groups',
   imports: [RouterLink, AsyncPipe, LabelComponent, PaginationComponent, DateOnlyFormatPipe],
   templateUrl: './payment-groups.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './payment-groups.component.scss',
 })
 export class PaymentGroupsComponent {

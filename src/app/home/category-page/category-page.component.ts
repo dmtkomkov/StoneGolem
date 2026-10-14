@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AreaService } from '../../services/area.service';
@@ -13,6 +13,7 @@ import { NEW_OPTION } from '../../static/consts/default-options';
   imports: [RouterOutlet, ReactiveFormsModule, SelectComponent],
   providers: [CategoryFormService],
   templateUrl: './category-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './category-page.component.scss'
 })
 export class CategoryPageComponent {

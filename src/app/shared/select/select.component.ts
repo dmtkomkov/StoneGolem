@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { ColorUtils } from '../../utils/color-utils';
@@ -27,6 +27,7 @@ export interface IOptionGroup {
   ],
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => SelectComponent),

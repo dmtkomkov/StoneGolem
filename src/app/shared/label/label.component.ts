@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 export interface ILabelItem {
   text: string;
@@ -14,6 +14,7 @@ export interface ILabelData {
   selector: 'sg-label',
   imports: [],
   templateUrl: './label.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './label.component.scss'
 })
 export class LabelComponent {

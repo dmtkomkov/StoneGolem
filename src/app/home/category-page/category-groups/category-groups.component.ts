@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, startWith, switchMap } from 'rxjs';
 import { CategoryService } from '../../../services/category.service';
 import { ICategoryFlat, ICategoryGroup } from '../../../static/models/category';
@@ -14,6 +14,7 @@ import { AreaService } from '../../../services/area.service';
   selector: 'sg-category-groups',
   imports: [RouterLink, AsyncPipe, LabelComponent],
   templateUrl: './category-groups.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './category-groups.component.scss'
 })
 export class CategoryGroupsComponent {

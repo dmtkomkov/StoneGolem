@@ -74,12 +74,11 @@ origin. There is no backend-for-frontend.
 | Framework | Angular with standalone components (no NgModules) and built-in control flow (`@if`, `@for`, `@let`) | Complete SPA framework with DI, router, forms and HTTP client. |
 | Language | TypeScript in strict mode with strict template type checking | Compile-time safety for models, forms and templates. |
 | Reactivity | RxJS observables rendered with the `async` pipe | Natural fit for HTTP calls, route changes and refresh notifications. |
-| Change detection | Zone.js with event coalescing | Default Angular model without manual change-detection management. |
+| Change detection | Zone.js with event coalescing; every component declares `ChangeDetectionStrategy.Eager` | Keeps the pre-v22 Angular model without manual change-detection management. |
 | Forms | Typed reactive forms built with the non-nullable form builder | Strongly typed values, cross-field validation and dynamic sub-forms. |
 | Menus and overlays | Angular CDK Menu | Accessible menus (keyboard, focus, positioning, nested menus) without a component library. |
 | Styling | SCSS with a hand-written, Material 3–inspired token set exposed as CSS custom properties | Consistent look without depending on Angular Material. |
-| Build | Angular CLI application builder | Standard bundling, output hashing and environment file replacement. |
-| Unit-test tooling | Karma with Jasmine | Angular CLI default test runner. |
+| Build | Angular CLI application builder (`@angular/build`) | Standard bundling, output hashing and environment file replacement. |
 
 ---
 

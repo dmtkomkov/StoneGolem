@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -17,6 +17,7 @@ interface IPostState {
   selector: 'sg-post-detail',
   imports: [AsyncPipe, CdkMenuModule, DateTimeFormatPipe],
   templateUrl: './post-detail.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './post-detail.component.scss',
 })
 export class PostDetailComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { IStep } from '../../../static/models/step';
 import { StepService } from '../../../services/step.service';
 import { DateOnly } from '../../../static/types/DateOnly';
@@ -24,6 +24,7 @@ import { CdkMenuModule } from '@angular/cdk/menu';
   selector: 'sg-step-list',
   imports: [AsyncPipe, DurationFormatPipe, DateOnlyFormatPipe, CdkMenuModule],
   templateUrl: './step-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './step-list.component.scss',
 })
 export class StepListComponent {

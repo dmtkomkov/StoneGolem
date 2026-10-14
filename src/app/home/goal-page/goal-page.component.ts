@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IProject } from '../../static/models/project';
@@ -13,6 +13,7 @@ import { NEW_OPTION, NONE_OPTION } from '../../static/consts/default-options';
   imports: [RouterOutlet, ReactiveFormsModule, SelectComponent],
   providers: [GoalFormService],
   templateUrl: './goal-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './goal-page.component.scss'
 })
 export class GoalPageComponent {

@@ -9,7 +9,8 @@ import {
   HttpHeaders,
   HttpRequest,
   provideHttpClient,
-  withInterceptors
+  withInterceptors,
+  withXhr
 } from '@angular/common/http';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../environments/environment';
@@ -70,6 +71,7 @@ function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observ
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
+      withXhr(),
       withInterceptors([
         authInterceptor,
       ])

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { filter, map, Observable, startWith } from 'rxjs';
@@ -17,6 +17,7 @@ interface ISectionLink {
   selector: 'sg-app-layout',
   imports: [RouterOutlet, RouterLink, AsyncPipe],
   templateUrl: './app-layout.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app-layout.component.scss',
 })
 export class AppLayoutComponent {

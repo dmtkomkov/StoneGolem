@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PaymentCategoryService } from '../../services/payment-category.service';
@@ -12,6 +12,7 @@ import { CURRENCIES } from '../../static/models/currency';
   imports: [RouterOutlet, ReactiveFormsModule, SelectComponent],
   providers: [PaymentFormService],
   templateUrl: './payment-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './payment-page.component.scss',
 })
 export class PaymentPageComponent {

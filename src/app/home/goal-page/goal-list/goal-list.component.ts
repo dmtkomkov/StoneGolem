@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { IGoal } from '../../../static/models/goal';
 import { GoalService } from '../../../services/goal.service';
 import { map, Observable, startWith, Subject, switchMap } from 'rxjs';
@@ -14,6 +14,7 @@ import { CdkMenuModule } from '@angular/cdk/menu';
     CdkMenuModule,
   ],
   templateUrl: './goal-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './goal-list.component.scss'
 })
 export class GoalListComponent {

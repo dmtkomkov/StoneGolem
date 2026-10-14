@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CategoryService } from '../../../services/category.service';
 import { ICategory } from '../../../static/models/category';
 import { Observable, startWith, switchMap } from 'rxjs';
@@ -11,6 +11,7 @@ import { CategoryFormService } from '../../../services/category-form.service';
   selector: 'sg-category-list',
   templateUrl: './category-list.component.html',
   imports: [AsyncPipe],
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './category-list.component.scss'
 })
 export class CategoryListComponent {
