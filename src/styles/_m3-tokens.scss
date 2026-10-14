@@ -1,7 +1,7 @@
 :root {
   color-scheme: light;
 
-  --app-control-height: 2.5rem;
+  --app-control-height: 2rem;
 
   --md-sys-color-primary: #1f5fbf;
   --md-sys-color-on-primary: #ffffff;
@@ -36,6 +36,6 @@
 
 @media (pointer: coarse) {
   :root {
-    --app-control-height: 2.75rem;
+    --app-control-height: 2rem;
   }
 }
